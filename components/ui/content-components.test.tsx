@@ -66,7 +66,8 @@ describe("Content Components - Property Tests", () => {
             <StepCard stepNumber={stepNumber} title={title} description={description} />
           );
 
-          const stepEl = container.querySelector(".rounded-full");
+          // The step number is in a nested div with rounded-full class
+          const stepEl = container.querySelector(".bg-gradient-to-br.rounded-full");
           const h3 = container.querySelector("h3");
           const p = container.querySelector("p");
           expect(stepEl?.textContent?.trim()).toBe(String(stepNumber));
@@ -133,7 +134,7 @@ describe("Content Components - className Merging Property Tests", () => {
         const card = container.firstChild as HTMLElement;
         expect(card.className).toContain(customClass);
         // Should also have default classes
-        expect(card.className).toContain("rounded-xl");
+        expect(card.className).toContain("rounded-2xl");
       }),
       { numRuns: 100 }
     );
@@ -152,7 +153,7 @@ describe("Content Components - className Merging Property Tests", () => {
 
         const tile = container.firstChild as HTMLElement;
         expect(tile.className).toContain(customClass);
-        expect(tile.className).toContain("rounded-xl");
+        expect(tile.className).toContain("rounded-2xl");
       }),
       { numRuns: 100 }
     );
@@ -172,7 +173,7 @@ describe("Content Components - className Merging Property Tests", () => {
 
         const card = container.firstChild as HTMLElement;
         expect(card.className).toContain(customClass);
-        expect(card.className).toContain("rounded-xl");
+        expect(card.className).toContain("rounded-2xl");
       }),
       { numRuns: 100 }
     );

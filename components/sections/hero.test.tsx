@@ -167,21 +167,19 @@ describe("Color Contrast - Property Tests", () => {
 describe("Hero Component - Unit Tests", () => {
   it("renders eyebrow badge with correct text", () => {
     render(<Hero />);
-    expect(
-      screen.getByText("Closed Beta · Infrastructure for AI")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Closed Beta")).toBeInTheDocument();
   });
 
   it("renders headline with new copy", () => {
     render(<Hero />);
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByText("Without Managing GPUs")).toBeInTheDocument();
+    expect(screen.getByText("without managing GPUs")).toBeInTheDocument();
   });
 
   it("renders subheadline with new copy", () => {
     render(<Hero />);
     expect(
-      screen.getByText(/KOEO is a unified runtime for distributed GPU inference/)
+      screen.getByText(/Ship AI features faster/)
     ).toBeInTheDocument();
   });
 
@@ -201,5 +199,12 @@ describe("Hero Component - Unit Tests", () => {
     });
     expect(secondaryCta).toBeInTheDocument();
     expect(secondaryCta).toHaveAttribute("href", "/whitepaper.pdf");
+  });
+
+  it("renders microcopy about gradual beta invites", () => {
+    render(<Hero />);
+    expect(
+      screen.getByText(/We're gradually inviting teams into the private beta/)
+    ).toBeInTheDocument();
   });
 });

@@ -14,17 +14,23 @@ const FeatureCard = React.forwardRef<HTMLDivElement, FeatureCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-xl border border-purple-primary/10 bg-white p-6 shadow-sm transition-shadow hover:shadow-md",
+          "group relative rounded-2xl border border-purple-primary/10 bg-white/80 p-8 backdrop-blur-sm transition-all duration-300",
+          "hover:-translate-y-1 hover:border-purple-primary/30 hover:shadow-xl hover:shadow-purple-primary/10",
           className
         )}
       >
+        {/* Gradient border effect on hover */}
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-primary/0 via-magenta/0 to-pink-light/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+
         {icon && (
-          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-purple-primary/10 to-magenta/10 text-purple-primary">
+          <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary to-magenta text-white shadow-lg shadow-purple-primary/25">
             {icon}
           </div>
         )}
-        <h3 className="mb-2 text-xl font-semibold text-text-primary">{title}</h3>
-        <p className="text-base text-text-primary/70">{description}</p>
+        <h3 className="mb-3 text-xl font-bold text-text-primary">{title}</h3>
+        <p className="text-base leading-relaxed text-text-primary/70">
+          {description}
+        </p>
       </div>
     );
   }

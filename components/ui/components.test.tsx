@@ -91,7 +91,7 @@ describe("UI Components - Property Tests for Invalid Props", () => {
         const section = container.querySelector("section");
         expect(section).toBeInTheDocument();
         // Should have base classes applied (vertical padding)
-        expect(section?.className).toContain("py-16");
+        expect(section?.className).toContain("py-20");
       }),
       { numRuns: 100 }
     );

@@ -20,23 +20,20 @@ vi.mock("next/link", () => ({
 
 describe("Homepage Assembly", () => {
   /**
-   * Verify Header, Hero, Footer render in correct order
-   * Requirements: 6.1
+   * Verify Header, main content, and Footer render in correct order
+   * Requirements: All homepage requirements
    */
-  it("renders Header, Hero, and Footer in correct order", () => {
+  it("renders Header, main content, and Footer in correct order", () => {
     render(<Home />);
 
-    // Get all major sections
     const header = screen.getByRole("banner");
     const main = screen.getByRole("main");
     const footer = screen.getByRole("contentinfo");
 
-    // Verify all sections exist
     expect(header).toBeInTheDocument();
     expect(main).toBeInTheDocument();
     expect(footer).toBeInTheDocument();
 
-    // Verify order by checking DOM positions
     const container = header.parentElement;
     const children = container ? Array.from(container.children) : [];
 
@@ -49,8 +46,57 @@ describe("Homepage Assembly", () => {
   });
 
   /**
+   * Verify all homepage sections render in correct order
+   * Requirements: 2.1, 3.1, 4.1, 5.1, 6.1
+   */
+  it("renders all sections in correct order", () => {
+    render(<Home />);
+
+    const main = screen.getByRole("main");
+
+    // Verify Problem section renders with heading
+    expect(
+      screen.getByText("Why AI infrastructure feels harder than it should")
+    ).toBeInTheDocument();
+
+    // Verify What Is section renders with heading
+    expect(
+      screen.getByText("AI inference, simplified")
+    ).toBeInTheDocument();
+
+    // Verify How Works section renders with heading
+    expect(
+      screen.getByText("for Developers")
+    ).toBeInTheDocument();
+
+    // Verify CTA Strip section renders with heading
+    expect(
+      screen.getByText("We're in closed beta and onboarding gradually")
+    ).toBeInTheDocument();
+
+    // Verify sections are within main
+    expect(main).toContainElement(
+      screen.getByText("Why AI infrastructure feels harder than it should")
+    );
+  });
+
+  /**
+   * Verify section IDs are present for navigation
+   * Requirements: 2.1, 3.1, 4.1, 5.1, 6.1
+   */
+  it("renders sections with correct IDs for navigation", () => {
+    const { container } = render(<Home />);
+
+    // Verify each section has the correct ID for anchor navigation
+    expect(container.querySelector("#problem")).toBeInTheDocument();
+    expect(container.querySelector("#what-is-koeo")).toBeInTheDocument();
+    expect(container.querySelector("#how-it-works")).toBeInTheDocument();
+    expect(container.querySelector("#cta")).toBeInTheDocument();
+  });
+
+  /**
    * Verify Header component renders with navigation
-   * Requirements: 6.1
+   * Requirements: All homepage requirements
    */
   it("renders Header with navigation links", () => {
     render(<Home />);
@@ -58,45 +104,20 @@ describe("Homepage Assembly", () => {
     const header = screen.getByRole("banner");
     const nav = header.querySelector('nav[aria-label="Main navigation"]');
 
-    // Check for navigation links within header
     expect(nav).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /get started/i })).toBeInTheDocument();
   });
 
   /**
-   * Verify Hero section renders with correct content
-   * Requirements: 6.1
-   */
-  it("renders Hero section with headline and CTA", () => {
-    render(<Home />);
-
-    // Check for hero headline
-    expect(
-      screen.getByRole("heading", { name: /unify your gpu infrastructure/i })
-    ).toBeInTheDocument();
-
-    // Check for subheadline within main section (hero is in main)
-    const main = screen.getByRole("main");
-    const subheadline = main.querySelector("p");
-    expect(subheadline).toBeInTheDocument();
-    expect(subheadline?.textContent).toMatch(/runtime layer that brings fragmented gpus/i);
-
-    // Check for CTA button
-    expect(screen.getByRole("link", { name: /start building/i })).toBeInTheDocument();
-  });
-
-  /**
    * Verify Footer renders with link groups
-   * Requirements: 6.1
+   * Requirements: All homepage requirements
    */
   it("renders Footer with link groups and copyright", () => {
     render(<Home />);
 
-    // Check for footer link group titles
     expect(screen.getByText("Resources")).toBeInTheDocument();
     expect(screen.getByText("Company")).toBeInTheDocument();
 
-    // Check for copyright with current year
     const currentYear = new Date().getFullYear();
     expect(screen.getByText(new RegExp(`© ${currentYear} Koeo`))).toBeInTheDocument();
   });

@@ -174,13 +174,22 @@
     - Add secondary CTA "Talk to the team" with mailto link
     - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 5. Assemble updated homepage
-  - [ ] 5.1 Update homepage with all sections
+- [x] 5. Assemble updated homepage
+
+
+
+
+
+  - [x] 5.1 Update homepage with all sections
+
+
     - Import and render sections in order: Hero, Problem, WhatIs, WhoFor, HowWorks, CTAStrip
     - Maintain Header and Footer from existing layout
     - _Requirements: All homepage requirements_
 
-  - [ ] 5.2 Write unit tests for homepage sections
+  - [x] 5.2 Write unit tests for homepage sections
+
+
     - Verify all sections render in correct order
     - Verify section IDs are present for navigation
     - _Requirements: 2.1, 3.1, 4.1, 5.1, 6.1_

@@ -350,20 +350,20 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
             </span>
-            Closed Beta · Infrastructure for AI
+            Closed Beta
           </div>
 
           {/* Headline */}
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Run Your AI Models{" "}
+            Run your AI models{" "}
             <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-              Without Managing GPUs
+              without managing GPUs
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="mx-auto mb-10 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-            KOEO is a unified runtime for distributed GPU inference. One API to run any model across federated compute—without managing infrastructure, juggling providers, or guessing at costs.
+            Ship AI features faster. KOEO handles the GPU complexity so you can focus on building.
           </p>
 
           {/* CTAs */}
@@ -381,6 +381,11 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
               Read the Whitepaper
             </a>
           </div>
+
+          {/* Microcopy */}
+          <p className="mt-6 text-sm text-text-light/60">
+            We&apos;re gradually inviting teams into the private beta.
+          </p>
         </div>
       </div>
 
