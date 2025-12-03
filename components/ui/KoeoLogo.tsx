@@ -60,6 +60,7 @@ export const KoeoLogo = React.forwardRef<HTMLDivElement, KoeoLogoProps>(
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
+
         >
           {variant === "gradient" && (
             <defs>
@@ -98,7 +99,6 @@ export const KoeoLogo = React.forwardRef<HTMLDivElement, KoeoLogoProps>(
               letterSpacing: "-0.03em",
               color: wordmarkColor,
               lineHeight: 1,
-              marginTop: `${size * 0.02}px`,
             }}
           >
             koeo

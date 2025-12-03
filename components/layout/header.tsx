@@ -34,36 +34,33 @@ export function Header({ className }: HeaderProps) {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-purple-primary/10",
+        "fixed top-4 left-1/2 z-50 -translate-x-1/2",
         className
       )}
     >
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center" aria-label="Koeo home">
-            <KoeoLogo size={32} showWordmark />
+      <nav className="flex h-14 items-center gap-8 rounded-full border border-white/10 bg-purple-deep/40 px-6 backdrop-blur-xl" aria-label="Main navigation">
+        {/* Logo - optical alignment adjustment */}
+        <Link href="/" aria-label="Koeo home" style={{ marginTop: "-4px" }}>
+          <KoeoLogo size={26} showWordmark variant="white" />
+        </Link>
+
+        {/* Desktop Links */}
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="hidden text-sm font-medium text-text-light/90 transition-colors hover:text-pink-light md:block"
+          >
+            {item.label}
           </Link>
+        ))}
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-text-primary transition-colors hover:text-pink-light"
-              >
-                {item.label}
-              </Link>
-            ))}
+        <Button asChild className="hidden md:inline-flex">
+          <Link href="/get-started">Get Started</Link>
+        </Button>
 
-            <Button asChild>
-              <Link href="/get-started">Get Started</Link>
-            </Button>
-          </nav>
-
-          {/* Mobile Navigation */}
-          <div className="md:hidden">
+        {/* Mobile Menu */}
+        <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button
@@ -71,6 +68,7 @@ export function Header({ className }: HeaderProps) {
                   size="sm"
                   aria-label="Open menu"
                   aria-expanded={isOpen}
+                  className="text-text-light hover:bg-white/10 hover:text-text-light"
                 >
                   <Menu className="h-6 w-6" />
                 </Button>
@@ -96,9 +94,8 @@ export function Header({ className }: HeaderProps) {
                 </nav>
               </SheetContent>
             </Sheet>
-          </div>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
