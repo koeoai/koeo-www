@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import * as fc from "fast-check";
 import { Header } from "./header";
 import { Footer } from "./footer";
-import { Logo } from "@/components/ui/logo";
+import { KoeoLogo } from "@/components/ui/KoeoLogo";
 
 /**
  * **Feature: koeo-marketing-website, Property 3: Interactive elements have ARIA attributes**
@@ -64,24 +64,28 @@ describe("Layout Components - Property Tests for Accessibility", () => {
  * a non-empty alt attribute describing the image content.
  */
 describe("Layout Components - Property Tests for Image Alt Text", () => {
-  const logoSizes = ["sm", "default", "lg"] as const;
-  const showTextOptions = [true, false] as const;
+  // KoeoLogo uses numeric sizes and showWordmark boolean
+  const logoSizes = [24, 32, 48] as const;
+  const showWordmarkOptions = [true, false] as const;
+  const variantOptions = ["gradient", "white", "dark"] as const;
 
   const sizeArb = fc.constantFrom(...logoSizes);
-  const showTextArb = fc.constantFrom(...showTextOptions);
+  const showWordmarkArb = fc.constantFrom(...showWordmarkOptions);
+  const variantArb = fc.constantFrom(...variantOptions);
 
-  it("Property 4: Logo SVG has aria-label for accessibility", () => {
+  it("Property 4: Logo has aria-label for accessibility", () => {
     fc.assert(
-      fc.property(sizeArb, showTextArb, (size, showText) => {
-        const { container } = render(<Logo size={size} showText={showText} />);
+      fc.property(sizeArb, showWordmarkArb, variantArb, (size, showWordmark, variant) => {
+        const { container } = render(
+          <KoeoLogo size={size} showWordmark={showWordmark} variant={variant} />
+        );
 
-        // SVG should have role="img" and aria-label
-        const svg = container.querySelector("svg");
-        expect(svg).toBeInTheDocument();
-        expect(svg).toHaveAttribute("role", "img");
-        expect(svg).toHaveAttribute("aria-label");
+        // The wrapper div should have role="img" and aria-label
+        const logoWrapper = container.querySelector('[role="img"]');
+        expect(logoWrapper).toBeInTheDocument();
+        expect(logoWrapper).toHaveAttribute("aria-label");
         
-        const ariaLabel = svg?.getAttribute("aria-label");
+        const ariaLabel = logoWrapper?.getAttribute("aria-label");
         expect(ariaLabel).toBeTruthy();
         expect(ariaLabel!.length).toBeGreaterThan(0);
       }),
@@ -94,12 +98,12 @@ describe("Layout Components - Property Tests for Image Alt Text", () => {
       fc.property(fc.constant(true), () => {
         const { container } = render(<Header />);
 
-        // Find all SVG elements with role="img"
-        const svgImages = container.querySelectorAll('svg[role="img"]');
+        // Find all elements with role="img" (KoeoLogo wrapper div)
+        const imgElements = container.querySelectorAll('[role="img"]');
         
-        svgImages.forEach((svg) => {
-          expect(svg).toHaveAttribute("aria-label");
-          const ariaLabel = svg.getAttribute("aria-label");
+        imgElements.forEach((element) => {
+          expect(element).toHaveAttribute("aria-label");
+          const ariaLabel = element.getAttribute("aria-label");
           expect(ariaLabel).toBeTruthy();
           expect(ariaLabel!.length).toBeGreaterThan(0);
         });
@@ -113,12 +117,12 @@ describe("Layout Components - Property Tests for Image Alt Text", () => {
       fc.property(fc.constant(true), () => {
         const { container } = render(<Footer />);
 
-        // Find all SVG elements with role="img"
-        const svgImages = container.querySelectorAll('svg[role="img"]');
+        // Find all elements with role="img" (KoeoLogo wrapper div)
+        const imgElements = container.querySelectorAll('[role="img"]');
         
-        svgImages.forEach((svg) => {
-          expect(svg).toHaveAttribute("aria-label");
-          const ariaLabel = svg.getAttribute("aria-label");
+        imgElements.forEach((element) => {
+          expect(element).toHaveAttribute("aria-label");
+          const ariaLabel = element.getAttribute("aria-label");
           expect(ariaLabel).toBeTruthy();
           expect(ariaLabel!.length).toBeGreaterThan(0);
         });
