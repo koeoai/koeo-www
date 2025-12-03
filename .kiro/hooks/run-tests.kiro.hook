@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Run Tests",
+  "description": "Run the Vitest test suite to verify component functionality and report any failing tests with suggested fixes",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the Vitest test suite by executing `npm test -- --run`. Analyze the output and report any failing tests. For each failure, explain what went wrong and suggest how to fix it."
+  }
+}

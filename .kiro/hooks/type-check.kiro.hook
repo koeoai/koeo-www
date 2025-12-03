@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Type Check",
+  "description": "Run TypeScript type checking to find type errors without emitting files",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run TypeScript type checking by executing `npx tsc --noEmit`. Analyze the output and report any type errors found. For each error, explain the issue and suggest how to fix it."
+  }
+}
