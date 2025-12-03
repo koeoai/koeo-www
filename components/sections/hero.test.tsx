@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
 import * as fc from "fast-check";
+import { Hero } from "./hero";
 
 /**
  * **Feature: koeo-marketing-website, Property 5: Brand color combinations meet contrast requirements**
@@ -158,5 +160,46 @@ describe("Color Contrast - Property Tests", () => {
     // White on white should be 1:1
     const whiteOnWhite = getContrastRatio("#FFFFFF", "#FFFFFF");
     expect(whiteOnWhite).toBeCloseTo(1, 0);
+  });
+});
+
+
+describe("Hero Component - Unit Tests", () => {
+  it("renders eyebrow badge with correct text", () => {
+    render(<Hero />);
+    expect(
+      screen.getByText("Closed Beta · Infrastructure for AI")
+    ).toBeInTheDocument();
+  });
+
+  it("renders headline with new copy", () => {
+    render(<Hero />);
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(screen.getByText("Without Managing GPUs")).toBeInTheDocument();
+  });
+
+  it("renders subheadline with new copy", () => {
+    render(<Hero />);
+    expect(
+      screen.getByText(/KOEO is a unified runtime for distributed GPU inference/)
+    ).toBeInTheDocument();
+  });
+
+  it("renders primary CTA linking to /beta", () => {
+    render(<Hero />);
+    const primaryCta = screen.getByRole("link", {
+      name: "Join the Private Beta",
+    });
+    expect(primaryCta).toBeInTheDocument();
+    expect(primaryCta).toHaveAttribute("href", "/beta");
+  });
+
+  it("renders secondary ghost CTA linking to whitepaper", () => {
+    render(<Hero />);
+    const secondaryCta = screen.getByRole("link", {
+      name: "Read the Whitepaper",
+    });
+    expect(secondaryCta).toBeInTheDocument();
+    expect(secondaryCta).toHaveAttribute("href", "/whitepaper.pdf");
   });
 });

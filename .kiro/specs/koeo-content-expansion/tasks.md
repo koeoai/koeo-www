@@ -101,8 +101,15 @@
     - Handle form submission
     - _Requirements: 1.6, 1.7_
 
-- [ ] 3. Update Hero section
-  - [ ] 3.1 Update Hero component with new content
+- [x] 3. Update Hero section
+
+
+
+
+
+
+  - [x] 3.1 Update Hero component with new content
+
     - Add eyebrow badge "Closed Beta · Infrastructure for AI"
     - Update headline to "Run Your AI Models Without Managing GPUs"
     - Update subheadline with new copy
@@ -111,7 +118,9 @@
     - Integrate EmailCapture component
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-  - [ ] 3.2 Write unit tests for updated Hero
+  - [x] 3.2 Write unit tests for updated Hero
+
+
     - Verify eyebrow badge renders
     - Verify new headline and subheadline
     - Verify both CTAs render with correct links
