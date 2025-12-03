@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Run ESLint Check",
+  "description": "Run ESLint to check code quality and report any linting errors or warnings with suggested fixes",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run ESLint to check for code quality issues by executing `npm run lint`. Analyze the output and report any linting errors or warnings found. For each issue, explain what the problem is and suggest how to fix it."
+  }
+}

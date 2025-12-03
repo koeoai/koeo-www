@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Build Project",
+  "description": "Build the Next.js project for production deployment",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Build the Next.js project for production by executing `npm run build`. Analyze the output and report any build errors. For each error, explain what went wrong and suggest how to fix it."
+  }
+}
