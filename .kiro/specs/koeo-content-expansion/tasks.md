@@ -127,32 +127,47 @@
     - Verify email capture form renders
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
 
-- [ ] 4. Create homepage sections
-  - [ ] 4.1 Create Problem section
+- [x] 4. Create homepage sections
+
+
+
+
+
+  - [x] 4.1 Create Problem section
+
+
     - Add section with id="problem"
     - Implement SectionHeader with heading and intro text
     - Render three FeatureCards with problem content
     - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-  - [ ] 4.2 Create What Is KOEO section
+  - [x] 4.2 Create What Is KOEO section
+
+
     - Add section with id="what-is-koeo"
     - Implement SectionHeader with heading and body text
     - Render three FeatureCards with feature content
     - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-  - [ ] 4.3 Create Who It's For section
+  - [x] 4.3 Create Who It's For section
+
+
     - Add section with id="who-its-for"
     - Implement SectionHeader with heading and intro line
     - Render four AudienceTiles with audience content
     - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-  - [ ] 4.4 Create How It Works section
+  - [x] 4.4 Create How It Works section
+
+
     - Add section with id="how-it-works"
     - Implement SectionHeader with heading and intro text
     - Render three StepCards with step content
     - _Requirements: 5.1, 5.2, 5.3, 5.4_
 
-  - [ ] 4.5 Create CTA Strip section
+  - [x] 4.5 Create CTA Strip section
+
+
     - Add section with id="cta"
     - Display heading and body text
     - Add primary CTA "Apply for Private Beta" linking to /beta
