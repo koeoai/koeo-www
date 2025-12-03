@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Logo } from "@/components/ui/logo";
+import { KoeoLogo } from "@/components/ui/KoeoLogo";
 
 interface FooterLink {
   label: string;
@@ -59,7 +59,7 @@ export function Footer({ className }: FooterProps) {
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <Link href="/" aria-label="Koeo home">
-              <Logo size="default" showText className="[&_text]:fill-text-light" />
+              <KoeoLogo size={32} showWordmark variant="white" />
             </Link>
             <p className="mt-4 text-sm text-text-light/80 max-w-xs">
               The runtime layer that brings fragmented GPUs together into one reliable inference fabric.

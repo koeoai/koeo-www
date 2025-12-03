@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/ui/logo";
+import { KoeoLogo } from "@/components/ui/KoeoLogo";
 import {
   Sheet,
   SheetContent,
@@ -42,7 +42,7 @@ export function Header({ className }: HeaderProps) {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center" aria-label="Koeo home">
-            <Logo size="default" showText />
+            <KoeoLogo size={32} showWordmark />
           </Link>
 
           {/* Desktop Navigation */}
