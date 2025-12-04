@@ -29,8 +29,9 @@ describe("UI Components - Property Tests for Invalid Props", () => {
     fc.assert(
       fc.property(arbitraryValue, (invalidVariant) => {
         // TypeScript would normally prevent this, but we're testing runtime behavior
+        const variant = invalidVariant as Parameters<typeof Button>[0]["variant"];
         const { container } = render(
-          <Button variant={invalidVariant as any}>Test Button</Button>
+          <Button variant={variant}>Test Button</Button>
         );
 
         const button = container.querySelector("button");
@@ -47,8 +48,9 @@ describe("UI Components - Property Tests for Invalid Props", () => {
   it("Property 2: Button handles invalid size props gracefully", () => {
     fc.assert(
       fc.property(arbitraryValue, (invalidSize) => {
+        const size = invalidSize as Parameters<typeof Button>[0]["size"];
         const { container } = render(
-          <Button size={invalidSize as any}>Test Button</Button>
+          <Button size={size}>Test Button</Button>
         );
 
         const button = container.querySelector("button");
@@ -63,8 +65,9 @@ describe("UI Components - Property Tests for Invalid Props", () => {
   it("Property 2: Container handles invalid className props gracefully", () => {
     fc.assert(
       fc.property(arbitraryValue, (invalidClassName) => {
+        const className = invalidClassName as string | undefined;
         const { container } = render(
-          <Container className={invalidClassName as any}>
+          <Container className={className}>
             <div>Content</div>
           </Container>
         );
@@ -82,8 +85,9 @@ describe("UI Components - Property Tests for Invalid Props", () => {
   it("Property 2: Section handles invalid background props gracefully", () => {
     fc.assert(
       fc.property(arbitraryValue, (invalidBackground) => {
+        const background = invalidBackground as Parameters<typeof Section>[0]["background"];
         const { container } = render(
-          <Section background={invalidBackground as any}>
+          <Section background={background}>
             <div>Content</div>
           </Section>
         );
@@ -91,7 +95,7 @@ describe("UI Components - Property Tests for Invalid Props", () => {
         const section = container.querySelector("section");
         expect(section).toBeInTheDocument();
         // Should have base classes applied (vertical padding)
-        expect(section?.className).toContain("py-16");
+        expect(section?.className).toContain("py-20");
       }),
       { numRuns: 100 }
     );

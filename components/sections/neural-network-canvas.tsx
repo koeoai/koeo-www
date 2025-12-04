@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useCallback } from "react";
 
 interface Node {
   x: number;
@@ -16,11 +16,7 @@ interface NeuralNetworkCanvasProps {
   className?: string;
 }
 
-const PERSONAL_EMAIL_DOMAINS = new Set([
-  "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "live.com",
-  "msn.com", "aol.com", "icloud.com", "me.com", "mail.com",
-  "protonmail.com", "zoho.com", "yandex.com", "gmx.com", "inbox.com",
-]);
+
 
 // Node density: ~1 node per 6000px² (e.g., 1920x1080 = ~345 nodes, 375x667 mobile = ~42 nodes)
 const NODE_DENSITY = 6000;
@@ -46,10 +42,7 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const isVisibleRef = useRef(true);
 
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+
 
   const initNodes = useCallback((width: number, height: number): Node[] => {
     const nodeCount = calculateNodeCount(width, height);
@@ -345,101 +338,54 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
     };
   }, [initNodes]);
 
-  const validateWorkEmail = (value: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) return false;
-    const domain = value.split("@")[1]?.toLowerCase();
-    return domain ? !PERSONAL_EMAIL_DOMAINS.has(domain) : false;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    if (!email) {
-      setError("Please enter your email");
-      return;
-    }
-    if (!validateWorkEmail(email)) {
-      setError("Please use your work email address");
-      return;
-    }
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-  };
-
-
   return (
     <div ref={containerRef} className={`relative min-h-screen overflow-hidden ${className}`}>
       <canvas ref={canvasRef} className="absolute inset-0" />
 
       <div className="pointer-events-none relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-20">
         <div className="mx-auto max-w-4xl text-center">
+          {/* Eyebrow Badge */}
           <div className="pointer-events-auto mb-6 inline-flex items-center gap-2 rounded-full border border-pink-light/30 bg-purple-deep/50 px-4 py-1.5 text-sm text-pink-light backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
             </span>
-            Now in Closed Beta
+            Closed Beta
           </div>
 
+          {/* Headline */}
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            The Neural Fabric for{" "}
+            Run your AI models{" "}
             <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-              GPU Infrastructure
+              without managing GPUs
             </span>
           </h1>
 
+          {/* Subheadline */}
           <p className="mx-auto mb-10 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-            Unify fragmented GPUs into one intelligent inference layer.
-            Scale effortlessly. Deploy anywhere.
+            Ship AI features faster. We handle the GPU complexity so you can focus on building.
           </p>
 
-          {!isSuccess ? (
-            <form onSubmit={handleSubmit} className="pointer-events-auto mx-auto max-w-md">
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                  placeholder="Enter your work email"
-                  className="h-14 flex-1 rounded-full border border-purple-primary/30 bg-white/10 px-6 text-white placeholder:text-slate-400 backdrop-blur-sm transition-all focus:border-pink-light focus:outline-none focus:ring-2 focus:ring-pink-light/20"
-                  aria-label="Work email address"
-                  aria-describedby={error ? "email-error" : undefined}
-                />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="h-14 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-primary to-magenta px-8 font-semibold text-white transition-all hover:scale-105 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-light focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      Joining...
-                    </span>
-                  ) : "Request Access"}
-                </button>
-              </div>
-              {error && <p id="email-error" className="mt-3 text-sm text-pink-light" role="alert">{error}</p>}
-              <p className="mt-4 text-sm text-text-light/60">Join 500+ engineers already on the waitlist</p>
-            </form>
-          ) : (
-            <div className="pointer-events-auto mx-auto max-w-md rounded-2xl border border-purple-primary/30 bg-purple-deep/50 p-8 backdrop-blur-sm">
-              <div className="mb-4 flex justify-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
-                  <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-white">You&apos;re on the list!</h3>
-              <p className="text-text-light/80">We&apos;ll reach out soon with your beta access.</p>
-            </div>
-          )}
+          {/* CTAs */}
+          <div className="pointer-events-auto flex flex-col gap-4 sm:flex-row sm:justify-center">
+            <a
+              href="/beta"
+              className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta px-8 font-semibold text-white transition-all hover:scale-105 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-light focus-visible:ring-offset-2"
+            >
+              Join the Private Beta
+            </a>
+            <a
+              href="/whitepaper.pdf"
+              className="inline-flex h-14 items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-light focus-visible:ring-offset-2"
+            >
+              Read the Whitepaper
+            </a>
+          </div>
+
+          {/* Microcopy */}
+          <p className="mt-6 text-sm text-text-light/60">
+            We&apos;re gradually inviting teams into the private beta.
+          </p>
         </div>
       </div>
 

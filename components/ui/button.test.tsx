@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import * as fc from "fast-check";
-import { Button, buttonVariants } from "./button";
+import { Button } from "./button";
 
 /**
  * **Feature: koeo-marketing-website, Property 1: Button renders correctly for all valid prop combinations**
