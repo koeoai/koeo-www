@@ -1,13 +1,16 @@
+"use client";
+
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 const PROBLEM_CARDS = [
   {
     category: "COMPLEXITY",
     title: "Too many moving parts",
     description:
-      "Model servers, schedulers, GPU pools and billing systems all need to be wired together. Each piece adds complexity and failure modes.",
+      "Model servers, schedulers, GPU pools and billing systems all have to be wired together and kept in sync. Every new component adds configuration, edge cases and failure modes.",
     icon: (
       <svg
         className="h-6 w-6"
@@ -23,14 +26,12 @@ const PROBLEM_CARDS = [
         />
       </svg>
     ),
-    iconBg: "bg-purple-primary",
-    categoryColor: "text-purple-primary",
   },
   {
     category: "PRODUCTIVITY",
     title: "Infrastructure steals focus",
     description:
-      "Product teams lose time debugging nodes, quotas and cold starts instead of shipping features that matter to users.",
+      "Product teams lose time debugging nodes, quotas and cold starts instead of improving the experience for users. Infra work becomes the default instead of the exception.",
     icon: (
       <svg
         className="h-6 w-6"
@@ -46,14 +47,12 @@ const PROBLEM_CARDS = [
         />
       </svg>
     ),
-    iconBg: "bg-magenta",
-    categoryColor: "text-magenta",
   },
   {
     category: "COST CONTROL",
     title: "Costs are unpredictable",
     description:
-      "Fragmented GPU usage, spot instances and opaque pricing make it hard to forecast spend or optimize for efficiency.",
+      "Fragmented GPU usage, spot instances and opaque pricing make it hard to forecast spend or decide where to run each workload efficiently.",
     icon: (
       <svg
         className="h-6 w-6"
@@ -69,8 +68,6 @@ const PROBLEM_CARDS = [
         />
       </svg>
     ),
-    iconBg: "bg-pink-light",
-    categoryColor: "text-pink-light",
   },
 ];
 
@@ -82,64 +79,68 @@ export function ProblemSection({ className }: ProblemSectionProps) {
   return (
     <section
       id="problem"
-      className={cn("relative overflow-hidden bg-slate-50 py-24 md:py-32", className)}
+      className={cn(
+        "relative overflow-hidden py-24 md:py-32",
+        className
+      )}
     >
-      <Container>
+      {/* Gradient background - solid purple for clean transition to what-is */}
+      <div className="absolute inset-0 bg-[#7C3AED]" />
+      
+      {/* Network background */}
+      <NetworkBackground variant="dark" density="normal" />
+
+      <Container className="relative z-10">
         {/* Eyebrow + Heading */}
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-purple-primary">
-            The Challenge
-          </span>
-          <h2 className="text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
             Why AI infrastructure feels harder than it should
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-primary/70">
-            Running inference at scale means juggling providers, managing GPU
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
+            Running inference at scale usually means juggling providers, managing GPU
             availability, and stitching together tools that weren&apos;t designed to
             work together.
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {PROBLEM_CARDS.map((card) => (
             <div
               key={card.title}
-              className="group rounded-2xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative h-full"
             >
-              {/* Icon */}
-              <div
-                className={cn(
-                  "mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl text-white",
-                  card.iconBg
-                )}
-              >
-                {card.icon}
+              {/* Card glow effect - consistent for all cards */}
+              <div className="absolute -inset-1 rounded-2xl bg-purple-primary/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+              
+              {/* Card */}
+              <div className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-pink-light/30 hover:bg-white/10">
+                {/* Icon with consistent gradient */}
+                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary to-magenta text-white shadow-lg">
+                  {card.icon}
+                </div>
+
+                {/* Category Label */}
+                <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-pink-light">
+                  {card.category}
+                </span>
+
+                {/* Title */}
+                <h3 className="mb-3 text-xl font-bold text-white">
+                  {card.title}
+                </h3>
+
+                {/* Description */}
+                <p className="flex-1 text-base leading-relaxed text-white/70">
+                  {card.description}
+                </p>
               </div>
-
-              {/* Category Label */}
-              <span
-                className={cn(
-                  "mb-3 block text-xs font-bold uppercase tracking-widest",
-                  card.categoryColor
-                )}
-              >
-                {card.category}
-              </span>
-
-              {/* Title */}
-              <h3 className="mb-3 text-xl font-bold text-text-primary">
-                {card.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-base leading-relaxed text-text-primary/70">
-                {card.description}
-              </p>
             </div>
           ))}
         </div>
       </Container>
+      
+
     </section>
   );
 }

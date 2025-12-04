@@ -1,8 +1,11 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 export interface CTAStripProps {
   heading?: string;
@@ -32,17 +35,15 @@ export function CTAStrip({
     <section
       id="cta"
       className={cn(
-        "relative overflow-hidden bg-purple-deep py-24 md:py-32",
+        "relative overflow-hidden py-24 md:py-32",
         className
       )}
     >
-      {/* Animated gradient background */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-purple-deep via-purple-primary/50 to-magenta/30" />
-
-      {/* Floating orbs */}
-      <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-purple-primary/30 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-magenta/30 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-light/10 blur-3xl" />
+      {/* Solid background - matches how-works end and footer */}
+      <div className="absolute inset-0 bg-[#4C1D95]" />
+      
+      {/* Network background */}
+      <NetworkBackground variant="dark" density="dense" />
 
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">
@@ -53,14 +54,14 @@ export function CTAStrip({
             {body}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button asChild size="lg" className="h-14 px-8 text-lg">
+            <Button asChild size="lg" className="h-14 px-8 text-lg shadow-lg shadow-purple-primary/30 transition-all hover:shadow-xl hover:shadow-magenta/30">
               <Link href={primaryCta.href}>{primaryCta.text}</Link>
             </Button>
             <Button
               asChild
               variant="ghost"
               size="lg"
-              className="h-14 border border-white/20 px-8 text-lg text-white hover:bg-white/10"
+              className="h-14 border border-white/20 px-8 text-lg text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
             >
               <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
             </Button>

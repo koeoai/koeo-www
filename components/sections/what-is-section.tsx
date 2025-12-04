@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 const FEATURES = [
   {
@@ -41,14 +42,17 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
   return (
     <section
       id="what-is-koeo"
-      className={cn("relative overflow-hidden bg-white py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-24 md:py-32", className)}
     >
-      <Container>
+      {/* Gradient background - starts matching problem section end, transitions to white */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED] via-[#A78BFA] to-white" />
+      
+      {/* Network background */}
+      <NetworkBackground variant="light" density="sparse" />
+
+      <Container className="relative z-10">
         {/* Top: Eyebrow + Headline */}
         <div className="mb-16 text-center">
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-purple-primary">
-            The Platform
-          </span>
           <h2 className="text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
             AI inference, simplified
           </h2>
@@ -70,7 +74,7 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
             <ul className="mb-10 space-y-4">
               {FEATURES.map((feature, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-primary/10 text-purple-primary">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-primary to-magenta text-white shadow-md">
                     {feature.icon}
                   </span>
                   <span className="text-base text-text-primary/80">
@@ -93,7 +97,10 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
 
           {/* Right: Animated Visual */}
           <div className="relative">
-            <div className="relative aspect-square overflow-hidden rounded-3xl bg-purple-deep p-8 shadow-2xl lg:aspect-[4/3]">
+            {/* Glow behind card */}
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-purple-primary/20 via-magenta/10 to-pink-light/20 blur-2xl animate-pulse-glow" />
+            
+            <div className="relative aspect-square overflow-hidden rounded-3xl bg-gradient-to-br from-purple-deep via-purple-primary/90 to-purple-deep p-8 shadow-2xl lg:aspect-[4/3]">
               {/* Animated GPU Fabric Visualization */}
               <div className="absolute inset-0 flex items-center justify-center">
                 {/* Central KOEO node */}
@@ -170,9 +177,6 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
                 <div className="absolute bottom-1/4 right-1/4 h-1.5 w-1.5 animate-pulse rounded-full bg-pink-light/60 [animation-delay:1.5s]" />
               </div>
             </div>
-
-            {/* Decorative gradient blur */}
-            <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-purple-primary/20 blur-3xl" />
           </div>
         </div>
       </Container>
