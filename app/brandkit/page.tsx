@@ -4,6 +4,7 @@ import * as React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 const COLORS = [
   {
@@ -312,7 +313,7 @@ export default function BrandPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="relative flex-1 overflow-hidden">
-        {/* Gradient Background */}
+        {/* Gradient Background with Neural Network */}
         <div className="fixed inset-0 -z-10">
           <div 
             className="absolute inset-0"
@@ -320,10 +321,7 @@ export default function BrandPage() {
               background: "linear-gradient(180deg, #2D1B4E 0%, #4C1D95 30%, #5B21B6 60%, #7C3AED 100%)"
             }}
           />
-          {/* Animated gradient orbs */}
-          <div className="absolute left-1/4 top-1/4 h-96 w-96 animate-pulse rounded-full bg-magenta/20 blur-3xl" />
-          <div className="absolute right-1/4 top-1/2 h-80 w-80 animate-pulse rounded-full bg-purple-primary/30 blur-3xl" style={{ animationDelay: "1s" }} />
-          <div className="absolute bottom-1/4 left-1/2 h-72 w-72 animate-pulse rounded-full bg-pink-light/20 blur-3xl" style={{ animationDelay: "2s" }} />
+          <NetworkBackground variant="dark" density="normal" />
         </div>
 
         {/* Hero Section */}

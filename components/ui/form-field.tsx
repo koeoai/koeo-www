@@ -1,6 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { Select } from "@/components/ui/select";
 
 interface FormFieldProps {
   id: string;
@@ -53,15 +55,6 @@ export function FormField({
     error && (isGlass ? "border-red-400/50 focus:ring-red-400/50" : "border-red-500 focus:ring-red-500")
   );
 
-  const handleMultiSelectChange = (optionValue: string) => {
-    const currentValues = Array.isArray(value) ? value : [];
-    if (currentValues.includes(optionValue)) {
-      onChange(currentValues.filter((v) => v !== optionValue));
-    } else {
-      onChange([...currentValues, optionValue]);
-    }
-  };
-
   const renderInput = () => {
     if (type === "textarea") {
       return (
@@ -82,62 +75,30 @@ export function FormField({
 
     if (type === "select") {
       return (
-        <select
+        <Select
           id={id}
-          name={id}
-          required={required}
+          options={options}
           value={value as string}
-          onChange={(e) => onChange(e.target.value)}
-          aria-describedby={describedBy}
-          aria-invalid={error ? "true" : undefined}
-          className={cn(baseInputClasses, "appearance-none", isGlass ? "bg-white/5" : "bg-white")}
-        >
-          <option value="" className={isGlass ? "bg-purple-deep text-white" : ""}>
-            {placeholder || "Select an option"}
-          </option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value} className={isGlass ? "bg-purple-deep text-white" : ""}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+          onChange={onChange as (value: string) => void}
+          placeholder={placeholder}
+          variant={variant}
+          error={!!error}
+        />
       );
     }
 
     if (type === "multiselect") {
       const selectedValues = Array.isArray(value) ? value : [];
       return (
-        <fieldset id={id} aria-describedby={describedBy} aria-invalid={error ? "true" : undefined} className="space-y-2">
-          {options.map((option) => (
-            <label
-              key={option.value}
-              className={cn(
-                "flex items-center gap-3 cursor-pointer group rounded-lg p-2 -mx-2 transition-all duration-200",
-                isGlass ? "hover:bg-white/5" : "hover:bg-slate-50"
-              )}
-            >
-              <input
-                type="checkbox"
-                name={`${id}[]`}
-                value={option.value}
-                checked={selectedValues.includes(option.value)}
-                onChange={() => handleMultiSelectChange(option.value)}
-                className={cn(
-                  "h-5 w-5 rounded border-2 transition-all duration-200",
-                  isGlass
-                    ? "border-white/30 bg-white/5 text-pink-light focus:ring-pink-light/50 checked:bg-gradient-to-r checked:from-purple-primary checked:to-magenta checked:border-transparent"
-                    : "border-slate-300 text-purple-primary focus:ring-purple-primary"
-                )}
-              />
-              <span className={cn(
-                "text-sm transition-colors",
-                isGlass ? "text-white/80 group-hover:text-white" : "text-text-primary group-hover:text-purple-primary"
-              )}>
-                {option.label}
-              </span>
-            </label>
-          ))}
-        </fieldset>
+        <MultiSelect
+          id={id}
+          options={options}
+          value={selectedValues}
+          onChange={onChange as (value: string[]) => void}
+          placeholder={placeholder}
+          variant={variant}
+          error={!!error}
+        />
       );
     }
 
