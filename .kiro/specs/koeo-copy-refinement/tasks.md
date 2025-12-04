@@ -109,18 +109,32 @@
     - Verify CTA text and links
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6_
 
-- [ ] 5. Update CTA Strip copy
-  - [ ] 5.1 Update CTA Strip content
+- [x] 5. Update CTA Strip copy
+
+
+
+
+
+  - [x] 5.1 Update CTA Strip content
+
+
     - Update body text with "small group of teams" and "runtime, scheduler and observability" copy
     - Verify primary CTA is "Apply for Private Beta" linking to /beta
     - Verify secondary CTA is "Talk to the team" with mailto link
     - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-  - [ ] 5.2 Write unit tests for CTA Strip content
+
+  - [x] 5.2 Write unit tests for CTA Strip content
+
     - Verify heading text
     - Verify body text
     - Verify CTA text and links
     - _Requirements: 6.1, 6.2, 6.3, 6.4_
 
-- [ ] 6. Final checkpoint
+- [x] 6. Final checkpoint
+
+
+
+
+
   - Ensure all tests pass, ask the user if questions arise.

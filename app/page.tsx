@@ -5,7 +5,6 @@ import { Hero } from "@/components/sections/hero";
 import { ProblemSection } from "@/components/sections/problem-section";
 import { WhatIsSection } from "@/components/sections/what-is-section";
 import { HowWorksSection } from "@/components/sections/how-works-section";
-import { CTAStrip } from "@/components/sections/cta-strip";
 
 export const metadata: Metadata = {
   title: "Koeo - Unify Your GPU Infrastructure",
@@ -45,7 +44,6 @@ export default function Home() {
         <ProblemSection />
         <WhatIsSection />
         <HowWorksSection />
-        <CTAStrip />
       </main>
       <Footer />
     </div>

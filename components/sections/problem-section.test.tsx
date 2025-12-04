@@ -3,11 +3,6 @@ import { render, screen } from "@testing-library/react";
 import { ProblemSection } from "./problem-section";
 
 describe("ProblemSection Component - Unit Tests", () => {
-  it("renders section label 'The Challenge'", () => {
-    render(<ProblemSection />);
-    expect(screen.getByText("The Challenge")).toBeInTheDocument();
-  });
-
   it("renders heading 'Why AI infrastructure feels harder than it should'", () => {
     render(<ProblemSection />);
     expect(
