@@ -350,7 +350,7 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
             </span>
-            Closed Beta
+            Closed Beta · Not yet generally available
           </div>
 
           {/* Headline */}
@@ -363,7 +363,7 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
 
           {/* Subheadline */}
           <p className="mx-auto mb-10 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-            Ship AI features faster. We handle the GPU complexity so you can focus on building.
+            We take care of the GPU mess so you can focus on building. One runtime, any model, no infra headaches.
           </p>
 
           {/* CTAs */}
@@ -372,7 +372,7 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
               href="/beta"
               className="inline-flex h-14 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta px-8 font-semibold text-white transition-all hover:scale-105 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-light focus-visible:ring-offset-2"
             >
-              Join the Private Beta
+              Join the private beta
             </a>
             <a
               href="/whitepaper.pdf"
