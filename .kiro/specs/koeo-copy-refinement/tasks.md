@@ -48,8 +48,15 @@
     - Verify each card's content
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6_
 
-- [ ] 3. Update Platform section copy
-  - [ ] 3.1 Update What Is section content
+- [x] 3. Update Platform section copy
+
+
+
+
+
+  - [x] 3.1 Update What Is section content
+
+
     - Update body paragraph with new "single runtime" copy
     - Update first bullet to "One API to run your supported models across our federated GPU fabric"
     - Update second bullet to "Automatic routing, health checks and basic cost controls across different GPU tiers"
@@ -58,7 +65,9 @@
     - Update secondary CTA to "Learn More" linking to /beta
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9_
 
-  - [ ] 3.2 Write unit tests for Platform section content
+
+  - [x] 3.2 Write unit tests for Platform section content
+
     - Verify section label and headings
     - Verify body paragraph text
     - Verify each feature bullet text
