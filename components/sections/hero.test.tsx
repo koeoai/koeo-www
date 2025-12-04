@@ -167,26 +167,27 @@ describe("Color Contrast - Property Tests", () => {
 describe("Hero Component - Unit Tests", () => {
   it("renders eyebrow badge with correct text", () => {
     render(<Hero />);
-    expect(screen.getByText("Closed Beta")).toBeInTheDocument();
+    expect(screen.getByText("Closed Beta · Not yet generally available")).toBeInTheDocument();
   });
 
-  it("renders headline with new copy", () => {
+  it("renders headline with correct text", () => {
     render(<Hero />);
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(screen.getByText("Run your AI models")).toBeInTheDocument();
     expect(screen.getByText("without managing GPUs")).toBeInTheDocument();
   });
 
-  it("renders subheadline with new copy", () => {
+  it("renders subtitle with unified runtime copy", () => {
     render(<Hero />);
     expect(
-      screen.getByText(/Ship AI features faster/)
+      screen.getByText(/We take care of the GPU mess so you can focus on building/)
     ).toBeInTheDocument();
   });
 
   it("renders primary CTA linking to /beta", () => {
     render(<Hero />);
     const primaryCta = screen.getByRole("link", {
-      name: "Join the Private Beta",
+      name: "Join the private beta",
     });
     expect(primaryCta).toBeInTheDocument();
     expect(primaryCta).toHaveAttribute("href", "/beta");

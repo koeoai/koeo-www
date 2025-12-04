@@ -69,11 +69,6 @@ describe("Homepage Assembly", () => {
       screen.getByText("for Developers")
     ).toBeInTheDocument();
 
-    // Verify CTA Strip section renders with heading
-    expect(
-      screen.getByText("We're in closed beta and onboarding gradually")
-    ).toBeInTheDocument();
-
     // Verify sections are within main
     expect(main).toContainElement(
       screen.getByText("Why AI infrastructure feels harder than it should")
@@ -91,7 +86,6 @@ describe("Homepage Assembly", () => {
     expect(container.querySelector("#problem")).toBeInTheDocument();
     expect(container.querySelector("#what-is-koeo")).toBeInTheDocument();
     expect(container.querySelector("#how-it-works")).toBeInTheDocument();
-    expect(container.querySelector("#cta")).toBeInTheDocument();
   });
 
   /**

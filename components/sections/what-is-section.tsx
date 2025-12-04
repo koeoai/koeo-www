@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 const FEATURES = [
   {
@@ -13,7 +14,7 @@ const FEATURES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
     ),
-    text: "One API to run any model across federated compute",
+    text: "One API to run your supported models across our federated GPU fabric",
   },
   {
     icon: (
@@ -21,7 +22,7 @@ const FEATURES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
     ),
-    text: "Automatic routing, failover and cost optimization",
+    text: "Automatic routing, health checks and basic cost controls across different GPU tiers",
   },
   {
     icon: (
@@ -29,7 +30,7 @@ const FEATURES = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
     ),
-    text: "Built-in observability without extra tooling",
+    text: "Built-in usage and latency metrics, with deeper observability in active development",
   },
 ];
 
@@ -41,14 +42,17 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
   return (
     <section
       id="what-is-koeo"
-      className={cn("relative overflow-hidden bg-white py-24 md:py-32", className)}
+      className={cn("relative overflow-hidden py-24 md:py-32", className)}
     >
-      <Container>
+      {/* Gradient background - starts matching problem section end, transitions to white */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED] via-[#A78BFA] to-white" />
+      
+      {/* Network background */}
+      <NetworkBackground variant="light" density="sparse" />
+
+      <Container className="relative z-10">
         {/* Top: Eyebrow + Headline */}
         <div className="mb-16 text-center">
-          <span className="mb-4 inline-block text-sm font-semibold uppercase tracking-widest text-purple-primary">
-            The Platform
-          </span>
           <h2 className="text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
             AI inference, simplified
           </h2>
@@ -59,18 +63,17 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
           {/* Left: Content */}
           <div>
             <h3 className="mb-6 text-2xl font-bold leading-tight text-text-primary md:text-3xl">
-              KOEO is a unified runtime for distributed GPU inference
+              Koeo is a unified runtime for distributed GPU inference
             </h3>
             <p className="mb-8 text-lg leading-relaxed text-text-primary/70">
-              Stop juggling providers, managing infrastructure, and guessing at
-              costs. KOEO handles the complexity so you can focus on building.
+              Instead of wiring together providers, runtimes and custom schedulers, you integrate with a single runtime. Koeo connects your workloads to a federated pool of GPUs and applies routing, health checks and usage tracking for you.
             </p>
 
             {/* Feature List */}
             <ul className="mb-10 space-y-4">
               {FEATURES.map((feature, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-primary/10 text-purple-primary">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-primary to-magenta text-white shadow-md">
                     {feature.icon}
                   </span>
                   <span className="text-base text-text-primary/80">
@@ -83,96 +86,169 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
             {/* CTAs */}
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg">
-                <Link href="/beta">Join the Beta</Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg">
-                <Link href="/whitepaper.pdf">Learn More</Link>
+                <Link href="/beta">Learn more</Link>
               </Button>
             </div>
           </div>
 
-          {/* Right: Animated Visual */}
+          {/* Right: Technical Architecture Visualization */}
           <div className="relative">
-            <div className="relative aspect-square overflow-hidden rounded-3xl bg-purple-deep p-8 shadow-2xl lg:aspect-[4/3]">
-              {/* Animated GPU Fabric Visualization */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                {/* Central KOEO node */}
-                <div className="relative">
-                  {/* Pulsing rings */}
-                  <div className="absolute -inset-8 animate-ping rounded-full bg-purple-primary/20 [animation-duration:3s]" />
-                  <div className="absolute -inset-4 animate-ping rounded-full bg-magenta/30 [animation-duration:2s]" />
+            {/* Glow behind card */}
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-purple-primary/20 via-magenta/10 to-pink-light/20 blur-2xl animate-pulse-glow" />
+            
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#1a1a2e] p-6 shadow-2xl lg:aspect-[4/3]">
+              {/* Illustrative example label */}
+              <div className="absolute bottom-3 right-3 z-20 px-2 py-1 rounded-md bg-white/5 border border-white/10">
+                <span className="text-[8px] font-mono text-white/40 italic">illustrative example</span>
+              </div>
 
-                  {/* Center hub */}
-                  <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-primary to-magenta shadow-lg shadow-purple-primary/50">
-                    <span className="text-lg font-bold text-white">KOEO</span>
+              {/* Grid background */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="h-full w-full" style={{ backgroundImage: 'linear-gradient(rgba(124,58,237,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.3) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+              </div>
+
+              {/* Layer 1: One-Click Deploy + API (Top) */}
+              <div className="relative mb-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-[10px] font-mono text-green-400/80 uppercase tracking-wider">Deploy & Serve</span>
+                  </div>
+                  <div className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-green-400/30 bg-green-400/10">
+                    <svg className="h-2.5 w-2.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-[8px] font-mono text-green-400">deployed</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 rounded-lg border border-purple-primary/30 bg-purple-primary/10 px-3 py-2">
+                  <code className="text-xs font-mono text-purple-300">POST /v1/chat/completions</code>
+                  <div className="ml-auto flex gap-1">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-ping [animation-duration:2s]" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-ping [animation-delay:0.3s] [animation-duration:2s]" />
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-ping [animation-delay:0.6s] [animation-duration:2s]" />
                   </div>
                 </div>
               </div>
 
-              {/* Orbiting GPU nodes */}
-              <div className="absolute inset-0">
-                {/* Top GPU */}
-                <div className="absolute left-1/2 top-8 -translate-x-1/2 animate-bounce [animation-duration:3s]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary/80 to-purple-deep border border-purple-primary/30">
-                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
-                  </div>
-                  <div className="absolute left-1/2 top-full h-12 w-px -translate-x-1/2 bg-gradient-to-b from-purple-primary/50 to-transparent" />
-                </div>
-
-                {/* Bottom Left GPU */}
-                <div className="absolute bottom-12 left-12 animate-bounce [animation-delay:0.5s] [animation-duration:2.5s]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-magenta/80 to-purple-primary border border-magenta/30">
-                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
-                  </div>
-                  <div className="absolute -right-8 top-1/2 h-px w-12 -translate-y-1/2 bg-gradient-to-r from-magenta/50 to-transparent" />
-                </div>
-
-                {/* Bottom Right GPU */}
-                <div className="absolute bottom-12 right-12 animate-bounce [animation-delay:1s] [animation-duration:2.8s]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-light/80 to-magenta border border-pink-light/30">
-                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
-                  </div>
-                  <div className="absolute -left-8 top-1/2 h-px w-12 -translate-y-1/2 bg-gradient-to-l from-pink-light/50 to-transparent" />
-                </div>
-
-                {/* Right GPU */}
-                <div className="absolute right-8 top-1/2 -translate-y-1/2 animate-bounce [animation-delay:1.5s] [animation-duration:3.2s]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary/80 to-magenta border border-purple-primary/30">
-                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
-                  </div>
-                  <div className="absolute right-full top-1/2 h-px w-12 -translate-y-1/2 bg-gradient-to-l from-purple-primary/50 to-transparent" />
-                </div>
-
-                {/* Left GPU */}
-                <div className="absolute left-8 top-1/2 -translate-y-1/2 animate-bounce [animation-delay:2s] [animation-duration:2.6s]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-magenta/80 to-pink-light border border-magenta/30">
-                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                    </svg>
-                  </div>
-                  <div className="absolute left-full top-1/2 h-px w-12 -translate-y-1/2 bg-gradient-to-r from-magenta/50 to-transparent" />
+              {/* Animated flow line */}
+              <div className="relative h-6 flex justify-center">
+                <div className="w-px bg-gradient-to-b from-purple-primary/50 to-magenta/50 relative">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-purple-primary animate-bounce [animation-duration:1s]" />
                 </div>
               </div>
 
-              {/* Floating particles */}
-              <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute left-1/4 top-1/4 h-2 w-2 animate-pulse rounded-full bg-pink-light/60" />
-                <div className="absolute right-1/3 top-1/3 h-1.5 w-1.5 animate-pulse rounded-full bg-purple-primary/60 [animation-delay:0.5s]" />
-                <div className="absolute bottom-1/3 left-1/3 h-2 w-2 animate-pulse rounded-full bg-magenta/60 [animation-delay:1s]" />
-                <div className="absolute bottom-1/4 right-1/4 h-1.5 w-1.5 animate-pulse rounded-full bg-pink-light/60 [animation-delay:1.5s]" />
+              {/* Layer 2: Runtime Orchestrator (Middle) */}
+              <div className="relative mb-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-1.5 w-1.5 rounded-full bg-magenta animate-pulse" />
+                  <span className="text-[10px] font-mono text-magenta/80 uppercase tracking-wider">Runtime Orchestrator</span>
+                </div>
+                <div className="rounded-lg border border-magenta/30 bg-magenta/10 p-3">
+                  <div className="flex items-center justify-between gap-2 text-[10px] font-mono">
+                    <div className="flex items-center gap-2">
+                      <svg className="h-3 w-3 text-magenta" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                      </svg>
+                      <span className="text-white/70">route</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="h-3 w-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-white/70">health</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="h-3 w-3 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      <span className="text-white/70">scale</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Animated flow lines to GPUs */}
+              <div className="relative h-6 flex justify-center gap-8">
+                <div className="w-px bg-gradient-to-b from-magenta/50 to-pink-light/50 relative -rotate-12 origin-top">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-magenta animate-bounce [animation-duration:1.2s]" />
+                </div>
+                <div className="w-px bg-gradient-to-b from-magenta/50 to-pink-light/50 relative">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-magenta animate-bounce [animation-delay:0.2s] [animation-duration:1.2s]" />
+                </div>
+                <div className="w-px bg-gradient-to-b from-magenta/50 to-pink-light/50 relative rotate-12 origin-top">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-magenta animate-bounce [animation-delay:0.4s] [animation-duration:1.2s]" />
+                </div>
+              </div>
+
+              {/* Layer 3: GPU Fabric with Cost-Optimized Tiers */}
+              <div className="relative mb-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-pink-light animate-pulse" />
+                    <span className="text-[10px] font-mono text-pink-light/80 uppercase tracking-wider">GPU Fabric</span>
+                  </div>
+                  <span className="text-[8px] font-mono text-yellow-400/70">usage-based pricing</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {/* GPU Tier E - Economy */}
+                  <div className="rounded-lg border border-green-400/30 bg-green-400/10 p-2 text-center relative">
+                    <div className="absolute -top-1 -right-1 px-1 py-0.5 rounded text-[6px] font-mono bg-green-400/20 text-green-400 border border-green-400/30">$</div>
+                    <div className="flex items-center justify-center gap-1 mb-1">
+                      <svg className="h-3 w-3 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                      </svg>
+                      <span className="text-[9px] font-mono text-green-400">Tier E</span>
+                    </div>
+                    <div className="text-[8px] text-white/50">economy</div>
+                  </div>
+                  {/* GPU Tier B - Standard */}
+                  <div className="rounded-lg border border-yellow-400/30 bg-yellow-400/10 p-2 text-center relative">
+                    <div className="absolute -top-1 -right-1 px-1 py-0.5 rounded text-[6px] font-mono bg-yellow-400/20 text-yellow-400 border border-yellow-400/30">$$</div>
+                    <div className="flex items-center justify-center gap-1 mb-1">
+                      <svg className="h-3 w-3 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                      </svg>
+                      <span className="text-[9px] font-mono text-yellow-400">Tier S</span>
+                    </div>
+                    <div className="text-[8px] text-white/50">standard</div>
+                  </div>
+                  {/* GPU Tier C - Premium */}
+                  <div className="rounded-lg border border-purple-primary/30 bg-purple-primary/10 p-2 text-center relative">
+                    <div className="absolute -top-1 -right-1 px-1 py-0.5 rounded text-[6px] font-mono bg-purple-primary/20 text-purple-primary border border-purple-primary/30">$$$</div>
+                    <div className="flex items-center justify-center gap-1 mb-1">
+                      <svg className="h-3 w-3 text-purple-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                      </svg>
+                      <span className="text-[9px] font-mono text-purple-primary">Tier P</span>
+                    </div>
+                    <div className="text-[8px] text-white/50">performance</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Layer 4: Metrics & Cost (Bottom bar) */}
+              <div className="relative mt-4 pt-3 border-t border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  <span className="text-[10px] font-mono text-cyan-400/80 uppercase tracking-wider">Observability</span>
+                </div>
+                <div className="flex items-center justify-between text-[9px] font-mono">
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/50">latency:</span>
+                    <span className="text-cyan-400">p50</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/50">throughput:</span>
+                    <span className="text-cyan-400">reqs/s</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-white/50">cost:</span>
+                    <span className="text-green-400">$/token</span>
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Decorative gradient blur */}
-            <div className="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-purple-primary/20 blur-3xl" />
           </div>
         </div>
       </Container>

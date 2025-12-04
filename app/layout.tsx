@@ -14,6 +14,11 @@ export const metadata: Metadata = {
     default: "Koeo - Unify Your GPU Infrastructure",
     template: "%s | Koeo",
   },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   description:
     "The runtime layer that brings fragmented GPUs together into one reliable inference fabric. Build faster, scale smarter with Koeo.",
   keywords: [
