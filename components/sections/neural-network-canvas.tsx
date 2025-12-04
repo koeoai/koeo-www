@@ -363,7 +363,7 @@ export function NeuralNetworkCanvas({ className }: NeuralNetworkCanvasProps) {
 
           {/* Subheadline */}
           <p className="mx-auto mb-10 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-            Ship AI features faster. KOEO handles the GPU complexity so you can focus on building.
+            Ship AI features faster. We handle the GPU complexity so you can focus on building.
           </p>
 
           {/* CTAs */}

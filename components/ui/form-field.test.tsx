@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { FormField } from './form-field';
 
 /**

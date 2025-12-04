@@ -3,7 +3,6 @@ import * as fc from 'fast-check';
 import {
   validateEmail,
   validateRequired,
-  validateMinLength,
   validateForm,
   BETA_FORM_VALIDATION,
 } from './validation';

@@ -105,7 +105,8 @@ describe("Homepage Assembly", () => {
     const nav = header.querySelector('nav[aria-label="Main navigation"]');
 
     expect(nav).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /get started/i })).toBeInTheDocument();
+    // "Join Beta" appears in both header and footer, so use getAllByRole
+    expect(screen.getAllByRole("link", { name: /join beta/i }).length).toBeGreaterThanOrEqual(1);
   });
 
   /**
@@ -116,7 +117,8 @@ describe("Homepage Assembly", () => {
     render(<Home />);
 
     expect(screen.getByText("Resources")).toBeInTheDocument();
-    expect(screen.getByText("Company")).toBeInTheDocument();
+    // Use getAllByText since "Company" appears in both header dropdown and footer
+    expect(screen.getAllByText("Company").length).toBeGreaterThanOrEqual(1);
 
     const currentYear = new Date().getFullYear();
     expect(screen.getByText(new RegExp(`© ${currentYear} Koeo`))).toBeInTheDocument();

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { KoeoLogo } from "@/components/ui/KoeoLogo";
@@ -18,11 +18,22 @@ interface NavItem {
   href: string;
 }
 
-const navItems: NavItem[] = [
+interface DropdownItem {
+  label: string;
+  items: NavItem[];
+}
+
+const NAV_ITEMS: NavItem[] = [
   { label: "Product", href: "/product" },
-  { label: "Docs", href: "/docs" },
-  { label: "Pricing", href: "/pricing" },
 ];
+
+const COMPANY_DROPDOWN: DropdownItem = {
+  label: "Company",
+  items: [
+    { label: "About Us", href: "/about" },
+    { label: "Careers", href: "/careers" },
+  ],
+};
 
 export interface HeaderProps {
   className?: string;
@@ -30,6 +41,7 @@ export interface HeaderProps {
 
 export function Header({ className }: HeaderProps) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [companyOpen, setCompanyOpen] = React.useState(false);
 
   return (
     <header
@@ -45,7 +57,7 @@ export function Header({ className }: HeaderProps) {
         </Link>
 
         {/* Desktop Links */}
-        {navItems.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <Link
             key={item.href}
             href={item.href}
@@ -55,8 +67,40 @@ export function Header({ className }: HeaderProps) {
           </Link>
         ))}
 
+        {/* Company Dropdown - Desktop */}
+        <div 
+          className="relative hidden md:block"
+          onMouseEnter={() => setCompanyOpen(true)}
+          onMouseLeave={() => setCompanyOpen(false)}
+        >
+          <button
+            className="flex items-center gap-1 text-sm font-medium text-text-light/90 transition-colors hover:text-pink-light"
+            aria-expanded={companyOpen}
+            aria-haspopup="true"
+          >
+            {COMPANY_DROPDOWN.label}
+            <ChevronDown className={cn("h-4 w-4 transition-transform", companyOpen && "rotate-180")} />
+          </button>
+          
+          {companyOpen && (
+            <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2">
+              <div className="min-w-[140px] rounded-xl border border-white/10 bg-purple-deep/90 p-2 backdrop-blur-xl shadow-lg">
+                {COMPANY_DROPDOWN.items.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block rounded-lg px-4 py-2 text-sm font-medium text-text-light/90 transition-colors hover:bg-white/10 hover:text-pink-light"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <Button asChild className="hidden md:inline-flex">
-          <Link href="/get-started">Get Started</Link>
+          <Link href="/beta">Join Beta</Link>
         </Button>
 
         {/* Mobile Menu */}
@@ -76,7 +120,7 @@ export function Header({ className }: HeaderProps) {
               <SheetContent side="right" className="w-[300px]">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <nav className="flex flex-col gap-4 mt-8" aria-label="Mobile navigation">
-                  {navItems.map((item) => (
+                  {NAV_ITEMS.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -86,9 +130,23 @@ export function Header({ className }: HeaderProps) {
                       {item.label}
                     </Link>
                   ))}
+                  {/* Company section - Mobile */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="text-sm font-medium text-text-primary/60 mb-2">{COMPANY_DROPDOWN.label}</p>
+                    {COMPANY_DROPDOWN.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="block text-lg font-medium text-text-primary transition-colors hover:text-pink-light py-2 pl-2"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                   <Button asChild className="mt-4">
-                    <Link href="/get-started" onClick={() => setIsOpen(false)}>
-                      Get Started
+                    <Link href="/beta" onClick={() => setIsOpen(false)}>
+                      Join Beta
                     </Link>
                   </Button>
                 </nav>
