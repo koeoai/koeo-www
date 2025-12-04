@@ -4,7 +4,6 @@ import * as React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
-import { KoeoLogo } from "@/components/ui/KoeoLogo";
 
 const COLORS = [
   {
@@ -40,15 +39,74 @@ const COLORS = [
 ];
 
 const LOGOS = [
-  { name: "Logo Gradient", file: "/brand/logo-gradient.svg", bg: "bg-white" },
-  { name: "Logo Black", file: "/brand/logo-black.svg", bg: "bg-white" },
-  { name: "Logo White", file: "/brand/logo-white.svg", bg: "bg-slate-900" },
+  { name: "Logo Gradient", svg: "/brand/logo-gradient.svg", png: "/brand/logo-gradient.png", bg: "bg-white" },
+  { name: "Logo Black", svg: "/brand/logo-black.svg", png: "/brand/logo-black.png", bg: "bg-white" },
+  { name: "Logo White", svg: "/brand/logo-white.svg", png: "/brand/logo-white.png", bg: "bg-slate-900" },
+  { name: "Logo on Gradient", svg: "/brand/logo-white.svg", png: "/brand/logo-on-gradient.png", bg: "", useGradientBg: true },
 ];
 
-const ICONS = [
-  { name: "Icon Gradient", file: "/brand/icon-gradient.svg", bg: "bg-white" },
-  { name: "Icon Black", file: "/brand/icon-black.svg", bg: "bg-white" },
-  { name: "Icon White", file: "/brand/icon-white.svg", bg: "bg-slate-900" },
+const ICON_VARIANTS = [
+  {
+    name: "Icon Gradient",
+    baseName: "icon-gradient",
+    svg: "/brand/icon-gradient.svg",
+    bg: "bg-white",
+  },
+  {
+    name: "Icon Black",
+    baseName: "icon-black",
+    svg: "/brand/icon-black.svg",
+    bg: "bg-white",
+  },
+  {
+    name: "Icon White",
+    baseName: "icon-white",
+    svg: "/brand/icon-white.svg",
+    bg: "bg-slate-900",
+  },
+  {
+    name: "Icon on Gradient",
+    baseName: "icon-on-gradient",
+    svg: "/brand/icon-on-gradient.svg",
+    bg: "bg-slate-100",
+  },
+];
+
+const ICON_SIZES = [
+  { key: "favicon", label: "Favicon", size: "16×16" },
+  { key: "small", label: "Small", size: "32×32" },
+  { key: "medium", label: "Medium", size: "128×128" },
+  { key: "large", label: "Large", size: "512×512" },
+];
+
+const BANNER_SIZES = [
+  {
+    name: "Wide",
+    description: "YouTube, LinkedIn cover, website headers",
+    dimensions: "1500×500",
+    baseName: "banner-wide",
+    aspectRatio: "3/1",
+  },
+  {
+    name: "Social",
+    description: "Twitter/X header, Open Graph images",
+    dimensions: "1200×630",
+    baseName: "banner-social",
+    aspectRatio: "1200/630",
+  },
+  {
+    name: "Square",
+    description: "Instagram, profile backgrounds",
+    dimensions: "1200×1200",
+    baseName: "banner-square",
+    aspectRatio: "1/1",
+  },
+];
+
+const BANNER_VARIANTS = [
+  { key: "logo", label: "Logo", description: "Centered logo" },
+  { key: "plain", label: "Plain", description: "No logo" },
+  { key: "mantra", label: "Mantra", description: "With tagline" },
 ];
 
 function ColorSwatch({ color, index }: { color: typeof COLORS[0]; index: number }) {
@@ -89,30 +147,153 @@ function ColorSwatch({ color, index }: { color: typeof COLORS[0]; index: number 
   );
 }
 
-function AssetCard({ name, file, bg, index }: { name: string; file: string; bg: string; index: number }) {
+function AssetCard({ name, svg, png, bg, index, useGradientBg }: { name: string; svg: string; png: string; bg: string; index: number; useGradientBg?: boolean }) {
   return (
     <div 
       className="group animate-fade-in-up overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className={`flex h-36 items-center justify-center ${bg} transition-transform duration-300 group-hover:scale-105`}>
+      <div 
+        className={`flex h-36 items-center justify-center ${useGradientBg ? "" : bg} transition-transform duration-300 group-hover:scale-105`}
+        style={useGradientBg ? { background: "linear-gradient(135deg, #7C3AED, #E02F87)" } : undefined}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={file} alt={name} className="h-14 transition-transform duration-300 group-hover:scale-110" />
+        <img src={svg} alt={name} className="h-14 transition-transform duration-300 group-hover:scale-110" />
       </div>
-      <div className="flex items-center justify-between p-5">
-        <span className="text-sm font-medium text-white">{name}</span>
-        <a
-          href={file}
-          download
-          className="rounded-full bg-gradient-to-r from-purple-primary to-magenta px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-magenta/20 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40"
-        >
-          Download
-        </a>
+      <div className="p-5">
+        <span className="mb-3 block text-sm font-medium text-white">{name}</span>
+        <div className="flex gap-2">
+          <a
+            href={svg}
+            download
+            className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-center text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+          >
+            SVG
+          </a>
+          <a
+            href={png}
+            download
+            className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-center text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+          >
+            PNG
+          </a>
+        </div>
       </div>
     </div>
   );
 }
 
+function IconCard({ icon, index }: { icon: typeof ICON_VARIANTS[0]; index: number }) {
+  return (
+    <div 
+      className="group animate-fade-in-up overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      <div className={`flex h-36 items-center justify-center ${icon.bg} transition-transform duration-300 group-hover:scale-105`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={icon.svg} alt={icon.name} className="h-14 transition-transform duration-300 group-hover:scale-110" />
+      </div>
+      <div className="p-5">
+        <span className="mb-3 block text-sm font-medium text-white">{icon.name}</span>
+        <div className="mb-2">
+          <span className="mb-2 block text-xs text-white/50">SVG (scalable)</span>
+          <a
+            href={icon.svg}
+            download
+            className="block w-full rounded-lg bg-white/5 px-3 py-2 text-center text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+          >
+            Download SVG
+          </a>
+        </div>
+        <div>
+          <span className="mb-2 block text-xs text-white/50">PNG (by size)</span>
+          <div className="grid grid-cols-2 gap-2">
+            {ICON_SIZES.map((size) => (
+              <a
+                key={size.key}
+                href={`/brand/${icon.baseName}-${size.key}.png`}
+                download
+                className="flex items-center justify-center gap-1 rounded-lg bg-white/5 px-2 py-1.5 text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+              >
+                <span className="font-medium">{size.label}</span>
+                <span className="text-white/50">{size.size}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function BannerSizeCard({ size, index }: { size: typeof BANNER_SIZES[0]; index: number }) {
+  const [selectedVariant, setSelectedVariant] = React.useState("logo");
+  const currentSvg = `/brand/${size.baseName}-${selectedVariant}.svg`;
+  const currentPng = `/brand/${size.baseName}-${selectedVariant}.png`;
+
+  return (
+    <div 
+      className="animate-fade-in-up overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      <div 
+        className="relative overflow-hidden bg-purple-deep/30"
+        style={{ aspectRatio: size.aspectRatio }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img 
+          src={currentSvg} 
+          alt={`${size.name} Banner - ${selectedVariant}`} 
+          className="h-full w-full object-cover" 
+        />
+      </div>
+      <div className="p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <span className="text-sm font-medium text-white">{size.name} Banner</span>
+          <span className="text-xs text-white/50">{size.dimensions}</span>
+        </div>
+        <p className="mb-4 text-xs text-white/60">{size.description}</p>
+        
+        <div className="mb-4">
+          <span className="mb-2 block text-xs text-white/50">Variant</span>
+          <div className="flex gap-2">
+            {BANNER_VARIANTS.map((variant) => (
+              <button
+                key={variant.key}
+                onClick={() => setSelectedVariant(variant.key)}
+                className={`flex-1 rounded-lg px-3 py-2 text-xs transition-all ${
+                  selectedVariant === variant.key
+                    ? "bg-gradient-to-r from-purple-primary to-magenta text-white"
+                    : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {variant.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex gap-2">
+          <a
+            href={currentSvg}
+            download
+            className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-center text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+          >
+            SVG
+          </a>
+          <a
+            href={currentPng}
+            download
+            className="flex-1 rounded-lg bg-white/5 px-3 py-2 text-center text-xs text-white/80 transition-all hover:bg-gradient-to-r hover:from-purple-primary hover:to-magenta hover:text-white"
+          >
+            PNG
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function SectionHeader({ title, description, index }: { title: string; description: string; index: number }) {
   return (
@@ -121,7 +302,7 @@ function SectionHeader({ title, description, index }: { title: string; descripti
       style={{ animationDelay: `${index * 50}ms` }}
     >
       <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">{title}</h2>
-      <p className="max-w-2xl text-lg text-white/70">{description}</p>
+      <p className="text-lg text-white/70 whitespace-nowrap">{description}</p>
     </div>
   );
 }
@@ -149,26 +330,19 @@ export default function BrandPage() {
         <section className="relative py-24 md:py-32">
           <Container>
             <div className="text-center">
-              {/* Animated Logo */}
-              <div className="mb-8 flex justify-center">
-                <div className="animate-float">
-                  <KoeoLogo size={64} variant="white" />
-                </div>
-              </div>
-              
               {/* Badge */}
               <div className="mb-6 inline-flex animate-fade-in-up items-center gap-2 rounded-full border border-pink-light/30 bg-purple-deep/50 px-4 py-1.5 text-sm text-pink-light backdrop-blur-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                Official Brand Assets
+                Official brand assets
               </div>
 
               <h1 className="animate-fade-in-up mb-6 text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl" style={{ animationDelay: "100ms" }}>
-                Brand{" "}
+                Brand
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  Kit
+                  kit
                 </span>
               </h1>
               <p className="animate-fade-in-up mx-auto max-w-2xl text-xl text-white/70" style={{ animationDelay: "200ms" }}>
@@ -199,12 +373,28 @@ export default function BrandPage() {
           <Container>
             <SectionHeader 
               title="Icons" 
-              description="Icon-only mark. Use for favicons, app icons, and small spaces."
+              description="Icon-only mark. Use for favicons, app icons, profile pictures, and social media platforms."
               index={1}
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {ICONS.map((icon, i) => (
-                <AssetCard key={icon.name} {...icon} index={i} />
+              {ICON_VARIANTS.map((icon, i) => (
+                <IconCard key={icon.name} icon={icon} index={i} />
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* Banners Section */}
+        <section className="relative py-16">
+          <Container>
+            <SectionHeader 
+              title="Banners" 
+              description="Neural network-themed banners for social media, headers, and marketing materials."
+              index={2}
+            />
+            <div className="space-y-6">
+              {BANNER_SIZES.map((size, i) => (
+                <BannerSizeCard key={size.name} size={size} index={i} />
               ))}
             </div>
           </Container>
@@ -216,7 +406,7 @@ export default function BrandPage() {
             <SectionHeader 
               title="Color Palette" 
               description="Official Koeo colors. Click any swatch to copy the hex value."
-              index={2}
+              index={3}
             />
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
               {COLORS.map((color, i) => (
@@ -232,7 +422,7 @@ export default function BrandPage() {
             <SectionHeader 
               title="Primary Gradient" 
               description="The signature Koeo gradient used for CTAs and accent elements."
-              index={3}
+              index={4}
             />
             <div className="animate-fade-in-up overflow-hidden rounded-3xl border border-white/10 backdrop-blur-sm" style={{ animationDelay: "150ms" }}>
               <div className="relative h-40 overflow-hidden bg-gradient-to-r from-purple-primary to-magenta">
@@ -261,12 +451,12 @@ export default function BrandPage() {
 
 
         {/* Typography Section */}
-        <section className="relative py-16">
+        <section className="relative py-16 pb-24">
           <Container>
             <SectionHeader 
               title="Typography" 
               description="Font families and weights used across Koeo."
-              index={4}
+              index={5}
             />
             <div className="grid gap-6 md:grid-cols-2">
               <div className="animate-fade-in-up group overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10">
@@ -293,82 +483,7 @@ export default function BrandPage() {
           </Container>
         </section>
 
-        {/* Usage Guidelines */}
-        <section className="relative py-16 pb-24">
-          <Container>
-            <SectionHeader 
-              title="Usage Guidelines" 
-              description="Best practices for using Koeo brand assets."
-              index={5}
-            />
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="animate-fade-in-up group overflow-hidden rounded-3xl border border-green-500/30 bg-green-500/10 p-8 backdrop-blur-sm transition-all duration-300 hover:border-green-400/50 hover:bg-green-500/15">
-                <h3 className="mb-6 flex items-center gap-3 text-xl font-bold text-green-400">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20">
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  Do
-                </h3>
-                <ul className="space-y-3 text-green-100/80">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-400" />
-                    Use the gradient logo on light backgrounds
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-400" />
-                    Use the white logo on dark or colored backgrounds
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-400" />
-                    Maintain clear space around the logo
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-400" />
-                    Use official colors from the palette
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-400" />
-                    Keep the logo proportions intact
-                  </li>
-                </ul>
-              </div>
-              <div className="animate-fade-in-up group overflow-hidden rounded-3xl border border-red-500/30 bg-red-500/10 p-8 backdrop-blur-sm transition-all duration-300 hover:border-red-400/50 hover:bg-red-500/15" style={{ animationDelay: "100ms" }}>
-                <h3 className="mb-6 flex items-center gap-3 text-xl font-bold text-red-400">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/20">
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </span>
-                  Don&apos;t
-                </h3>
-                <ul className="space-y-3 text-red-100/80">
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-400" />
-                    Stretch or distort the logo
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-400" />
-                    Change the logo colors outside the palette
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-400" />
-                    Add effects like shadows or outlines
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-400" />
-                    Place the logo on busy backgrounds
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-400" />
-                    Rotate or flip the logo
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </Container>
-        </section>
+
       </main>
       <Footer />
     </div>
