@@ -9,37 +9,37 @@ import { NetworkBackground } from "@/components/ui/network-background";
 
 const DEVELOPER_FEATURES = [
   {
-    title: "OpenAI-Compatible API",
+    title: "OpenAI-compatible API",
     description:
-      "Use familiar endpoints and SDKs. Drop in KOEO as your inference backend with zero code changes to your application.",
+      "Once you're onboarded to the beta, you'll get OpenAI-style endpoints you can plug into existing clients and SDKs. In most cases you just update the base URL and auth, and keep the rest of your code the same.",
     link: { text: "View API Docs", href: "/docs/api" },
   },
   {
-    title: "Self-Serve Dashboard",
+    title: "Early-access dashboard",
     description:
-      "Monitor usage, manage models, and control costs from a single dashboard. No sales calls required to get started.",
-    link: { text: "Try the Dashboard", href: "/beta" },
+      "Beta users get access to an evolving dashboard to monitor usage, latency and error rates, and to manage keys and models. We're iterating quickly here, and your feedback directly shapes what we build next.",
+    link: { text: "Request Dashboard Access", href: "/beta" },
   },
 ];
 
 const STEPS = [
   {
     stepNumber: 1,
-    title: "Sign Up & Get Your API Key",
+    title: "Apply for access",
     description:
-      "Create an account and get your API key in seconds. No credit card required to start.",
+      "Tell us about your use case, current setup and constraints. We review applications to make sure the beta is a good fit for what you're building.",
   },
   {
     stepNumber: 2,
-    title: "Point Your Client at KOEO",
+    title: "Onboarding & API keys",
     description:
-      "Swap your base URL to KOEO's endpoint. Works with any OpenAI-compatible SDK or HTTP client.",
+      "If there's a fit, we'll onboard you, agree on initial limits and give you API keys, example requests and guidance for your first integration.",
   },
   {
     stepNumber: 3,
-    title: "Deploy & Scale",
+    title: "Integrate, then scale together",
     description:
-      "Run inference instantly across our federated GPU fabric. Pay only for what you use.",
+      "Start routing real traffic through KOEO. We'll monitor reliability and performance with you, adjust routing policies and grow capacity as your usage increases.",
   },
 ];
 
@@ -69,7 +69,7 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
                 <span className="bg-gradient-to-r from-purple-primary to-magenta bg-clip-text text-transparent">for Developers</span>
               </h2>
               <p className="mt-4 text-base text-text-primary/60">
-                Self-serve from day one
+                Developer-first experience, even in beta
               </p>
             </div>
 
@@ -145,7 +145,7 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
           <div className="relative rounded-3xl border border-white/10 bg-white p-8 shadow-2xl md:p-12">
             {/* Card Header */}
             <h3 className="mb-10 text-2xl font-bold text-text-primary md:text-3xl">
-              Get Started in <span className="bg-gradient-to-r from-purple-primary to-magenta bg-clip-text italic text-transparent">Minutes</span>
+              How the <span className="bg-gradient-to-r from-purple-primary to-magenta bg-clip-text italic text-transparent">private beta</span> works
             </h3>
 
             {/* Steps */}
@@ -172,13 +172,13 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4">
               <Button asChild size="lg">
-                <Link href="/beta">Start Building</Link>
+                <Link href="/beta">Apply for Private Beta</Link>
               </Button>
               <Link
-                href="/docs"
+                href="mailto:hello@koeo.ai"
                 className="inline-flex items-center gap-2 text-base font-medium text-text-primary transition-colors hover:text-purple-primary"
               >
-                Docs
+                Talk to the team
                 <svg
                   className="h-4 w-4"
                   fill="none"
