@@ -34,7 +34,7 @@ const FOOTER_GROUPS: FooterLinkGroup[] = [
     links: [
       { label: "Suggest an Idea", href: "https://github.com/koeo-ai/feedback", external: true },
       { label: "Report a Bug", href: "https://github.com/koeo-ai/feedback/issues", external: true },
-      { label: "Brand Kit", href: "/brand" },
+      { label: "Brandkit", href: "/brandkit" },
       { label: "Become a Provider", href: "/providers" },
     ],
   },
@@ -101,7 +101,7 @@ export function Footer({ className }: FooterProps) {
               <KoeoLogo size={32} showWordmark variant="white" />
             </Link>
             <p className="mt-4 text-sm text-text-light/80 max-w-xs">
-              A unified runtime for distributed GPU inference. Run your AI models without managing GPUs.
+              One runtime, any model, no infra headaches.
             </p>
           </div>
 

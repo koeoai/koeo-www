@@ -4,62 +4,127 @@ import * as React from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
-import { KoeoLogo } from "@/components/ui/KoeoLogo";
+import { NetworkBackground } from "@/components/ui/network-background";
+import { PartnerForm } from "@/components/sections/partner-form";
 
 const BENEFITS = [
   {
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: "Monetize idle GPUs",
-    description: "Turn unused compute into revenue. Get paid for capacity you're not using.",
+    number: "01",
+    title: "Monetize idle capacity",
+    description: "Transform underutilized GPU resources into a consistent revenue stream. We handle demand aggregation so you can focus on operations.",
   },
   {
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
+    number: "02",
     title: "Zero customer acquisition",
-    description: "We bring the workloads. You provide the compute. No sales or marketing needed.",
+    description: "We bring qualified AI workloads directly to your infrastructure. No sales team, no marketing spend, no customer support overhead.",
   },
   {
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    title: "Simple integration",
-    description: "Lightweight agent connects your hardware to our fabric. We handle the rest.",
+    number: "03",
+    title: "Seamless integration",
+    description: "Deploy our lightweight agent in minutes. We handle orchestration, billing, and compliance. Your existing operations remain unchanged.",
   },
 ];
 
 const PROVIDER_TYPES = [
   {
+    number: "01",
     title: "Data Centers",
-    description: "Large-scale GPU clusters looking for consistent utilization",
-    icon: "🏢",
+    description: "Enterprise-grade facilities with GPU clusters seeking consistent utilization and predictable revenue.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+      </svg>
+    ),
   },
   {
+    number: "02",
     title: "Cloud Providers",
-    description: "Regional providers wanting to expand their reach",
-    icon: "☁️",
+    description: "Regional and specialized cloud platforms looking to expand AI capabilities and reach new markets.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+      </svg>
+    ),
   },
   {
-    title: "Community Partners",
-    description: "Individuals or small teams with spare GPU capacity",
-    icon: "🤝",
+    number: "03",
+    title: "Infrastructure Partners",
+    description: "Organizations with dedicated GPU resources ready to participate in the distributed compute economy.",
+    icon: (
+      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+      </svg>
+    ),
   },
 ];
+
+const FAQ_ITEMS = [
+  {
+    question: "What types of GPUs do you accept?",
+    answer: "We accept a wide range of NVIDIA GPUs, from consumer-grade cards like RTX 3090/4090 to data center GPUs like A100 and H100. The key requirement is reliable connectivity and availability.",
+  },
+  {
+    question: "How does payment work?",
+    answer: "You earn revenue based on the compute time your GPUs provide. We handle all billing with end customers and pay you monthly based on actual usage.",
+  },
+  {
+    question: "What are the technical requirements?",
+    answer: "You'll need a stable internet connection, compatible NVIDIA GPUs with up-to-date drivers, and the ability to run our lightweight agent software. We'll help you get set up.",
+  },
+  {
+    question: "How much can I earn?",
+    answer: "Earnings depend on your GPU type, availability, and market demand. Data center GPUs typically earn more, but even consumer GPUs can generate meaningful revenue during peak demand.",
+  },
+  {
+    question: "Is my data secure?",
+    answer: "Yes. Workloads run in isolated containers, and we never store customer data on provider hardware beyond the active session. We take security seriously.",
+  },
+];
+
+interface FaqItemProps {
+  question: string;
+  answer: string;
+  index: number;
+}
+
+function FaqItem({ question, answer, index }: FaqItemProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <div
+      className="animate-fade-in-up rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-white/20"
+      style={{ animationDelay: `${index * 100}ms` }}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between p-6 text-left"
+        aria-expanded={isOpen}
+      >
+        <span className="text-lg font-semibold text-white">{question}</span>
+        <svg
+          className={`h-5 w-5 flex-shrink-0 text-pink-light transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 pb-6" : "max-h-0"}`}
+      >
+        <p className="px-6 text-white/60">{answer}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function ProvidersPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="relative flex-1 overflow-hidden">
-        {/* Gradient Background */}
+        {/* Gradient Background with Neural Network */}
         <div className="fixed inset-0 -z-10">
           <div 
             className="absolute inset-0"
@@ -67,20 +132,13 @@ export default function ProvidersPage() {
               background: "linear-gradient(180deg, #2D1B4E 0%, #4C1D95 30%, #5B21B6 60%, #7C3AED 100%)"
             }}
           />
-          <div className="absolute left-1/4 top-1/4 h-96 w-96 animate-pulse rounded-full bg-magenta/20 blur-3xl" />
-          <div className="absolute right-1/4 top-1/2 h-80 w-80 animate-pulse rounded-full bg-purple-primary/30 blur-3xl" style={{ animationDelay: "1s" }} />
+          <NetworkBackground variant="dark" density="normal" />
         </div>
 
         {/* Hero Section */}
         <section className="relative py-24 md:py-32">
           <Container>
             <div className="mx-auto max-w-3xl text-center">
-              <div className="mb-8 flex justify-center">
-                <div className="animate-float">
-                  <KoeoLogo size={48} variant="white" showWordmark={false} />
-                </div>
-              </div>
-              
               <div className="mb-6 inline-flex animate-fade-in-up items-center gap-2 rounded-full border border-pink-light/30 bg-purple-deep/50 px-4 py-1.5 text-sm text-pink-light backdrop-blur-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
@@ -101,21 +159,21 @@ export default function ProvidersPage() {
               </p>
 
               <div className="animate-fade-in-up flex flex-col items-center justify-center gap-4 sm:flex-row" style={{ animationDelay: "300ms" }}>
-                <a
-                  href="mailto:partners@koeo.ai?subject=GPU Provider Interest"
+                <button
+                  onClick={() => document.getElementById("provider-cta-form")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-primary to-magenta px-8 py-4 text-base font-semibold text-white shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40"
                 >
                   Get in touch
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
-                </a>
-                <a
-                  href="mailto:hello@koeo.ai"
+                </button>
+                <button
+                  onClick={() => document.getElementById("faq-section")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
                 >
-                  Ask a question
-                </a>
+                  FAQ
+                </button>
               </div>
             </div>
           </Container>
@@ -123,23 +181,28 @@ export default function ProvidersPage() {
 
 
         {/* Benefits Section */}
-        <section className="relative py-16">
+        <section className="relative py-20 md:py-28">
           <Container>
-            <h2 className="animate-fade-in-up mb-12 text-center text-3xl font-bold text-white md:text-4xl">
-              Why partner with Koeo?
-            </h2>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="animate-fade-in-up mb-16 text-center">
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">Partnership Benefits</p>
+              <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                Why partner with Koeo?
+              </h2>
+            </div>
+            <div className="grid gap-8 md:grid-cols-3">
               {BENEFITS.map((benefit, i) => (
                 <div
                   key={benefit.title}
-                  className="animate-fade-in-up group rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
+                  className="animate-fade-in-up group relative"
                   style={{ animationDelay: `${i * 100}ms` }}
                 >
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary to-magenta text-white shadow-lg transition-transform duration-300 group-hover:scale-110">
-                    {benefit.icon}
+                  {/* Gradient border effect on hover */}
+                  <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20">
+                    <span className="mb-6 block font-mono text-4xl font-light text-white/20">{benefit.number}</span>
+                    <h3 className="mb-4 text-xl font-semibold text-white">{benefit.title}</h3>
+                    <p className="text-base leading-relaxed text-white/60">{benefit.description}</p>
                   </div>
-                  <h3 className="mb-3 text-xl font-semibold text-white">{benefit.title}</h3>
-                  <p className="text-white/60">{benefit.description}</p>
                 </div>
               ))}
             </div>
@@ -147,54 +210,57 @@ export default function ProvidersPage() {
         </section>
 
         {/* Provider Types Section */}
-        <section className="relative py-16">
+        <section className="relative py-20 md:py-28">
           <Container>
-            <h2 className="animate-fade-in-up mb-4 text-center text-3xl font-bold text-white md:text-4xl">
-              Who we&apos;re looking for
-            </h2>
-            <p className="animate-fade-in-up mx-auto mb-12 max-w-2xl text-center text-lg text-white/60" style={{ animationDelay: "50ms" }}>
-              Whether you have a rack of GPUs or a single machine, we&apos;d love to hear from you.
-            </p>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="animate-fade-in-up mb-16 text-center">
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">Partner Profiles</p>
+              <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                Who we work with
+              </h2>
+              <p className="mx-auto max-w-2xl text-lg text-white/60">
+                From enterprise data centers to regional cloud providers, we partner with organizations committed to powering the next generation of AI.
+              </p>
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-3">
               {PROVIDER_TYPES.map((type, i) => (
                 <div
                   key={type.title}
-                  className="animate-fade-in-up group rounded-2xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
+                  className="animate-fade-in-up group relative bg-purple-deep/50 p-8 backdrop-blur-sm transition-all duration-300 hover:bg-white/5"
                   style={{ animationDelay: `${(i + 3) * 100}ms` }}
                 >
-                  <div className="mb-4 text-5xl transition-transform duration-300 group-hover:scale-110">
-                    {type.icon}
+                  <div className="mb-6 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 text-white/70 transition-colors group-hover:border-pink-light/30 group-hover:text-pink-light">
+                      {type.icon}
+                    </div>
+                    <span className="font-mono text-sm text-white/30">{type.number}</span>
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold text-white">{type.title}</h3>
-                  <p className="text-white/60">{type.description}</p>
+                  <h3 className="mb-3 text-xl font-semibold text-white">{type.title}</h3>
+                  <p className="text-base leading-relaxed text-white/60">{type.description}</p>
                 </div>
               ))}
             </div>
           </Container>
         </section>
 
-        {/* CTA Section */}
-        <section className="relative py-16 pb-24">
+        {/* FAQ Section */}
+        <section id="faq-section" className="relative py-16">
           <Container>
-            <div className="animate-fade-in-up mx-auto max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-sm md:p-12">
-              <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
-                Ready to join the network?
-              </h2>
-              <p className="mb-8 text-white/60">
-                We&apos;re building something new and looking for partners who want to shape the future of GPU infrastructure together.
-              </p>
-              <a
-                href="mailto:partners@koeo.ai?subject=GPU Provider Interest"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-primary to-magenta px-8 py-4 text-base font-semibold text-white shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40"
-              >
-                Contact us at partners@koeo.ai
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </a>
+            <h2 className="animate-fade-in-up mb-4 text-center text-3xl font-bold text-white md:text-4xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="animate-fade-in-up mx-auto mb-12 max-w-2xl text-center text-lg text-white/60" style={{ animationDelay: "50ms" }}>
+              Common questions about becoming a GPU provider
+            </p>
+            <div className="mx-auto max-w-3xl space-y-4">
+              {FAQ_ITEMS.map((item, i) => (
+                <FaqItem key={i} question={item.question} answer={item.answer} index={i} />
+              ))}
             </div>
           </Container>
         </section>
+
+        {/* CTA Form Section */}
+        <PartnerForm />
       </main>
       <Footer />
     </div>

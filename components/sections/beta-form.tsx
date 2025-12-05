@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { NetworkBackground } from "@/components/ui/network-background";
 
 export interface SurveyFormData {
   fullName: string;
@@ -28,7 +29,7 @@ export interface BetaFormProps {
   className?: string;
 }
 
-type FormState = "idle" | "submitting" | "success" | "error";
+type FormState = "idle" | "applying" | "success" | "error";
 
 const ROLE_OPTIONS = [
   { value: "Student", label: "Student" },
@@ -164,7 +165,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-    setFormState("submitting");
+    setFormState("applying");
     try {
       if (onSubmit) {
         await onSubmit(formData);
@@ -174,7 +175,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
-        if (!response.ok) throw new Error("Failed to submit");
+        if (!response.ok) throw new Error("Failed to apply");
       }
       setFormState("success");
       setFormData(INITIAL_FORM_DATA);
@@ -223,10 +224,8 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
 
   return (
     <section id="beta-form" className={cn("relative py-16 md:py-24 bg-gradient-to-b from-[#7C3AED] via-[#6D28D9] to-[#5B21B6]", className)}>
-      {/* Decorative elements */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-magenta/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-40 bottom-40 h-80 w-80 rounded-full bg-pink-light/10 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-full -translate-x-1/2 bg-gradient-to-b from-transparent to-transparent" />
+      {/* Neural Network Background */}
+      <NetworkBackground variant="dark" density="normal" />
 
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -276,8 +275,8 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             </div>
           )}
 
-          <Button type="submit" size="lg" disabled={formState === "submitting"} className="w-full bg-gradient-to-r from-purple-primary to-magenta text-lg font-semibold shadow-lg shadow-magenta/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-magenta/40">
-            {formState === "submitting" ? "Submitting..." : "Submit Survey"}
+          <Button type="submit" size="lg" disabled={formState === "applying"} className="w-full bg-gradient-to-r from-purple-primary to-magenta text-lg font-semibold shadow-lg shadow-magenta/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-magenta/40">
+            {formState === "applying" ? "Applying..." : "Apply"}
           </Button>
         </form>
       </div>

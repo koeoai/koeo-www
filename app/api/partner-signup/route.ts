@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAirtableClient, TABLES, mapBetaSignupFields } from "@/lib/airtable";
-import type { BetaSignupInput } from "@/lib/airtable";
+import { getAirtableClient, TABLES, mapPartnerSignupFields } from "@/lib/airtable";
+import type { PartnerSignupInput } from "@/lib/airtable";
 
 export async function POST(request: NextRequest) {
   try {
-    const data: BetaSignupInput = await request.json();
+    const data: PartnerSignupInput = await request.json();
     const client = getAirtableClient();
 
     if (!client.isConfigured()) {
@@ -15,12 +15,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const fields = mapBetaSignupFields(data);
-    const result = await client.createRecord(TABLES.BETA_SIGNUPS, fields);
+    const fields = mapPartnerSignupFields(data);
+    const result = await client.createRecord(TABLES.PARTNERS, fields);
 
     return NextResponse.json({ success: true, id: result.id });
   } catch (error) {
-    console.error("Beta signup error:", error);
+    console.error("Partner signup error:", error);
     return NextResponse.json(
       { error: "Failed to submit" },
       { status: 500 }
