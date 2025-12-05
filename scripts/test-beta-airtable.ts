@@ -1,6 +1,6 @@
 /**
- * E2E test for Partner Signup Airtable integration
- * Run with: npx tsx scripts/test-partner-airtable.ts
+ * E2E test for Beta Signup Airtable integration
+ * Run with: npx tsx scripts/test-beta-airtable.ts
  */
 
 import { readFileSync } from "fs";
@@ -27,13 +27,13 @@ function loadEnv() {
 loadEnv();
 
 async function main() {
-  const { getAirtableClient, TABLES, mapPartnerSignupFields } = await import("../lib/airtable");
+  const { getAirtableClient, TABLES, mapBetaSignupFields } = await import("../lib/airtable");
 
   const client = getAirtableClient();
   
   console.log("🔍 Checking configuration...");
   console.log(`  Airtable configured: ${client.isConfigured() ? "✅" : "❌"}`);
-  console.log(`  Table: ${TABLES.PARTNERS}`);
+  console.log(`  Table: ${TABLES.BETA_SIGNUPS}`);
 
   if (!client.isConfigured()) {
     console.error("\n❌ Missing Airtable configuration!");
@@ -41,29 +41,28 @@ async function main() {
   }
 
   const testData = {
-    partnerName: "Test Partner DC (E2E)",
-    website: "https://testpartner.example.com",
-    countryRegion: "Canada – Quebec",
-    cityLocation: "Montreal DC1",
-    contactName: "Jane Test",
-    contactRole: "CTO",
-    contactEmail: "jane.test@example.com",
-    contactPhone: "+1 514 555 1234",
-    partnershipType: "Colocation",
-    capacityMw: "2.5",
-    supportedPlatforms: ["GPU", "Bare Metal", "Cloud VMs"],
-    aiReadiness: "Already hosting AI GPU workloads",
-    infraDetails: "Automated E2E test - 5 MW hydro-powered facility",
-    onboardingTimeline: "0–3 months",
-    goals: "Automated E2E test - testing partner form submission",
-    preferredNextStep: "Book a quick intro call",
+    fullName: "Test User (E2E)",
+    email: "test-e2e@example.com",
+    organizationName: "Test Organization",
+    role: "ML Engineer / Data Scientist",
+    segment: "Startup / Scaleup",
+    aiUseCase: "Testing the Airtable integration - automated E2E test",
+    workloadTypes: ["Inference (LLM / RAG / vision)", "Prototyping / experimentation only"],
+    currentInfraSources: ["AWS", "Colab / free tiers"],
+    monthlySpend: "100–500",
+    workflow: "Local dev + call OpenAI API (E2E test)",
+    topPainPoints: ["Cost / unpredictable bills", "Environment setup (drivers, CUDA, dependencies)"],
+    painNotes: "Automated E2E test submission",
+    mostValuableFeatures: ["OpenAI-compatible API", "Friendly pricing for education / startups"],
+    pilotInterest: "Yes – ready for pilot",
+    anythingElse: "Automated E2E test - please delete this record",
   };
 
   console.log("\n📤 Sending test record...");
 
   try {
-    const fields = mapPartnerSignupFields(testData);
-    const result = await client.createRecord(TABLES.PARTNERS, fields);
+    const fields = mapBetaSignupFields(testData);
+    const result = await client.createRecord(TABLES.BETA_SIGNUPS, fields);
     
     console.log("\n✅ SUCCESS!");
     console.log(`  Record ID: ${result.id}`);
