@@ -5,6 +5,7 @@ import {
   isValidDescriptionLength,
   hasValidKeywords,
   validateMetadata,
+  generateMetadata,
   TITLE_MIN_LENGTH,
   TITLE_MAX_LENGTH,
   DESCRIPTION_MIN_LENGTH,
@@ -176,5 +177,219 @@ describe("Property 4: Metadata keywords non-empty", () => {
 
     const keywordErrors = result.errors.filter((e) => e.field === "keywords");
     expect(keywordErrors.length).toBe(1);
+  });
+});
+
+
+/**
+ * **Feature: seo-optimization, Property 5: Canonical URL presence**
+ * **Validates: Requirements 2.4**
+ *
+ * For any page metadata configuration, the canonical URL SHALL be present
+ * and match the expected URL pattern for that page.
+ */
+describe("Property 5: Canonical URL presence", () => {
+  it("should generate metadata with canonical URL for any valid path", () => {
+    // Generator for valid URL paths (lowercase letters, numbers, hyphens)
+    const validPathArb = fc.stringMatching(/^\/[a-z][a-z0-9-]{0,20}$/);
+
+    // Generator for valid title (50-60 chars)
+    const validTitleArb = fc.integer({ min: TITLE_MIN_LENGTH, max: TITLE_MAX_LENGTH })
+      .map((len) => "T".repeat(len));
+
+    // Generator for valid description (150-160 chars)
+    const validDescriptionArb = fc.integer({ min: DESCRIPTION_MIN_LENGTH, max: DESCRIPTION_MAX_LENGTH })
+      .map((len) => "D".repeat(len));
+
+    fc.assert(
+      fc.property(
+        validPathArb,
+        validTitleArb,
+        validDescriptionArb,
+        (path, title, description) => {
+          const metadata = generateMetadata({
+            title,
+            description,
+            path,
+          });
+
+          // Canonical URL should be present
+          expect(metadata.alternates).toBeDefined();
+          expect(metadata.alternates?.canonical).toBeDefined();
+
+          // Canonical URL should contain the path
+          const canonical = metadata.alternates?.canonical as string;
+          expect(canonical).toContain(path);
+
+          // Canonical URL should start with the site URL
+          expect(canonical).toMatch(/^https:\/\/koeo\.ai/);
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should generate canonical URL that matches the page path exactly", () => {
+    const testPaths = ["/about", "/product", "/providers", "/careers", "/beta"];
+
+    testPaths.forEach((path) => {
+      const metadata = generateMetadata({
+        title: "A".repeat(55),
+        description: "B".repeat(155),
+        path,
+      });
+
+      expect(metadata.alternates?.canonical).toBe(`https://koeo.ai${path}`);
+    });
+  });
+});
+
+/**
+ * **Feature: seo-optimization, Property 6: Open Graph completeness**
+ * **Validates: Requirements 3.1**
+ *
+ * For any page metadata configuration, the Open Graph object SHALL contain
+ * all required fields: title, description, url, type, and images.
+ */
+describe("Property 6: Open Graph completeness", () => {
+  it("should generate metadata with all required Open Graph fields", () => {
+    // Generator for valid URL paths (lowercase letters, numbers, hyphens)
+    const validPathArb = fc.stringMatching(/^\/[a-z][a-z0-9-]{0,20}$/);
+
+    // Generator for valid title (50-60 chars)
+    const validTitleArb = fc.integer({ min: TITLE_MIN_LENGTH, max: TITLE_MAX_LENGTH })
+      .map((len) => "T".repeat(len));
+
+    // Generator for valid description (150-160 chars)
+    const validDescriptionArb = fc.integer({ min: DESCRIPTION_MIN_LENGTH, max: DESCRIPTION_MAX_LENGTH })
+      .map((len) => "D".repeat(len));
+
+    fc.assert(
+      fc.property(
+        validPathArb,
+        validTitleArb,
+        validDescriptionArb,
+        (path, title, description) => {
+          const metadata = generateMetadata({
+            title,
+            description,
+            path,
+          });
+
+          // Open Graph object should be present
+          expect(metadata.openGraph).toBeDefined();
+
+          const og = metadata.openGraph;
+
+          // All required fields should be present
+          expect(og?.title).toBeDefined();
+          expect(og?.description).toBeDefined();
+          expect(og?.url).toBeDefined();
+          expect(og?.type).toBeDefined();
+          expect(og?.images).toBeDefined();
+
+          // Title and description should match input
+          expect(og?.title).toBe(title);
+          expect(og?.description).toBe(description);
+
+          // URL should contain the path
+          expect(og?.url).toContain(path);
+
+          // Type should be "website"
+          expect(og?.type).toBe("website");
+
+          // Images should be an array with at least one image
+          expect(Array.isArray(og?.images)).toBe(true);
+          expect((og?.images as unknown[]).length).toBeGreaterThan(0);
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should include OG image with correct dimensions", () => {
+    const metadata = generateMetadata({
+      title: "A".repeat(55),
+      description: "B".repeat(155),
+      path: "/test",
+    });
+
+    const images = metadata.openGraph?.images as Array<{
+      url: string;
+      width: number;
+      height: number;
+    }>;
+
+    expect(images[0].width).toBe(1200);
+    expect(images[0].height).toBe(630);
+  });
+});
+
+/**
+ * **Feature: seo-optimization, Property 7: Twitter Card completeness**
+ * **Validates: Requirements 3.2**
+ *
+ * For any page metadata configuration, the Twitter card object SHALL contain
+ * all required fields: card, title, description, and images.
+ */
+describe("Property 7: Twitter Card completeness", () => {
+  it("should generate metadata with all required Twitter Card fields", () => {
+    // Generator for valid URL paths (lowercase letters, numbers, hyphens)
+    const validPathArb = fc.stringMatching(/^\/[a-z][a-z0-9-]{0,20}$/);
+
+    // Generator for valid title (50-60 chars)
+    const validTitleArb = fc.integer({ min: TITLE_MIN_LENGTH, max: TITLE_MAX_LENGTH })
+      .map((len) => "T".repeat(len));
+
+    // Generator for valid description (150-160 chars)
+    const validDescriptionArb = fc.integer({ min: DESCRIPTION_MIN_LENGTH, max: DESCRIPTION_MAX_LENGTH })
+      .map((len) => "D".repeat(len));
+
+    fc.assert(
+      fc.property(
+        validPathArb,
+        validTitleArb,
+        validDescriptionArb,
+        (path, title, description) => {
+          const metadata = generateMetadata({
+            title,
+            description,
+            path,
+          });
+
+          // Twitter object should be present
+          expect(metadata.twitter).toBeDefined();
+
+          const twitter = metadata.twitter;
+
+          // All required fields should be present
+          expect(twitter?.card).toBeDefined();
+          expect(twitter?.title).toBeDefined();
+          expect(twitter?.description).toBeDefined();
+          expect(twitter?.images).toBeDefined();
+
+          // Card type should be "summary_large_image"
+          expect(twitter?.card).toBe("summary_large_image");
+
+          // Title and description should match input
+          expect(twitter?.title).toBe(title);
+          expect(twitter?.description).toBe(description);
+
+          // Images should be defined
+          expect(twitter?.images).toBeDefined();
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should include Twitter creator handle", () => {
+    const metadata = generateMetadata({
+      title: "A".repeat(55),
+      description: "B".repeat(155),
+      path: "/test",
+    });
+
+    expect(metadata.twitter?.creator).toBe("@koeo_ai");
   });
 });
