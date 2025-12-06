@@ -63,7 +63,7 @@ describe("Beta Page Assembly", () => {
 
     // Verify submit button
     expect(
-      screen.getByRole("button", { name: /submit survey/i })
+      screen.getByRole("button", { name: /apply/i })
     ).toBeInTheDocument();
   });
 

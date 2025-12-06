@@ -50,7 +50,7 @@ This specification defines the comprehensive SEO optimization strategy for the K
 3. WHEN any page is rendered THEN the Website SHALL include relevant keywords in the meta keywords tag specific to that page's content
 4. WHEN any page is rendered THEN the Website SHALL include a canonical URL meta tag pointing to the preferred URL for that page
 5. WHEN a page uses client-side rendering ("use client") THEN the Website SHALL provide metadata through a server component wrapper or generateMetadata function
-6. WHEN the homepage is rendered THEN the Website SHALL include metadata optimized for primary brand keywords: "GPU infrastructure", "AI inference", "inference runtime"
+6. WHEN the homepage is rendered THEN the Website SHALL include metadata optimized for primary brand keywords: "GPU infrastructure", "AI inference", "inference runtime", "inference provider", "inference-as-a-service", "neocloud"
 
 ### Requirement 3: Open Graph and Social Media Optimization
 
@@ -181,7 +181,7 @@ This specification defines the comprehensive SEO optimization strategy for the K
 
 #### Acceptance Criteria
 
-1. WHEN the website content is written THEN the Website SHALL include industry-specific terminology: "inference runtime", "GPU orchestration", "distributed compute", "model serving"
+1. WHEN the website content is written THEN the Website SHALL include industry-specific terminology: "inference runtime", "GPU orchestration", "distributed compute", "model serving", "inference provider", "inference-as-a-service", "neocloud"
 2. WHEN the about page is rendered THEN the Website SHALL include company location information if applicable
 3. WHEN competitor comparisons are relevant THEN the Website SHALL include content addressing "OpenAI alternative", "GPU cloud alternative" search intents
 4. WHEN technical documentation is available THEN the Website SHALL include TechArticle schema markup
