@@ -6,6 +6,11 @@ import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 import { Button } from "@/components/ui/button";
 import { RequestFlowAnimation } from "@/components/ui/request-flow-animation";
+import {
+  ServerRackAnimation,
+  FailoverAnimation,
+  CodeMigrationAnimation,
+} from "@/components/ui/why-koeo-animations";
 import Link from "next/link";
 
 // Code snippet animation
@@ -89,7 +94,7 @@ function ConsoleDashboardAnimation() {
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a2e]">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3">
-        <span className="text-sm font-medium text-white/70">KOEO Console</span>
+        <span className="text-sm font-medium text-white/70">Koeo Console</span>
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
           <span className="text-xs text-green-400">All systems operational</span>
@@ -184,7 +189,7 @@ const WHY_KOEO_ITEMS = [
   {
     number: "01",
     title: "Runtime, not raw hardware",
-    subtitle: "GPU clouds rent you machines. KOEO gives you inference as a service.",
+    subtitle: "GPU clouds rent you machines. Koeo gives you inference as a service.",
     points: [
       "No VM setup or driver management",
       "No custom routing or queueing to build",
@@ -206,7 +211,7 @@ const WHY_KOEO_ITEMS = [
   {
     number: "03",
     title: "Zero migration friction",
-    subtitle: "Already using OpenAI? Change two lines and you're on KOEO.",
+    subtitle: "Already using OpenAI? Change two lines and you're on Koeo.",
     points: [
       "Same client libraries you already use",
       "Same request and response shapes",
@@ -225,7 +230,7 @@ const HOW_IT_WORKS_STEPS = [
   {
     step: 2,
     title: "Swap your base URL",
-    description: "Point your existing OpenAI client to KOEO. Two lines of code.",
+    description: "Point your existing OpenAI client to Koeo. Two lines of code.",
   },
   {
     step: 3,
@@ -377,35 +382,86 @@ export default function ProductPage() {
                 Why teams use Koeo instead of raw GPUs
               </h2>
             </div>
-            <div className="space-y-6">
-              {WHY_KOEO_ITEMS.map((item, i) => (
-                <div
-                  key={item.title}
-                  className="animate-fade-in-up group"
-                  style={{ animationDelay: `${i * 100}ms` }}
-                >
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 hover:border-white/20">
-                    <div className="flex gap-6">
-                      <span className="font-mono text-5xl font-light text-white/20">{item.number}</span>
-                      <div className="flex-1">
-                        <h3 className="mb-2 text-2xl font-bold text-white">{item.title}</h3>
-                        <p className="mb-4 text-white/60">{item.subtitle}</p>
-                        <ul className="mb-4 space-y-2">
-                          {item.points.map((point, j) => (
-                            <li key={j} className="flex items-center gap-2 text-white/70">
-                              <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-pink-light" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                        <p className="inline-block rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/50 italic">
-                          {item.footer}
-                        </p>
+            
+            {/* Feature 1: Runtime - Content Left, Visual Right */}
+            <div className="animate-fade-in-up mb-16 grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">01</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Runtime, not raw hardware</h3>
+                <p className="mb-6 text-lg text-white/60">
+                  GPU clouds rent you machines. Koeo gives you inference as a service.
+                </p>
+                <ul className="space-y-3">
+                  {WHY_KOEO_ITEMS[0].points.map((point, j) => (
+                    <li key={j} className="flex items-center gap-3 text-white/70">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
+                        <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Server Rack Animation */}
+              <div className="relative flex items-center justify-center">
+                <ServerRackAnimation />
+              </div>
+            </div>
+
+            {/* Feature 2: Resilient - Visual Left, Content Right */}
+            <div className="animate-fade-in-up mb-16 grid items-center gap-12 lg:grid-cols-2" style={{ animationDelay: "100ms" }}>
+              {/* Failover Animation */}
+              <div className="relative flex items-center justify-center lg:order-1">
+                <FailoverAnimation />
+              </div>
+              <div className="lg:order-2">
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">02</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Resilient by default</h3>
+                <p className="mb-6 text-lg text-white/60">
+                  The runtime monitors GPU health and routes around problems automatically.
+                </p>
+                <ul className="space-y-3">
+                  {WHY_KOEO_ITEMS[1].points.map((point, j) => (
+                    <li key={j} className="flex items-center gap-3 text-white/70">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
+                        <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Feature 3: Migration - Content Left, Visual Right */}
+            <div className="animate-fade-in-up grid items-center gap-12 lg:grid-cols-2" style={{ animationDelay: "200ms" }}>
+              <div>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">03</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Zero migration friction</h3>
+                <p className="mb-6 text-lg text-white/60">
+                  Already using OpenAI? Change two lines and you&apos;re on Koeo.
+                </p>
+                <ul className="space-y-3">
+                  {WHY_KOEO_ITEMS[2].points.map((point, j) => (
+                    <li key={j} className="flex items-center gap-3 text-white/70">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
+                        <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Code Diff Animation */}
+              <div className="relative flex items-center justify-center">
+                <CodeMigrationAnimation />
+              </div>
             </div>
           </Container>
         </section>
