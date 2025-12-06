@@ -5,20 +5,29 @@
 
 /**
  * Base type for all Schema.org structured data
- * Uses index signature to allow any schema properties
+ * Requires @context and @type fields, allows any additional properties
  */
-export type SchemaData = {
+export interface SchemaData {
   "@context": string;
   "@type": string;
   [key: string]: unknown;
+}
+
+/**
+ * Type constraint for JSON-LD data - must have @context and @type
+ */
+type JsonLdData = {
+  "@context": string;
+  "@type": string;
 };
 
 export interface JsonLdProps {
   /**
    * Structured data object(s) to render as JSON-LD
    * Can be a single schema object or an array of schema objects
+   * Accepts any object with @context and @type fields
    */
-  data: SchemaData | SchemaData[];
+  data: JsonLdData | JsonLdData[];
 }
 
 /**
