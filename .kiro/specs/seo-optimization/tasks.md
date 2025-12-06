@@ -109,8 +109,15 @@
     - **Property 8: JSON-LD schema validity**
     - **Validates: Requirements 4.7**
 
-- [ ] 5. Create OG image asset
-  - [ ] 5.1 Add default OG image to public directory
+- [x] 5. Create OG image asset
+
+
+
+
+
+  - [x] 5.1 Add default OG image to public directory
+
+
     - Copy or create `public/og-image.png` at 1200x630 pixels
     - Use existing brand banner or create new branded image
     - _Requirements: 3.3, 3.4, 3.5_
