@@ -79,20 +79,33 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Update root layout with enhanced metadata
-  - [ ] 4.1 Add metadataBase configuration
+- [x] 4. Update root layout with enhanced metadata
+
+
+
+
+
+  - [x] 4.1 Add metadataBase configuration
+
+
     - Update `app/layout.tsx` to include metadataBase pointing to https://koeo.ai
     - Add alternates.canonical configuration
     - _Requirements: 5.1, 2.4_
-  - [ ] 4.2 Expand keywords in root metadata
+
+
+  - [x] 4.2 Expand keywords in root metadata
     - Add comprehensive keyword list from seoConfig
+
+
     - Include industry-specific terms: inference runtime, GPU orchestration, distributed compute
     - _Requirements: 2.3, 13.1_
-  - [ ] 4.3 Add Organization structured data to root layout
+
+  - [x] 4.3 Add Organization structured data to root layout
     - Inject Organization schema with name, url, logo, description, sameAs
     - Inject WebSite schema with name, url, potentialAction
     - _Requirements: 4.1, 4.2_
-  - [ ] 4.4 Write property test for JSON-LD validity
+  - [x] 4.4 Write property test for JSON-LD validity
+
     - **Property 8: JSON-LD schema validity**
     - **Validates: Requirements 4.7**
 

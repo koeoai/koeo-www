@@ -3,12 +3,22 @@
  * Renders Schema.org structured data as JSON-LD script tags
  */
 
+/**
+ * Base type for all Schema.org structured data
+ * Uses index signature to allow any schema properties
+ */
+export type SchemaData = {
+  "@context": string;
+  "@type": string;
+  [key: string]: unknown;
+};
+
 export interface JsonLdProps {
   /**
    * Structured data object(s) to render as JSON-LD
    * Can be a single schema object or an array of schema objects
    */
-  data: Record<string, unknown> | Record<string, unknown>[];
+  data: SchemaData | SchemaData[];
 }
 
 /**

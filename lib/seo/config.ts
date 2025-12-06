@@ -29,6 +29,7 @@ export const seoConfig: SeoConfig = {
     "inference fabric",
     "GPU orchestration",
     "distributed GPU",
+    "distributed compute",
     "AI API",
     "model serving",
     "GPU cloud",
