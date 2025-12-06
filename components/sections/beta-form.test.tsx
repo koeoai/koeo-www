@@ -43,7 +43,7 @@ describe("BetaForm (Survey)", () => {
       render(<BetaForm />);
 
       expect(
-        screen.getByRole("button", { name: /submit survey/i })
+        screen.getByRole("button", { name: /apply/i })
       ).toBeInTheDocument();
     });
   });
@@ -91,28 +91,31 @@ describe("BetaForm (Survey)", () => {
 
 
   describe("success message on submit", () => {
+    // Helper to select an option from a dropdown (Select or MultiSelect)
+    const selectDropdownOption = async (triggerId: string, optionText: RegExp) => {
+      const trigger = document.getElementById(triggerId);
+      expect(trigger).toBeTruthy();
+      fireEvent.click(trigger!);
+      
+      await waitFor(() => {
+        const option = screen.getByRole("option", { name: optionText });
+        fireEvent.click(option);
+      });
+    };
+
     it("should show success message after successful submission", async () => {
       const mockOnSubmit = vi.fn().mockResolvedValue(undefined);
       render(<BetaForm onSubmit={mockOnSubmit} />);
 
-      // Fill in all required fields
+      // Fill in text fields
       fireEvent.change(screen.getByLabelText(/full name/i), {
         target: { value: "John Doe" },
       });
       fireEvent.change(screen.getByLabelText("Email", { exact: false }), {
         target: { value: "john@example.com" },
       });
-      fireEvent.change(screen.getByLabelText(/role \/ persona/i), {
-        target: { value: "ML Engineer / Data Scientist" },
-      });
-      fireEvent.change(screen.getByLabelText("Segment", { exact: false }), {
-        target: { value: "Startup / Scaleup" },
-      });
       fireEvent.change(screen.getByLabelText(/what are you using.*ai for/i), {
         target: { value: "Building AI features for our product" },
-      });
-      fireEvent.change(screen.getByLabelText(/rough monthly ai\/gpu spend/i), {
-        target: { value: "500–2k" },
       });
       fireEvent.change(screen.getByLabelText(/how do you work today/i), {
         target: { value: "Local dev + call OpenAI API" },
@@ -121,18 +124,16 @@ describe("BetaForm (Survey)", () => {
         target: { value: "Cost is unpredictable" },
       });
 
-      // Select multi-select options by clicking checkboxes
-      const workloadCheckbox = screen.getByLabelText(/fine-tuning/i);
-      fireEvent.click(workloadCheckbox);
+      // Select single-select options
+      await selectDropdownOption("role", /ML Engineer/i);
+      await selectDropdownOption("segment", /Startup/i);
+      await selectDropdownOption("monthlySpend", /500–2k/i);
 
-      const infraCheckbox = screen.getByLabelText(/^aws$/i);
-      fireEvent.click(infraCheckbox);
-
-      const painCheckbox = screen.getByLabelText(/cost \/ unpredictable bills/i);
-      fireEvent.click(painCheckbox);
-
-      const featureCheckbox = screen.getByLabelText(/openai-compatible api/i);
-      fireEvent.click(featureCheckbox);
+      // Select multi-select options
+      await selectDropdownOption("workloadTypes", /Fine-tuning/i);
+      await selectDropdownOption("currentInfraSources", /AWS/i);
+      await selectDropdownOption("topPainPoints", /Cost/i);
+      await selectDropdownOption("mostValuableFeatures", /OpenAI-compatible/i);
 
       const form = document.querySelector("form");
 
@@ -159,24 +160,15 @@ describe("BetaForm (Survey)", () => {
         );
       render(<BetaForm onSubmit={mockOnSubmit} />);
 
-      // Fill in required fields
+      // Fill in text fields
       fireEvent.change(screen.getByLabelText(/full name/i), {
         target: { value: "John Doe" },
       });
       fireEvent.change(screen.getByLabelText("Email", { exact: false }), {
         target: { value: "john@example.com" },
       });
-      fireEvent.change(screen.getByLabelText(/role \/ persona/i), {
-        target: { value: "ML Engineer / Data Scientist" },
-      });
-      fireEvent.change(screen.getByLabelText("Segment", { exact: false }), {
-        target: { value: "Startup / Scaleup" },
-      });
       fireEvent.change(screen.getByLabelText(/what are you using.*ai for/i), {
         target: { value: "Building AI features" },
-      });
-      fireEvent.change(screen.getByLabelText(/rough monthly ai\/gpu spend/i), {
-        target: { value: "500–2k" },
       });
       fireEvent.change(screen.getByLabelText(/how do you work today/i), {
         target: { value: "Local dev" },
@@ -185,11 +177,23 @@ describe("BetaForm (Survey)", () => {
         target: { value: "Cost issues" },
       });
 
-      // Select multi-select options
-      fireEvent.click(screen.getByLabelText(/fine-tuning/i));
-      fireEvent.click(screen.getByLabelText(/^aws$/i));
-      fireEvent.click(screen.getByLabelText(/cost \/ unpredictable bills/i));
-      fireEvent.click(screen.getByLabelText(/openai-compatible api/i));
+      // Select single-select options
+      const selectOption = async (triggerId: string, optionText: RegExp) => {
+        const trigger = document.getElementById(triggerId);
+        fireEvent.click(trigger!);
+        await waitFor(() => {
+          const option = screen.getByRole("option", { name: optionText });
+          fireEvent.click(option);
+        });
+      };
+
+      await selectOption("role", /ML Engineer/i);
+      await selectOption("segment", /Startup/i);
+      await selectOption("monthlySpend", /500–2k/i);
+      await selectOption("workloadTypes", /Fine-tuning/i);
+      await selectOption("currentInfraSources", /AWS/i);
+      await selectOption("topPainPoints", /Cost/i);
+      await selectOption("mostValuableFeatures", /OpenAI-compatible/i);
 
       const form = document.querySelector("form");
 
@@ -199,10 +203,10 @@ describe("BetaForm (Survey)", () => {
 
       await waitFor(() => {
         expect(
-          screen.getByRole("button", { name: /submitting/i })
+          screen.getByRole("button", { name: /applying/i })
         ).toBeInTheDocument();
         expect(
-          screen.getByRole("button", { name: /submitting/i })
+          screen.getByRole("button", { name: /applying/i })
         ).toBeDisabled();
       });
 

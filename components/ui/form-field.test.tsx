@@ -72,7 +72,7 @@ describe('Property 4: Form fields have accessible label associations', () => {
   });
 
 
-  it('should have label htmlFor matching select id', () => {
+  it('should have label htmlFor matching select trigger button id', () => {
     fc.assert(
       fc.property(
         fc.tuple(
@@ -92,12 +92,13 @@ describe('Property 4: Form fields have accessible label associations', () => {
           );
           
           const labelElement = container.querySelector('label');
-          const selectElement = container.querySelector('select');
+          // The Select component uses a button as the trigger, not a native select
+          const selectTrigger = container.querySelector('button[aria-haspopup="listbox"]');
           
           expect(labelElement).toBeTruthy();
-          expect(selectElement).toBeTruthy();
+          expect(selectTrigger).toBeTruthy();
           expect(labelElement?.getAttribute('for')).toBe(id);
-          expect(selectElement?.getAttribute('id')).toBe(id);
+          expect(selectTrigger?.getAttribute('id')).toBe(id);
         }
       ),
       { numRuns: 100 }
