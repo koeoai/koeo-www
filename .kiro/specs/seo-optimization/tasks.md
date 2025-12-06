@@ -229,16 +229,28 @@
     - Consider Content-Security-Policy header
     - _Requirements: 11.2_
 
-- [ ] 10. Audit and fix external links
-  - [ ] 10.1 Update footer external links
+- [x] 10. Audit and fix external links
+
+
+
+
+
+
+  - [x] 10.1 Update footer external links
+
     - Ensure all external links have rel="noopener noreferrer"
     - Review and update social links
     - _Requirements: 5.5_
-  - [ ] 10.2 Update header and page external links
+
+
+  - [x] 10.2 Update header and page external links
+
     - Audit all external links across components
     - Add proper rel attributes where missing
+
     - _Requirements: 5.5_
-  - [ ] 10.3 Write property test for external link attributes
+  - [x] 10.3 Write property test for external link attributes
+
     - **Property 9: External link security attributes**
     - **Validates: Requirements 5.5**
 
