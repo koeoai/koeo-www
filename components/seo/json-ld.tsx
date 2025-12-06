@@ -94,3 +94,28 @@ export interface BreadcrumbListSchema {
     item: string;
   }[];
 }
+
+export interface JobPostingSchema {
+  "@context": "https://schema.org";
+  "@type": "JobPosting";
+  title: string;
+  description: string;
+  datePosted: string;
+  hiringOrganization: {
+    "@type": "Organization";
+    name: string;
+    sameAs?: string;
+    logo?: string;
+  };
+  jobLocation?: {
+    "@type": "Place";
+    address: {
+      "@type": "PostalAddress";
+      addressLocality?: string;
+      addressRegion?: string;
+      addressCountry?: string;
+    };
+  };
+  employmentType?: string | string[];
+  validThrough?: string;
+}

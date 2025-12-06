@@ -28,26 +28,44 @@
     - **Validates: Requirements 2.1, 2.2, 2.3**
 
 
-  - [ ] 1.4 Create JSON-LD component
+  - [x] 1.4 Create JSON-LD component
+
+
+
+
+
     - Create `components/seo/json-ld.tsx` for structured data injection
     - Implement type-safe props interface
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6_
 
-- [ ] 2. Implement sitemap and robots.txt
-  - [ ] 2.1 Create sitemap generator
+- [x] 2. Implement sitemap and robots.txt
+
+
+
+
+
+
+  - [x] 2.1 Create sitemap generator
+
     - Create `app/sitemap.ts` using Next.js MetadataRoute.Sitemap
     - Include all public pages with lastModified, changeFrequency, priority
     - Use production domain (https://koeo.ai) for all URLs
     - _Requirements: 1.1, 1.3, 1.5_
-  - [ ] 2.2 Create robots.txt generator
+
+  - [x] 2.2 Create robots.txt generator
+
     - Create `app/robots.ts` using Next.js MetadataRoute.Robots
     - Allow crawling of public pages, disallow /api/ routes
     - Include sitemap reference
     - _Requirements: 1.2, 1.4_
-  - [ ] 2.3 Write property tests for sitemap
+  - [x] 2.3 Write property tests for sitemap
+
+
     - **Property 1: Sitemap URL format consistency**
     - **Validates: Requirements 1.3, 8.1**
-  - [ ] 2.4 Write unit tests for sitemap and robots
+
+  - [x] 2.4 Write unit tests for sitemap and robots
+
     - Test sitemap includes all expected pages
     - Test robots.txt has correct Allow/Disallow directives
     - Test sitemap reference is present in robots.txt
