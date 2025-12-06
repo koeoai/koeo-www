@@ -54,15 +54,18 @@ interface SeoConfig {
 export const seoConfig: SeoConfig = {
   siteName: "Koeo",
   siteUrl: "https://koeo.ai",
-  defaultTitle: "Koeo - Unify Your GPU Infrastructure",
+  defaultTitle: "Koeo | One runtime, any model, no infra headaches",
   titleTemplate: "%s | Koeo",
-  defaultDescription: "The runtime layer that brings fragmented GPUs together into one reliable inference fabric.",
+  defaultDescription: "Run your AI models without managing GPUs. We take care of the GPU mess so you can focus on building.",
   defaultKeywords: [
     "GPU infrastructure", "AI inference", "machine learning",
     "inference fabric", "GPU orchestration", "distributed GPU",
     "AI API", "model serving", "GPU cloud", "inference runtime",
     "AI deployment", "LLM hosting", "OpenAI alternative",
-    "GPU marketplace", "serverless inference"
+    "GPU marketplace", "serverless inference", "inference provider",
+    "GPU provider", "AI infrastructure", "model deployment",
+    "GPU as a service", "inference API", "ML inference",
+    "inference-as-a-service", "neocloud"
   ],
   defaultOgImage: "/og-image.png",
   twitterHandle: "@koeo_ai",
@@ -70,7 +73,8 @@ export const seoConfig: SeoConfig = {
     "https://twitter.com/koeo_ai",
     "https://linkedin.com/company/koeoai",
     "https://discord.gg/koeo",
-    "https://github.com/koeo-ai"
+    "https://github.com/koeoai",
+    "https://www.reddit.com/r/koeo/"
   ]
 };
 ```
@@ -186,23 +190,68 @@ interface PageSeoConfig {
 const PAGE_SEO_CONFIG: Record<string, PageSeoConfig> = {
   "/": {
     path: "/",
-    title: "Koeo - Unify Your GPU Infrastructure",
-    description: "The runtime layer that brings fragmented GPUs together into one reliable inference fabric. Build faster, scale smarter with Koeo.",
-    keywords: ["GPU infrastructure", "AI inference", "inference runtime"],
+    title: "Koeo | One runtime, any model, no infra headaches",
+    description: "Run your AI models without managing GPUs. We take care of the GPU mess so you can focus on building.",
+    keywords: ["GPU infrastructure", "AI inference", "inference runtime", "inference provider"],
     priority: 1.0,
     changeFrequency: "weekly",
     schemas: ["Organization", "WebSite"]
   },
   "/product": {
     path: "/product",
-    title: "Koeo Inference Runtime - Managed GPU API",
+    title: "Koeo Inference Runtime | Managed GPU API for AI Teams",
     description: "A managed inference runtime that turns your models into reliable APIs. OpenAI-compatible, zero migration friction.",
-    keywords: ["inference runtime", "GPU API", "model serving", "OpenAI compatible"],
+    keywords: ["inference runtime", "GPU API", "model serving", "OpenAI compatible", "inference provider"],
     priority: 0.9,
     changeFrequency: "weekly",
     schemas: ["SoftwareApplication"]
   },
-  // ... additional pages
+  "/providers": {
+    path: "/providers",
+    title: "Become a GPU Provider | Monetize Your GPU Infrastructure",
+    description: "Join Koeo's federated GPU network. Contribute compute capacity and earn revenue while helping developers build AI products.",
+    keywords: ["GPU provider", "inference provider", "GPU monetization", "compute provider"],
+    priority: 0.8,
+    changeFrequency: "monthly",
+    schemas: ["FAQPage", "Organization"]
+  },
+  "/about": {
+    path: "/about",
+    title: "About Koeo | Our Mission to Simplify AI Infrastructure",
+    description: "We make it effortless to run real AI in the real world. Learn about our mission, vision, and principles.",
+    keywords: ["AI infrastructure company", "GPU orchestration", "Koeo team"],
+    priority: 0.7,
+    changeFrequency: "monthly",
+    schemas: ["Organization"]
+  },
+  "/beta": {
+    path: "/beta",
+    title: "Join the Koeo Beta | Early Access to GPU Inference Runtime",
+    description: "Get early access to Koeo's unified runtime for distributed GPU inference. We're onboarding teams gradually.",
+    keywords: ["Koeo beta", "GPU inference beta", "early access"],
+    priority: 0.8,
+    changeFrequency: "monthly",
+    schemas: ["Organization"]
+  },
+  "/careers": {
+    path: "/careers",
+    title: "Careers at Koeo | Build the Future of AI Infrastructure",
+    description: "Join our team building the next generation of AI infrastructure. We're looking for talented people who share our mission.",
+    keywords: ["Koeo careers", "AI infrastructure jobs", "GPU startup jobs"],
+    priority: 0.5,
+    changeFrequency: "monthly",
+    schemas: ["Organization"]
+  },
+  "/brandkit": {
+    path: "/brandkit",
+    title: "Koeo Brand Kit | Logo, Colors & Assets",
+    description: "Official Koeo brand assets including logos, colors, and typography guidelines.",
+    keywords: ["Koeo brand", "Koeo logo"],
+    priority: 0.3,
+    changeFrequency: "monthly",
+    schemas: [],
+    noIndex: true // Internal resource
+  }
 };
 ```
 
@@ -423,3 +472,49 @@ export function JsonLd({ data }: { data: Record<string, unknown> }) {
 2. **Metadata Caching**: Page metadata is cached by Next.js
 3. **Image Optimization**: OG images should be pre-generated, not dynamic
 4. **Bundle Size**: SEO utilities should be tree-shakeable
+
+## Additional Recommendations
+
+### 1. Content Freshness Signals
+- Add a blog or changelog section to signal fresh content to search engines
+- Consider adding a `/docs` section for technical documentation (improves long-tail keyword coverage)
+- Update `lastModified` dates in sitemap when content changes
+
+### 2. Link Building Opportunities
+- Add links to GitHub repos in footer and relevant pages
+- Include "Powered by Koeo" badges for customers to use (backlink strategy)
+- Create shareable content (infographics, benchmarks) that others will link to
+
+### 3. Local SEO (if applicable)
+- Add LocalBusiness schema if you have a physical office
+- Create a Google Business Profile
+- Include address in footer if applicable
+
+### 4. Voice Search Optimization
+- Use conversational, question-based headings in FAQ sections
+- Target "how to" and "what is" queries in content
+- Keep answers concise (40-50 words) for featured snippet eligibility
+
+### 5. International SEO (future consideration)
+- Add hreflang tags if expanding to other languages
+- Consider country-specific domains or subdirectories
+
+### 6. Search Console Enhancements
+- Submit sitemap immediately after deployment
+- Monitor Core Web Vitals in Search Console
+- Set up alerts for crawl errors and security issues
+- Request indexing for new/updated pages
+
+### 7. Rich Snippet Opportunities
+- Add HowTo schema for integration guides
+- Add Review/Rating schema when customer testimonials are available
+- Add VideoObject schema if video content is added
+
+### 8. Competitor Keyword Targeting
+- Target comparison keywords: "Koeo vs [competitor]", "[competitor] alternative"
+- Create landing pages for specific use cases (e.g., "/use-cases/llm-hosting")
+
+### 9. Technical Debt Prevention
+- Add SEO linting to CI/CD pipeline (check for missing alt text, meta tags)
+- Create a pre-commit hook to validate metadata length constraints
+- Monitor 404 errors and set up redirects for changed URLs
