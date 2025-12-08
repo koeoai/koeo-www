@@ -432,18 +432,33 @@
   - [x] 20.5 Update all pages to use centralized content
     - _Requirements: 17.3_
 
-- [ ] 21. Add E2E tests for critical journeys
-  - [ ] 21.1 Set up E2E testing framework (Playwright or Cypress)
+- [x] 21. Add E2E tests for critical journeys
+
+
+
+
+
+
+  - [x] 21.1 Set up E2E testing framework (Playwright or Cypress)
+
     - Add dependencies and configuration
     - _Requirements: 18.4_
-  - [ ] 21.2 Create E2E test for page navigation
+
+  - [x] 21.2 Create E2E test for page navigation
+
     - Test navigation between main pages
     - _Requirements: 18.1_
-  - [ ] 21.3 Create E2E test for beta signup flow
+
+  - [x] 21.3 Create E2E test for beta signup flow
+
     - Test complete form submission
     - _Requirements: 18.2_
-  - [ ] 21.4 Create E2E test for mobile menu
+
+
+  - [x] 21.4 Create E2E test for mobile menu
+
     - Test menu open/close and navigation
+
     - _Requirements: 18.3_
   - [ ] 21.5 Add E2E tests to CI pipeline
     - Update .github/workflows/ci.yml
