@@ -5,10 +5,11 @@ The official marketing website for Koeo, an AI infrastructure platform that simp
 ## Features
 
 - Modern, responsive marketing pages
+- Internationalization (i18n) with English and French support
 - Beta signup form with Airtable integration
 - Partner signup form
 - Career application portal with resume upload
-- SEO optimization with structured data
+- SEO optimization with structured data and hreflang tags
 - Accessible UI components
 
 ## Prerequisites
@@ -88,14 +89,17 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │   │   ├── beta-signup/    # Beta signup form handler
 │   │   ├── career-application/ # Career form handler
 │   │   └── partner-signup/ # Partner form handler
-│   ├── about/              # About page
-│   ├── beta/               # Beta signup page
-│   ├── brandkit/           # Brand assets page
-│   ├── careers/            # Careers page
-│   ├── product/            # Product page
-│   ├── providers/          # Providers page
+│   ├── [locale]/           # Locale-based routing
+│   │   ├── about/          # About page
+│   │   ├── beta/           # Beta signup page
+│   │   ├── brandkit/       # Brand assets page
+│   │   ├── careers/        # Careers page
+│   │   ├── product/        # Product page
+│   │   ├── providers/      # Providers page
+│   │   ├── layout.tsx      # Locale layout with LocaleProvider
+│   │   └── page.tsx        # Homepage
 │   ├── layout.tsx          # Root layout
-│   └── page.tsx            # Homepage
+│   └── middleware.ts       # Locale detection middleware
 │
 ├── components/             # React components
 │   ├── layout/             # Layout components (Header, Footer, PageShell)
@@ -103,11 +107,19 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │   ├── seo/                # SEO components (JSON-LD)
 │   └── ui/                 # Reusable UI primitives
 │
-├── content/                # Centralized marketing copy
-│   ├── homepage.ts         # Homepage content
-│   ├── beta.ts             # Beta page content
-│   ├── about.ts            # About page content
-│   └── ...                 # Other page content
+├── content/                # Centralized marketing copy (locale-based)
+│   ├── en/                 # English content (default)
+│   │   ├── homepage.ts
+│   │   ├── beta.ts
+│   │   ├── forms.ts
+│   │   └── ...
+│   ├── fr/                 # French content
+│   │   ├── homepage.ts
+│   │   ├── beta.ts
+│   │   ├── forms.ts
+│   │   └── ...
+│   ├── types.ts            # Shared TypeScript interfaces
+│   └── index.ts            # Content retrieval API with fallback
 │
 ├── features/               # Domain-specific feature modules
 │   ├── beta-signup/        # Beta signup form and logic
@@ -116,6 +128,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │
 ├── lib/                    # Utility libraries
 │   ├── airtable/           # Airtable client and table mappings
+│   ├── i18n/               # Internationalization utilities
+│   │   ├── config.ts       # Locale configuration
+│   │   ├── locale-context.tsx # LocaleProvider and useLocale hook
+│   │   ├── use-content.ts  # useContent hook for localized content
+│   │   └── utils.ts        # URL utilities for locale handling
 │   ├── seo/                # SEO utilities and metadata
 │   ├── utils.ts            # General utilities (cn helper)
 │   └── validation.ts       # Form validation utilities

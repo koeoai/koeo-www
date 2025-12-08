@@ -63,24 +63,28 @@ export { ROLE_OPTIONS, SEGMENT_OPTIONS } from "./constants";
 
 ## Adding New Pages
 
-### Page Template
+### Page Template (Locale-Aware)
 
 ```typescript
-// app/<page-name>/page.tsx
+// app/[locale]/<page-name>/page.tsx
 import type { Metadata } from "next";
 import { PageShell } from "@/components/layout/page-shell";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+import { Locale } from "@/lib/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Page Title | KOEO",
-  description: "SEO description",
-  openGraph: {
-    title: "Page Title | KOEO",
+interface PageProps {
+  params: Promise<{ locale: Locale }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  return generatePageMetadata({
+    title: "Page Title",
     description: "SEO description",
-    url: "https://koeo.ai/<page-name>",
-    siteName: "Koeo",
-    type: "website",
-  },
-};
+    path: "/<page-name>",
+    locale,
+  });
+}
 
 export default function PageName() {
   return (
@@ -94,9 +98,10 @@ export default function PageName() {
 ### Page Rules
 
 1. Always use `PageShell` for consistent layout
-2. Define metadata for SEO
+2. Use `generatePageMetadata` for locale-aware SEO
 3. Keep pages thin - delegate to section components
-4. Add page content to `content/<page-name>.ts`
+4. Add page content to both `content/en/<page-name>.ts` and `content/fr/<page-name>.ts`
+5. Use `LocaleLink` for internal navigation links
 
 ## Adding New Sections
 
@@ -141,27 +146,66 @@ components/sections/<section-name>/
 
 ## Content Management
 
+### Locale-Based Content Structure
+
+Content is organized by locale in `content/en/` and `content/fr/`:
+
+```
+content/
+├── types.ts          # Shared TypeScript interfaces
+├── index.ts          # getContent() API with fallback
+├── en/               # English content (default)
+│   ├── homepage.ts
+│   ├── beta.ts
+│   ├── forms.ts
+│   └── index.ts      # Barrel export
+└── fr/               # French content
+    ├── homepage.ts
+    ├── beta.ts
+    ├── forms.ts
+    └── index.ts      # Barrel export
+```
+
 ### Adding Page Content
 
-1. Create `content/<page-name>.ts`
-2. Define TypeScript interfaces in `content/types.ts`
-3. Export from `content/index.ts`
+1. Create `content/en/<page-name>.ts` with English content
+2. Create `content/fr/<page-name>.ts` with French translations
+3. Define TypeScript interfaces in `content/types.ts`
+4. Export from both `content/en/index.ts` and `content/fr/index.ts`
 
 ```typescript
-// content/<page-name>.ts
-import type { HeroContent } from "./types";
+// content/en/<page-name>.ts
+import type { HeroContent } from "../types";
 
-export const PAGE_HERO_CONTENT: HeroContent = {
-  badge: "Badge text",
-  headline: "Main headline",
-  headlineAccent: "Accent part",
-  subtitle: "Supporting text",
-  cta: {
-    primary: { text: "CTA", href: "/path" },
-    secondary: { text: "Secondary", href: "#" },
-  },
-  microcopy: "Small print",
+export const pageName = {
+  hero: {
+    badge: "Badge text",
+    headline: "Main headline",
+    headlineAccent: "Accent part",
+    subtitle: "Supporting text",
+    cta: {
+      primary: { text: "CTA", href: "/path" },
+      secondary: { text: "Secondary", href: "#" },
+    },
+    microcopy: "Small print",
+  } as HeroContent,
 };
+```
+
+### Using Content in Components
+
+Use the `useContent` hook for localized content:
+
+```typescript
+"use client";
+
+import { useContent } from "@/lib/i18n/use-content";
+import type { PageContent } from "@/content/types";
+
+export function PageSection() {
+  const content = useContent<PageContent>("pageName");
+  return <h1>{content.hero.headline}</h1>;
+}
 ```
 
 ### Content Rules
@@ -169,7 +213,8 @@ export const PAGE_HERO_CONTENT: HeroContent = {
 1. Never hardcode marketing copy in components
 2. Use TypeScript interfaces for type safety
 3. Group related content in single objects
-4. Export all content from `content/index.ts`
+4. Export all content from locale-specific `index.ts` files
+5. Missing translations automatically fall back to English
 
 ## State Management Patterns
 
@@ -304,6 +349,34 @@ const HeavySection = dynamic(
 3. **Don't** hardcode text in components
 4. **Don't** skip accessibility attributes
 5. **Don't** create deeply nested component hierarchies
+
+## Internationalization (i18n)
+
+### URL Strategy
+
+- English (default): No prefix (`/`, `/beta`, `/about`)
+- French: `/fr` prefix (`/fr`, `/fr/beta`, `/fr/about`)
+
+### Key i18n Utilities
+
+| Utility | Location | Purpose |
+|---------|----------|---------|
+| `useLocale()` | `lib/i18n/locale-context.tsx` | Get current locale |
+| `useContent<T>(key)` | `lib/i18n/use-content.ts` | Get localized content |
+| `getLocalizedPath()` | `lib/i18n/utils.ts` | Generate locale-aware URLs |
+| `LocaleLink` | `components/ui/locale-link.tsx` | Locale-aware navigation |
+| `LanguageSwitcher` | `components/ui/language-switcher.tsx` | Language toggle UI |
+
+### Adding New Translations
+
+1. Add English content to `content/en/<page>.ts`
+2. Add French translation to `content/fr/<page>.ts`
+3. Export from both `content/en/index.ts` and `content/fr/index.ts`
+4. Use `useContent<T>(key)` in components
+
+### Form Localization
+
+Form labels, placeholders, and validation messages are in `content/en/forms.ts` and `content/fr/forms.ts`.
 
 ## File Naming Quick Reference
 

@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { seoConfig } from "@/lib/seo/config";
-import { i18nConfig, Locale } from "@/lib/i18n/config";
+import { i18nConfig } from "@/lib/i18n/config";
 import { getLocalizedPath } from "@/lib/i18n/utils";
 
 /**

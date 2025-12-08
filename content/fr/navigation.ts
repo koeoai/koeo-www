@@ -8,13 +8,13 @@ import type { NavigationContent } from "../en/navigation";
 export const NAVIGATION_CONTENT: NavigationContent = {
   header: {
     navItems: [
-      { label: "Produit", href: "/product" },
+      { label: "Produit", href: "/fr/product" },
     ],
     companyDropdown: {
       label: "Entreprise",
       items: [
-        { label: "À propos", href: "/about" },
-        { label: "Carrières", href: "/careers" },
+        { label: "À propos", href: "/fr/about" },
+        { label: "Carrières", href: "/fr/careers" },
       ],
     },
     joinBeta: "Rejoindre la bêta",
@@ -26,9 +26,9 @@ export const NAVIGATION_CONTENT: NavigationContent = {
       {
         title: "Entreprise",
         links: [
-          { label: "À propos", href: "/about" },
-          { label: "Carrières", href: "/careers" },
-          { label: "Rejoindre la bêta", href: "/beta" },
+          { label: "À propos", href: "/fr/about" },
+          { label: "Carrières", href: "/fr/careers" },
+          { label: "Rejoindre la bêta", href: "/fr/beta" },
         ],
       },
       {
@@ -36,8 +36,8 @@ export const NAVIGATION_CONTENT: NavigationContent = {
         links: [
           { label: "Suggérer une idée", href: "https://github.com/koeo-ai/feedback", external: true },
           { label: "Signaler un bug", href: "https://github.com/koeo-ai/feedback/issues", external: true },
-          { label: "Kit de marque", href: "/brandkit" },
-          { label: "Devenir fournisseur", href: "/providers" },
+          { label: "Kit de marque", href: "/fr/brandkit" },
+          { label: "Devenir fournisseur", href: "/fr/providers" },
         ],
       },
     ],

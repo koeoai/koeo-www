@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import type { BetaFormContent } from "@/content";
 import {
   SurveyFormData,
@@ -24,6 +24,17 @@ export interface UseBetaFormOptions {
   content?: BetaFormContent;
 }
 
+// Default validation messages
+const DEFAULT_VALIDATION = {
+  required: "This field is required",
+  email: "Email is required",
+  invalidEmail: "Please enter a valid email",
+  selectOne: "Please select an option",
+  selectAtLeastOne: "Please select at least one option",
+  fileType: "Please upload a PDF or Word document",
+  fileSize: "File size must be less than 5MB",
+};
+
 /**
  * Custom hook for managing beta signup form state, validation, and submission.
  * Extracts form logic from BetaForm component for reusability and testability.
@@ -38,16 +49,11 @@ export function useBetaForm(options: UseBetaFormOptions = {}): UseBetaFormReturn
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formState, setFormState] = useState<FormState>("idle");
 
-  // Get validation messages from content or use defaults
-  const validation = content?.validation ?? {
-    required: "This field is required",
-    email: "Email is required",
-    invalidEmail: "Please enter a valid email",
-    selectOne: "Please select an option",
-    selectAtLeastOne: "Please select at least one option",
-    fileType: "Please upload a PDF or Word document",
-    fileSize: "File size must be less than 5MB",
-  };
+  // Memoize validation messages to avoid recreating on every render
+  const validation = useMemo(
+    () => content?.validation ?? DEFAULT_VALIDATION,
+    [content?.validation]
+  );
 
   const updateField = useCallback(
     (field: keyof SurveyFormData) => (value: string | string[]) => {

@@ -10,7 +10,7 @@
  * Requirements: 5.2, 5.3
  */
 
-import { useState, useEffect } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
@@ -46,6 +46,35 @@ export function shouldShowBanner(
   return true;
 }
 
+// External store for session storage dismissed state
+function subscribeToDismissed(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getDismissedSnapshot(): boolean {
+  if (typeof window === "undefined") return true;
+  return sessionStorage.getItem(BANNER_DISMISSED_KEY) === "true";
+}
+
+function getDismissedServerSnapshot(): boolean {
+  return true; // Default to dismissed on server to avoid flash
+}
+
+// External store for hydration state
+function subscribeToHydration() {
+  // No-op: hydration state doesn't change after initial mount
+  return () => {};
+}
+
+function getHydrationSnapshot(): boolean {
+  return true; // Client is always hydrated when this runs
+}
+
+function getHydrationServerSnapshot(): boolean {
+  return false; // Server is never hydrated
+}
+
 /**
  * Language suggestion banner that appears when the user's browser language
  * differs from the current page locale.
@@ -59,19 +88,27 @@ export function LanguageSuggestionBanner({
 }: LanguageSuggestionBannerProps) {
   const pathname = usePathname();
   const { locale: currentLocale } = useLocale();
-  const [isDismissed, setIsDismissed] = useState(true); // Start hidden to avoid flash
-  const [isHydrated, setIsHydrated] = useState(false);
-
-  // Check session storage on mount
-  useEffect(() => {
-    const dismissed = sessionStorage.getItem(BANNER_DISMISSED_KEY) === "true";
-    setIsDismissed(dismissed);
-    setIsHydrated(true);
-  }, []);
+  const [localDismissed, setLocalDismissed] = useState(false);
+  
+  // Use useSyncExternalStore for session storage to avoid lint error
+  const storageDismissed = useSyncExternalStore(
+    subscribeToDismissed,
+    getDismissedSnapshot,
+    getDismissedServerSnapshot
+  );
+  
+  // Use useSyncExternalStore for hydration state to avoid lint error
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getHydrationSnapshot,
+    getHydrationServerSnapshot
+  );
+  
+  const isDismissed = storageDismissed || localDismissed;
 
   const handleDismiss = () => {
     sessionStorage.setItem(BANNER_DISMISSED_KEY, "true");
-    setIsDismissed(true);
+    setLocalDismissed(true);
   };
 
   // Get localized content

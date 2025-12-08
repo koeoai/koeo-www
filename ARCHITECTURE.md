@@ -16,30 +16,37 @@ This document describes the architecture, folder structure, and development patt
 ```
 ├── app/                    # Next.js App Router pages
 │   ├── api/                # API routes
-│   ├── beta/               # Beta signup page
-│   ├── about/              # About page
-│   ├── careers/            # Careers page
-│   ├── product/            # Product page
-│   ├── providers/          # Providers page
-│   ├── brandkit/           # Brand kit page
+│   ├── [locale]/           # Locale-based routing (en, fr)
+│   │   ├── about/          # About page
+│   │   ├── beta/           # Beta signup page
+│   │   ├── brandkit/       # Brand kit page
+│   │   ├── careers/        # Careers page
+│   │   ├── product/        # Product page
+│   │   ├── providers/      # Providers page
+│   │   ├── layout.tsx      # Locale layout with LocaleProvider
+│   │   └── page.tsx        # Homepage
 │   ├── layout.tsx          # Root layout with metadata
-│   ├── page.tsx            # Homepage
 │   └── globals.css         # Global styles
 │
 ├── components/
 │   ├── layout/             # Layout components (Header, Footer, PageShell)
 │   ├── sections/           # Page-specific sections (Hero, ProblemSection, etc.)
 │   ├── seo/                # SEO components (JsonLd)
-│   └── ui/                 # Reusable UI primitives
+│   └── ui/                 # Reusable UI primitives (LanguageSwitcher, etc.)
 │
-├── content/                # Centralized marketing copy
+├── content/                # Centralized marketing copy (locale-based)
 │   ├── types.ts            # TypeScript interfaces for content
-│   ├── homepage.ts         # Homepage content
-│   ├── beta.ts             # Beta page content
-│   ├── about.ts            # About page content
-│   ├── careers.ts          # Careers page content
-│   ├── product.ts          # Product page content
-│   └── index.ts            # Barrel export
+│   ├── index.ts            # Content retrieval API with getContent()
+│   ├── en/                 # English content (default)
+│   │   ├── homepage.ts
+│   │   ├── beta.ts
+│   │   ├── forms.ts
+│   │   └── ...
+│   └── fr/                 # French content
+│       ├── homepage.ts
+│       ├── beta.ts
+│       ├── forms.ts
+│       └── ...
 │
 ├── features/               # Domain-specific feature modules
 │   ├── beta-signup/        # Beta signup feature
@@ -52,6 +59,11 @@ This document describes the architecture, folder structure, and development patt
 │
 ├── lib/                    # Shared utilities and services
 │   ├── airtable/           # Airtable client and table definitions
+│   ├── i18n/               # Internationalization utilities
+│   │   ├── config.ts       # Locale configuration (en, fr)
+│   │   ├── locale-context.tsx # LocaleProvider and useLocale hook
+│   │   ├── use-content.ts  # useContent hook for localized content
+│   │   └── utils.ts        # URL utilities (getLocalizedPath, etc.)
 │   ├── seo/                # SEO utilities and config
 │   ├── utils.ts            # General utilities (cn helper)
 │   └── validation.ts       # Form validation utilities
@@ -60,6 +72,8 @@ This document describes the architecture, folder structure, and development patt
 │   └── brand/              # Brand assets (logos, icons)
 │
 ├── scripts/                # Development and utility scripts
+│
+├── middleware.ts           # Locale detection middleware
 │
 └── tests/                  # Test utilities and integration tests
     ├── e2e/                # End-to-end tests (Playwright)
@@ -71,24 +85,28 @@ This document describes the architecture, folder structure, and development patt
 
 ### 1. Create the Page File
 
-Create a new directory under `app/` with a `page.tsx` file:
+Create a new directory under `app/[locale]/` with a `page.tsx` file:
 
 ```typescript
-// app/new-page/page.tsx
+// app/[locale]/new-page/page.tsx
 import type { Metadata } from "next";
 import { PageShell } from "@/components/layout/page-shell";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+import { Locale } from "@/lib/i18n/config";
 
-export const metadata: Metadata = {
-  title: "Page Title | KOEO",
-  description: "Page description for SEO",
-  openGraph: {
-    title: "Page Title | KOEO",
+interface PageProps {
+  params: Promise<{ locale: Locale }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
+  return generatePageMetadata({
+    title: "Page Title",
     description: "Page description for SEO",
-    url: "https://koeo.ai/new-page",
-    siteName: "Koeo",
-    type: "website",
-  },
-};
+    path: "/new-page",
+    locale,
+  });
+}
 
 export default function NewPage() {
   return (
@@ -119,7 +137,13 @@ import { PageShell } from "@/components/layout/page-shell";
 
 ### 3. Add to Navigation (if needed)
 
-Update `components/layout/header.tsx` to add navigation links.
+Update `components/layout/header.tsx` to add navigation links. Use `LocaleLink` for locale-aware navigation:
+
+```typescript
+import { LocaleLink } from "@/components/ui/locale-link";
+
+<LocaleLink href="/new-page">New Page</LocaleLink>
+```
 
 ## Component Patterns
 
@@ -221,39 +245,79 @@ import { ROLE_OPTIONS, AboutYouSection } from "@/features/beta-signup";
 
 ## Content Management
 
-### Centralized Content Layer
+### Locale-Based Content Layer
 
-Marketing copy is centralized in `content/` to separate content from components:
+Marketing copy is centralized in `content/` with locale-based organization:
+
+```
+content/
+├── types.ts          # Shared TypeScript interfaces
+├── index.ts          # getContent() API with fallback
+├── en/               # English content (default)
+│   ├── homepage.ts
+│   ├── beta.ts
+│   └── forms.ts
+└── fr/               # French content
+    ├── homepage.ts
+    ├── beta.ts
+    └── forms.ts
+```
 
 ```typescript
-// content/homepage.ts
-import type { HeroContent } from "./types";
+// content/en/homepage.ts
+import type { HeroContent } from "../types";
 
-export const HERO_CONTENT: HeroContent = {
-  badge: "Closed Beta · Not yet generally available",
-  headline: "Run your AI models",
-  headlineAccent: "without managing GPUs",
-  subtitle: "We take care of the GPU mess so you can focus on building.",
-  cta: {
-    primary: { text: "Join the private beta", href: "/beta" },
-    secondary: { text: "Read the Whitepaper", href: "#" },
+export const homepage: { hero: HeroContent } = {
+  hero: {
+    badge: "Closed Beta · Not yet generally available",
+    headline: "Run your AI models",
+    headlineAccent: "without managing GPUs",
+    subtitle: "We take care of the GPU mess so you can focus on building.",
+    cta: {
+      primary: { text: "Join the private beta", href: "/beta" },
+      secondary: { text: "Read the Whitepaper", href: "#" },
+    },
+    microcopy: "We're gradually inviting teams into the private beta.",
   },
-  microcopy: "We're gradually inviting teams into the private beta.",
 };
 ```
 
 ### Using Content in Components
 
+Use the `useContent` hook to get localized content:
+
 ```typescript
-import { HERO_CONTENT } from "@/content";
+"use client";
+
+import { useContent } from "@/lib/i18n/use-content";
+import type { HomepageContent } from "@/content/types";
 
 export function Hero() {
+  const content = useContent<HomepageContent>("homepage");
+  
   return (
     <section>
-      <h1>{HERO_CONTENT.headline}</h1>
-      <span>{HERO_CONTENT.headlineAccent}</span>
+      <h1>{content.hero.headline}</h1>
+      <span>{content.hero.headlineAccent}</span>
     </section>
   );
+}
+```
+
+### Content Fallback
+
+If a translation is missing for a locale, the system automatically falls back to English:
+
+```typescript
+// content/index.ts
+import { Locale, i18nConfig } from "@/lib/i18n/config";
+
+export function getContent<T>(key: string, locale: Locale): T {
+  const localeContent = contentByLocale[locale];
+  const defaultContent = contentByLocale[i18nConfig.defaultLocale];
+  
+  // Return locale-specific content or fall back to default (English)
+  return (localeContent[key] ?? defaultContent[key]) as T;
 }
 ```
 
@@ -394,6 +458,52 @@ describe("Component", () => {
   });
 });
 ```
+
+## Internationalization (i18n)
+
+### Supported Locales
+
+The site supports English (default) and French:
+
+```typescript
+// lib/i18n/config.ts
+export const i18nConfig = {
+  defaultLocale: "en" as const,
+  locales: ["en", "fr"] as const,
+  localeNames: {
+    en: "English",
+    fr: "Français",
+  },
+} as const;
+```
+
+### URL Strategy
+
+- English (default): No prefix (`/`, `/beta`, `/about`)
+- French: `/fr` prefix (`/fr`, `/fr/beta`, `/fr/about`)
+
+### Key Hooks
+
+| Hook | Purpose |
+|------|---------|
+| `useLocale()` | Get current locale and `isDefaultLocale` flag |
+| `useContent<T>(key)` | Get localized content with automatic fallback |
+
+### Adding Translations
+
+1. Add content to `content/en/<page>.ts`
+2. Create matching file in `content/fr/<page>.ts`
+3. Export from `content/en/index.ts` and `content/fr/index.ts`
+
+### Language Switcher
+
+The `LanguageSwitcher` component in the header allows users to switch languages while preserving the current path.
+
+### SEO for i18n
+
+- Hreflang tags are automatically added to all pages
+- Sitemap includes all locale variants
+- Open Graph tags include locale information
 
 ## Environment Variables
 

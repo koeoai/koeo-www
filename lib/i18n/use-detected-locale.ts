@@ -9,7 +9,7 @@
  * Requirements: 5.1
  */
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import { isValidLocale, type Locale } from "./config";
 
 const DETECTED_LOCALE_COOKIE = "koeo-detected-locale";
@@ -30,6 +30,27 @@ function getCookie(name: string): string | null {
   return null;
 }
 
+// External store functions for useSyncExternalStore
+function subscribeToLocale(callback: () => void) {
+  // Cookies don't have a native change event, but we can listen for storage
+  // events in case the cookie is modified via another mechanism
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
+}
+
+function getLocaleSnapshot(): Locale | null {
+  if (typeof window === "undefined") return null;
+  const cookieValue = getCookie(DETECTED_LOCALE_COOKIE);
+  if (cookieValue && isValidLocale(cookieValue)) {
+    return cookieValue;
+  }
+  return null;
+}
+
+function getLocaleServerSnapshot(): Locale | null {
+  return null; // No cookie access on server
+}
+
 /**
  * Hook that returns the detected browser locale from the cookie set by middleware.
  *
@@ -40,14 +61,9 @@ function getCookie(name: string): string | null {
  * // Returns "fr" if browser prefers French, null otherwise
  */
 export function useDetectedLocale(): Locale | null {
-  const [detectedLocale, setDetectedLocale] = useState<Locale | null>(null);
-
-  useEffect(() => {
-    const cookieValue = getCookie(DETECTED_LOCALE_COOKIE);
-    if (cookieValue && isValidLocale(cookieValue)) {
-      setDetectedLocale(cookieValue);
-    }
-  }, []);
-
-  return detectedLocale;
+  return useSyncExternalStore(
+    subscribeToLocale,
+    getLocaleSnapshot,
+    getLocaleServerSnapshot
+  );
 }

@@ -13,7 +13,7 @@ import {
   DESCRIPTION_MIN_LENGTH,
   DESCRIPTION_MAX_LENGTH,
 } from "./metadata";
-import { i18nConfig, Locale } from "@/lib/i18n/config";
+import { i18nConfig } from "@/lib/i18n/config";
 
 /**
  * **Feature: seo-optimization, Property 2: Metadata title length bounds**
