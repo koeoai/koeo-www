@@ -10,3 +10,4 @@ export {
   getLocaleFromPath,
   parseAcceptLanguage,
 } from "./utils";
+export { LocaleProvider, useLocale } from "./locale-context";
