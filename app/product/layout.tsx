@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { generateMetadata as generatePageMetadata } from "@/lib/seo/metadata";
-import { seoConfig } from "@/lib/seo/config";
 import { JsonLd, SoftwareApplicationSchema } from "@/components/seo/json-ld";
 
 export const metadata: Metadata = generatePageMetadata({

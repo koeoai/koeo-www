@@ -317,7 +317,7 @@ export function CodeMigrationAnimation() {
 
         <div className="mt-3 flex">
           <span className="w-6 select-none text-white/20">5</span>
-          <span className="text-white/30">// Everything else stays the same!</span>
+          <span className="text-white/30">{`// Everything else stays the same!`}</span>
         </div>
       </div>
 

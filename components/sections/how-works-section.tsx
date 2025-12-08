@@ -75,7 +75,7 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
 
             {/* Right: Feature Columns */}
             <div className="grid gap-8 sm:grid-cols-2 lg:col-span-2">
-              {DEVELOPER_FEATURES.map((feature, index) => (
+              {DEVELOPER_FEATURES.map((feature) => (
                 <div 
                   key={feature.title}
                   className="group relative rounded-2xl border border-purple-primary/10 bg-white/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-purple-primary/30 hover:bg-white/80 hover:shadow-lg"
@@ -150,7 +150,7 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
 
             {/* Steps */}
             <div className="mb-10 space-y-8">
-              {STEPS.map((step, index) => (
+              {STEPS.map((step) => (
                 <div key={step.stepNumber} className="group flex gap-6">
                   {/* Step Number with gradient */}
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-primary to-magenta text-base font-bold text-white shadow-lg shadow-purple-primary/30 transition-transform group-hover:scale-110">
