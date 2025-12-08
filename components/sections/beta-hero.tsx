@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { InteractiveNetworkCanvas } from "@/components/ui/interactive-network-canvas";
-import { BETA_HERO_CONTENT, BETA_CRITERIA } from "@/content";
+import { useContent } from "@/lib/i18n";
+import type { BetaPageContent } from "@/content";
 
 export interface BetaHeroProps {
   className?: string;
@@ -10,6 +11,8 @@ export interface BetaHeroProps {
 
 const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
   ({ className }, ref) => {
+    const content = useContent<BetaPageContent>("BETA_PAGE_CONTENT");
+
     return (
       <section ref={ref} className={className}>
         <InteractiveNetworkCanvas mode="interactive" className="min-h-screen">
@@ -21,29 +24,29 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                {BETA_HERO_CONTENT.badge}
+                {content.hero.badge}
               </div>
 
               {/* Headline */}
               <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                {BETA_HERO_CONTENT.headline}{" "}
+                {content.hero.headline}{" "}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  {BETA_HERO_CONTENT.headlineAccent}
+                  {content.hero.headlineAccent}
                 </span>
               </h1>
 
               {/* Subheadline */}
               <p className="mx-auto mb-12 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-                {BETA_HERO_CONTENT.subtitle}
+                {content.hero.subtitle}
               </p>
 
               {/* Who we're looking for */}
               <div className="mx-auto max-w-3xl">
                 <h2 className="mb-8 text-2xl font-semibold text-white/90 sm:text-3xl">
-                  Who we&apos;re looking for
+                  {content.whoHeading}
                 </h2>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  {BETA_CRITERIA.map((criterion, index) => (
+                  {content.criteria.map((criterion, index) => (
                     <div
                       key={index}
                       className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
@@ -70,7 +73,7 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
 
                 {/* Scroll indicator */}
                 <div className="mt-12 flex flex-col items-center gap-2">
-                  <p className="text-sm text-white/50">{BETA_HERO_CONTENT.scrollIndicator}</p>
+                  <p className="text-sm text-white/50">{content.hero.scrollIndicator}</p>
                   <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1">
                     <div className="h-2 w-1 animate-bounce rounded-full bg-pink-light" />
                   </div>

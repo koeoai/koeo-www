@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { Menu, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,6 +11,8 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { LocaleLink } from "@/components/ui/locale-link";
 
 interface NavItem {
   label: string;
@@ -52,19 +53,19 @@ export function Header({ className }: HeaderProps) {
     >
       <nav className="flex h-14 items-center gap-8 rounded-full border border-white/10 bg-purple-deep/40 px-6 backdrop-blur-xl" aria-label="Main navigation">
         {/* Logo - optical alignment adjustment */}
-        <Link href="/" aria-label="Koeo home" style={{ marginTop: "-4px" }}>
+        <LocaleLink href="/" aria-label="Koeo home" style={{ marginTop: "-4px" }}>
           <KoeoLogo size={26} showWordmark variant="white" />
-        </Link>
+        </LocaleLink>
 
         {/* Desktop Links */}
         {NAV_ITEMS.map((item) => (
-          <Link
+          <LocaleLink
             key={item.href}
             href={item.href}
             className="hidden text-sm font-medium text-text-light/90 transition-colors hover:text-pink-light md:block"
           >
             {item.label}
-          </Link>
+          </LocaleLink>
         ))}
 
         {/* Company Dropdown - Desktop */}
@@ -86,21 +87,24 @@ export function Header({ className }: HeaderProps) {
             <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2">
               <div className="min-w-[140px] rounded-xl border border-white/10 bg-purple-deep/90 p-2 backdrop-blur-xl shadow-lg">
                 {COMPANY_DROPDOWN.items.map((item) => (
-                  <Link
+                  <LocaleLink
                     key={item.href}
                     href={item.href}
                     className="block rounded-lg px-4 py-2 text-sm font-medium text-text-light/90 transition-colors hover:bg-white/10 hover:text-pink-light"
                   >
                     {item.label}
-                  </Link>
+                  </LocaleLink>
                 ))}
               </div>
             </div>
           )}
         </div>
 
+        {/* Language Switcher - Desktop */}
+        <LanguageSwitcher className="hidden md:flex" />
+
         <Button asChild className="hidden md:inline-flex">
-          <Link href="/beta">Join Beta</Link>
+          <LocaleLink href="/beta">Join Beta</LocaleLink>
         </Button>
 
         {/* Mobile Menu */}
@@ -121,34 +125,39 @@ export function Header({ className }: HeaderProps) {
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <nav className="flex flex-col gap-4 mt-8" aria-label="Mobile navigation">
                   {NAV_ITEMS.map((item) => (
-                    <Link
+                    <LocaleLink
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className="text-lg font-medium text-text-primary transition-colors hover:text-pink-light py-2"
                     >
                       {item.label}
-                    </Link>
+                    </LocaleLink>
                   ))}
                   {/* Company section - Mobile */}
                   <div className="border-t border-white/10 pt-4">
                     <p className="text-sm font-medium text-text-primary/60 mb-2">{COMPANY_DROPDOWN.label}</p>
                     {COMPANY_DROPDOWN.items.map((item) => (
-                      <Link
+                      <LocaleLink
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsOpen(false)}
                         className="block text-lg font-medium text-text-primary transition-colors hover:text-pink-light py-2 pl-2"
                       >
                         {item.label}
-                      </Link>
+                      </LocaleLink>
                     ))}
                   </div>
                   <Button asChild className="mt-4">
-                    <Link href="/beta" onClick={() => setIsOpen(false)}>
+                    <LocaleLink href="/beta" onClick={() => setIsOpen(false)}>
                       Join Beta
-                    </Link>
+                    </LocaleLink>
                   </Button>
+                  {/* Language Switcher - Mobile */}
+                  <div className="border-t border-white/10 pt-4 mt-4">
+                    <p className="text-sm font-medium text-text-primary/60 mb-2">Language</p>
+                    <LanguageSwitcher variant="mobile" showIcon={false} />
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>

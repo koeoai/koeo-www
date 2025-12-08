@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { LocaleProvider } from "@/lib/i18n";
 
 // Mock next/link to render as a simple anchor
 vi.mock("next/link", () => ({
@@ -17,6 +18,11 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+}));
+
 // Mock next/dynamic to return components synchronously
 vi.mock("next/dynamic", () => ({
   default: () => {
@@ -30,13 +36,22 @@ vi.mock("next/dynamic", () => ({
 // Import Home after mocks are set up
 import Home from "./page";
 
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(
+    <LocaleProvider locale="en">
+      {ui}
+    </LocaleProvider>
+  );
+};
+
 describe("Homepage Assembly", () => {
   /**
    * Verify Header, main content, and Footer render in correct order
    * Requirements: All homepage requirements
    */
   it("renders Header, main content, and Footer in correct order", () => {
-    render(<Home />);
+    renderWithLocale(<Home />);
 
     const header = screen.getByRole("banner");
     const main = screen.getByRole("main");
@@ -63,7 +78,7 @@ describe("Homepage Assembly", () => {
    * Requirements: 2.1, 3.1, 4.1, 5.1, 6.1
    */
   it("renders all sections in correct order", () => {
-    render(<Home />);
+    renderWithLocale(<Home />);
 
     const main = screen.getByRole("main");
 
@@ -84,7 +99,7 @@ describe("Homepage Assembly", () => {
    * Requirements: 2.1, 3.1, 4.1, 5.1, 6.1
    */
   it("renders sections with correct IDs for navigation", () => {
-    const { container } = render(<Home />);
+    const { container } = renderWithLocale(<Home />);
 
     // Verify above-fold section has the correct ID for anchor navigation
     expect(container.querySelector("#problem")).toBeInTheDocument();
@@ -95,7 +110,7 @@ describe("Homepage Assembly", () => {
    * Requirements: All homepage requirements
    */
   it("renders Header with navigation links", () => {
-    render(<Home />);
+    renderWithLocale(<Home />);
 
     const header = screen.getByRole("banner");
     const nav = header.querySelector('nav[aria-label="Main navigation"]');
@@ -110,7 +125,7 @@ describe("Homepage Assembly", () => {
    * Requirements: All homepage requirements
    */
   it("renders Footer with link groups and copyright", () => {
-    render(<Home />);
+    renderWithLocale(<Home />);
 
     expect(screen.getByText("Resources")).toBeInTheDocument();
     // Use getAllByText since "Company" appears in both header dropdown and footer

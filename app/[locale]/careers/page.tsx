@@ -1,10 +1,15 @@
+"use client";
+
 import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 import { CareerForm } from "@/features/careers";
-import { CAREERS_PAGE_CONTENT } from "@/content";
+import { useContent } from "@/lib/i18n";
+import type { CareersPageContent } from "@/content";
 
 export default function CareersPage() {
+  const content = useContent<CareersPageContent>("CAREERS_PAGE_CONTENT");
+
   return (
     <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network - same as about page */}
@@ -28,20 +33,20 @@ export default function CareersPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                {CAREERS_PAGE_CONTENT.hero.badge}
+                {content.hero.badge}
               </div>
 
               {/* Headline */}
               <h1 className="animate-fade-in-up mb-8 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: "100ms" }}>
-                {CAREERS_PAGE_CONTENT.hero.headline}{" "}
+                {content.hero.headline}{" "}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  {CAREERS_PAGE_CONTENT.hero.headlineAccent}
+                  {content.hero.headlineAccent}
                 </span>
               </h1>
 
               {/* Subtext */}
               <p className="animate-fade-in-up mx-auto max-w-2xl text-lg text-white/70 sm:text-xl" style={{ animationDelay: "200ms" }}>
-                {CAREERS_PAGE_CONTENT.hero.subtitle}
+                {content.hero.subtitle}
               </p>
             </div>
           </Container>
@@ -59,9 +64,9 @@ export default function CareersPage() {
                     </svg>
                   </div>
                   <div>
-                    <h2 className="mb-2 text-xl font-semibold text-white">{CAREERS_PAGE_CONTENT.notice.title}</h2>
+                    <h2 className="mb-2 text-xl font-semibold text-white">{content.notice.title}</h2>
                     <p className="text-white/70">
-                      {CAREERS_PAGE_CONTENT.notice.description}
+                      {content.notice.description}
                     </p>
                   </div>
                 </div>
@@ -77,11 +82,11 @@ export default function CareersPage() {
               {/* Header */}
               <div className="mb-12 text-center">
                 <h2 className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
-                  {CAREERS_PAGE_CONTENT.form.heading}
+                  {content.form.heading}
                 </h2>
                 <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/60 backdrop-blur-sm">
                   <span className="text-lg">🔒</span>
-                  {CAREERS_PAGE_CONTENT.form.confidentialityNote}
+                  {content.form.confidentialityNote}
                 </div>
               </div>
 

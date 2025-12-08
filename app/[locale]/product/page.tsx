@@ -10,8 +10,9 @@ import {
   FailoverAnimation,
   CodeMigrationAnimation,
 } from "@/components/ui/why-koeo-animations";
-import Link from "next/link";
-import { PRODUCT_PAGE_CONTENT } from "@/content";
+import { LocaleLink } from "@/components/ui/locale-link";
+import { useContent } from "@/lib/i18n";
+import type { ProductPageContent } from "@/content";
 
 // Code snippet animation
 function CodeSnippetAnimation() {
@@ -168,6 +169,8 @@ const WHO_FOR_ICONS: Record<string, React.ReactNode> = {
 
 
 export default function ProductPage() {
+  const content = useContent<ProductPageContent>("PRODUCT_PAGE_CONTENT");
+
   return (
     <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network */}
@@ -190,37 +193,37 @@ export default function ProductPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                {PRODUCT_PAGE_CONTENT.hero.badge}
+                {content.hero.badge}
               </div>
 
               <h1 className="animate-fade-in-up mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl" style={{ animationDelay: "100ms" }}>
                 <span className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-transparent">
-                  {PRODUCT_PAGE_CONTENT.hero.headline}
+                  {content.hero.headline}
                 </span>
               </h1>
               
               <p className="animate-fade-in-up mx-auto mb-4 max-w-3xl text-xl font-medium text-white/90 sm:text-2xl" style={{ animationDelay: "200ms" }}>
-                {PRODUCT_PAGE_CONTENT.hero.tagline}
+                {content.hero.tagline}
               </p>
               
               <p className="animate-fade-in-up mx-auto mb-10 max-w-2xl text-lg text-white/60" style={{ animationDelay: "300ms" }}>
-                {PRODUCT_PAGE_CONTENT.hero.subtitle}
+                {content.hero.subtitle}
               </p>
 
               <div className="animate-fade-in-up flex flex-col items-center justify-center gap-4 sm:flex-row" style={{ animationDelay: "400ms" }}>
-                <Link href={PRODUCT_PAGE_CONTENT.hero.primaryCta.href}>
+                <LocaleLink href={content.hero.primaryCta.href}>
                   <Button size="lg" className="shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40">
-                    {PRODUCT_PAGE_CONTENT.hero.primaryCta.text}
+                    {content.hero.primaryCta.text}
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </Button>
-                </Link>
+                </LocaleLink>
                 <button
                   onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
                 >
-                  {PRODUCT_PAGE_CONTENT.hero.secondaryCta}
+                  {content.hero.secondaryCta}
                 </button>
               </div>
             </div>
@@ -232,15 +235,15 @@ export default function ProductPage() {
           <Container>
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16 items-center">
               <div className="animate-fade-in-up">
-                <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.whatIs.label}</p>
+                <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{content.whatIs.label}</p>
                 <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
-                  {PRODUCT_PAGE_CONTENT.whatIs.heading}
+                  {content.whatIs.heading}
                 </h2>
                 <p className="mb-6 text-lg text-white/60">
-                  {PRODUCT_PAGE_CONTENT.whatIs.description}
+                  {content.whatIs.description}
                 </p>
                 <ul className="space-y-3">
-                  {PRODUCT_PAGE_CONTENT.whatIs.points.map((point, i) => (
+                  {content.whatIs.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -263,16 +266,16 @@ export default function ProductPage() {
         <section className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.whoFor.label}</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{content.whoFor.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                {PRODUCT_PAGE_CONTENT.whoFor.heading}
+                {content.whoFor.heading}
               </h2>
               <p className="mx-auto max-w-2xl text-lg text-white/60">
-                {PRODUCT_PAGE_CONTENT.whoFor.subtitle}
+                {content.whoFor.subtitle}
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
-              {PRODUCT_PAGE_CONTENT.whoFor.items.map((item, i) => (
+              {content.whoFor.items.map((item, i) => (
                 <div
                   key={item.title}
                   className="animate-fade-in-up group relative flex"
@@ -297,22 +300,22 @@ export default function ProductPage() {
         <section className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.why.label}</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{content.why.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                {PRODUCT_PAGE_CONTENT.why.heading}
+                {content.why.heading}
               </h2>
             </div>
             
             {/* Feature 1: Runtime - Content Left, Visual Right */}
             <div className="animate-fade-in-up mb-16 grid items-center gap-12 lg:grid-cols-2">
               <div>
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[0].number}</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[0].title}</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{content.why.features[0].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{content.why.features[0].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  {PRODUCT_PAGE_CONTENT.why.features[0].subtitle}
+                  {content.why.features[0].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {PRODUCT_PAGE_CONTENT.why.features[0].points.map((point, j) => (
+                  {content.why.features[0].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -337,13 +340,13 @@ export default function ProductPage() {
                 <FailoverAnimation />
               </div>
               <div className="lg:order-2">
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[1].number}</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[1].title}</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{content.why.features[1].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{content.why.features[1].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  {PRODUCT_PAGE_CONTENT.why.features[1].subtitle}
+                  {content.why.features[1].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {PRODUCT_PAGE_CONTENT.why.features[1].points.map((point, j) => (
+                  {content.why.features[1].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -360,13 +363,13 @@ export default function ProductPage() {
             {/* Feature 3: Migration - Content Left, Visual Right */}
             <div className="animate-fade-in-up grid items-center gap-12 lg:grid-cols-2" style={{ animationDelay: "200ms" }}>
               <div>
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[2].number}</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[2].title}</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{content.why.features[2].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{content.why.features[2].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  {PRODUCT_PAGE_CONTENT.why.features[2].subtitle}
+                  {content.why.features[2].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {PRODUCT_PAGE_CONTENT.why.features[2].points.map((point, j) => (
+                  {content.why.features[2].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -390,14 +393,14 @@ export default function ProductPage() {
         <section id="how-it-works" className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.how.label}</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{content.how.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                {PRODUCT_PAGE_CONTENT.how.heading}
+                {content.how.heading}
               </h2>
             </div>
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="space-y-6">
-                {PRODUCT_PAGE_CONTENT.how.steps.map((item, i) => (
+                {content.how.steps.map((item, i) => (
                   <div
                     key={item.step}
                     className="animate-fade-in-up group relative flex gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/20"
@@ -430,25 +433,25 @@ export default function ProductPage() {
           <Container>
             <div className="animate-fade-in-up mx-auto max-w-3xl text-center">
               <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                {PRODUCT_PAGE_CONTENT.cta.headline}
+                {content.cta.headline}
               </h2>
               <p className="mb-10 text-lg text-white/60">
-                {PRODUCT_PAGE_CONTENT.cta.subtitle}
+                {content.cta.subtitle}
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link href={PRODUCT_PAGE_CONTENT.cta.primaryCta.href}>
+                <LocaleLink href={content.cta.primaryCta.href}>
                   <Button size="lg" className="shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40">
-                    {PRODUCT_PAGE_CONTENT.cta.primaryCta.text}
+                    {content.cta.primaryCta.text}
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </Button>
-                </Link>
-                <Link href={PRODUCT_PAGE_CONTENT.cta.secondaryCta.href}>
+                </LocaleLink>
+                <LocaleLink href={content.cta.secondaryCta.href}>
                   <Button variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white/10">
-                    {PRODUCT_PAGE_CONTENT.cta.secondaryCta.text}
+                    {content.cta.secondaryCta.text}
                   </Button>
-                </Link>
+                </LocaleLink>
               </div>
             </div>
           </Container>

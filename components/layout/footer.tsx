@@ -1,5 +1,6 @@
+"use client";
+
 import * as React from "react";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { KoeoLogo } from "@/components/ui/KoeoLogo";
 import {
@@ -9,6 +10,7 @@ import {
   RedditIcon,
   ExternalLinkIcon,
 } from "@/components/ui/icons";
+import { LocaleLink } from "@/components/ui/locale-link";
 
 interface FooterLink {
   label: string;
@@ -88,9 +90,9 @@ export function Footer({ className }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <Link href="/" aria-label="Koeo home">
+            <LocaleLink href="/" aria-label="Koeo home">
               <KoeoLogo size={32} showWordmark variant="white" />
-            </Link>
+            </LocaleLink>
             <p className="mt-4 text-sm text-text-light/80 max-w-xs">
               One runtime, any model, no infra headaches.
             </p>
@@ -116,12 +118,12 @@ export function Footer({ className }: FooterProps) {
                         <ExternalLinkIcon />
                       </a>
                     ) : (
-                      <Link
+                      <LocaleLink
                         href={link.href}
                         className="text-sm text-text-light/80 transition-colors hover:text-pink-light"
                       >
                         {link.label}
-                      </Link>
+                      </LocaleLink>
                     )}
                   </li>
                 ))}

@@ -1,7 +1,22 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import * as fc from "fast-check";
 import { PageShell } from "./page-shell";
+import { LocaleProvider } from "@/lib/i18n";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+}));
+
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(
+    <LocaleProvider locale="en">
+      {ui}
+    </LocaleProvider>
+  );
+};
 
 /**
  * **Feature: codebase-refactor, Property 1: PageShell renders correctly for all valid prop combinations**
@@ -31,7 +46,7 @@ describe("PageShell - Property Tests", () => {
         // Clean up before each iteration to avoid multiple elements
         cleanup();
 
-        const { container } = render(
+        const { container } = renderWithLocale(
           <PageShell className={className}>
             <div data-testid="test-child">{childText}</div>
           </PageShell>
@@ -87,7 +102,7 @@ describe("PageShell - Property Tests", () => {
       fc.property(fc.constant(true), () => {
         cleanup();
 
-        const { container } = render(
+        const { container } = renderWithLocale(
           <PageShell>
             <section>Test Section</section>
           </PageShell>
@@ -113,7 +128,7 @@ describe("PageShell - Property Tests", () => {
       fc.property(rootClassNameArb, (rootClassName) => {
         cleanup();
 
-        const { container } = render(
+        const { container } = renderWithLocale(
           <PageShell rootClassName={rootClassName}>
             <section>Test Section</section>
           </PageShell>

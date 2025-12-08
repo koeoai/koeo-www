@@ -4,6 +4,8 @@ import * as React from "react";
 import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
+import { useContent } from "@/lib/i18n";
+import type { BrandkitPageContent } from "@/content";
 
 const COLORS = [
   {
@@ -308,6 +310,8 @@ function SectionHeader({ title, description, index }: { title: string; descripti
 }
 
 export default function BrandPage() {
+  const content = useContent<BrandkitPageContent>("BRANDKIT_PAGE_CONTENT");
+
   return (
     <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network */}
@@ -331,17 +335,17 @@ export default function BrandPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                Official brand assets
+                {content.hero.badge}
               </div>
 
               <h1 className="animate-fade-in-up mb-6 text-5xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl" style={{ animationDelay: "100ms" }}>
-                Brand
+                {content.hero.headline}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  kit
+                  {content.hero.headlineAccent}
                 </span>
               </h1>
               <p className="animate-fade-in-up mx-auto max-w-2xl text-xl text-white/70" style={{ animationDelay: "200ms" }}>
-                Everything you need to represent Koeo consistently across all platforms and materials.
+                {content.hero.subtitle}
               </p>
             </div>
           </Container>
@@ -351,8 +355,8 @@ export default function BrandPage() {
         <section className="relative py-16">
           <Container>
             <SectionHeader 
-              title="Logos" 
-              description="Full logo with wordmark. Use on marketing materials, presentations, and partnerships."
+              title={content.sections.logos.title}
+              description={content.sections.logos.description}
               index={0}
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -367,8 +371,8 @@ export default function BrandPage() {
         <section className="relative py-16">
           <Container>
             <SectionHeader 
-              title="Icons" 
-              description="Icon-only mark. Use for favicons, app icons, profile pictures, and social media platforms."
+              title={content.sections.icons.title}
+              description={content.sections.icons.description}
               index={1}
             />
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -383,8 +387,8 @@ export default function BrandPage() {
         <section className="relative py-16">
           <Container>
             <SectionHeader 
-              title="Banners" 
-              description="Neural network-themed banners for social media, headers, and marketing materials."
+              title={content.sections.banners.title}
+              description={content.sections.banners.description}
               index={2}
             />
             <div className="space-y-6">
@@ -399,8 +403,8 @@ export default function BrandPage() {
         <section className="relative py-16">
           <Container>
             <SectionHeader 
-              title="Color Palette" 
-              description="Official Koeo colors. Click any swatch to copy the hex value."
+              title={content.sections.colors.title}
+              description={content.sections.colors.description}
               index={3}
             />
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
@@ -415,8 +419,8 @@ export default function BrandPage() {
         <section className="relative py-16">
           <Container>
             <SectionHeader 
-              title="Primary Gradient" 
-              description="The signature Koeo gradient used for CTAs and accent elements."
+              title={content.sections.gradient.title}
+              description={content.sections.gradient.description}
               index={4}
             />
             <div className="animate-fade-in-up overflow-hidden rounded-3xl border border-white/10 backdrop-blur-sm" style={{ animationDelay: "150ms" }}>
@@ -427,15 +431,15 @@ export default function BrandPage() {
               <div className="bg-white/5 p-8">
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <h4 className="mb-2 font-semibold text-white">CSS</h4>
+                    <h4 className="mb-2 font-semibold text-white">{content.gradient.cssLabel}</h4>
                     <code className="block rounded-xl bg-purple-deep/50 p-4 text-sm text-pink-light">
-                      background: linear-gradient(135deg, #7C3AED, #E02F87);
+                      {content.gradient.cssCode}
                     </code>
                   </div>
                   <div>
-                    <h4 className="mb-2 font-semibold text-white">Tailwind</h4>
+                    <h4 className="mb-2 font-semibold text-white">{content.gradient.tailwindLabel}</h4>
                     <code className="block rounded-xl bg-purple-deep/50 p-4 text-sm text-pink-light">
-                      bg-gradient-to-br from-[#7C3AED] to-[#E02F87]
+                      {content.gradient.tailwindCode}
                     </code>
                   </div>
                 </div>
@@ -449,29 +453,28 @@ export default function BrandPage() {
         <section className="relative py-16 pb-24">
           <Container>
             <SectionHeader 
-              title="Typography" 
-              description="Font families and weights used across Koeo."
+              title={content.sections.typography.title}
+              description={content.sections.typography.description}
               index={5}
             />
             <div className="grid gap-6 md:grid-cols-2">
               <div className="animate-fade-in-up group overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10">
-                <h3 className="mb-6 text-lg font-semibold text-pink-light">Primary Font</h3>
-                <p className="mb-4 text-5xl font-bold text-white transition-transform duration-300 group-hover:scale-105">Inter</p>
-                <p className="mb-6 text-white/60">Used for all body text, headings, and UI elements.</p>
+                <h3 className="mb-6 text-lg font-semibold text-pink-light">{content.typography.primaryFont.title}</h3>
+                <p className="mb-4 text-5xl font-bold text-white transition-transform duration-300 group-hover:scale-105">{content.typography.primaryFont.name}</p>
+                <p className="mb-6 text-white/60">{content.typography.primaryFont.description}</p>
                 <div className="space-y-3 border-t border-white/10 pt-6">
-                  <p className="font-normal text-white/80">Regular (400) — Body text</p>
-                  <p className="font-medium text-white/80">Medium (500) — Navigation, emphasis</p>
-                  <p className="font-semibold text-white/80">Semi-Bold (600) — Subheadings, buttons</p>
-                  <p className="font-bold text-white/80">Bold (700) — Main headings</p>
+                  {content.typography.primaryFont.weights.map((weight, i) => (
+                    <p key={i} className={`text-white/80 ${i === 0 ? 'font-normal' : i === 1 ? 'font-medium' : i === 2 ? 'font-semibold' : 'font-bold'}`}>{weight}</p>
+                  ))}
                 </div>
               </div>
               <div className="animate-fade-in-up group overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10" style={{ animationDelay: "100ms" }}>
-                <h3 className="mb-6 text-lg font-semibold text-pink-light">Logo Font</h3>
-                <p className="mb-4 text-5xl font-black text-white transition-transform duration-300 group-hover:scale-105" style={{ fontFamily: "Outfit, system-ui, sans-serif" }}>Outfit</p>
-                <p className="mb-6 text-white/60">Used exclusively for the Koeo wordmark.</p>
+                <h3 className="mb-6 text-lg font-semibold text-pink-light">{content.typography.logoFont.title}</h3>
+                <p className="mb-4 text-5xl font-black text-white transition-transform duration-300 group-hover:scale-105" style={{ fontFamily: "Outfit, system-ui, sans-serif" }}>{content.typography.logoFont.name}</p>
+                <p className="mb-6 text-white/60">{content.typography.logoFont.description}</p>
                 <div className="space-y-3 border-t border-white/10 pt-6">
-                  <p className="text-white/80">Weight: <span className="font-semibold text-pink-light">900 (Black)</span></p>
-                  <p className="text-white/80">Letter-spacing: <span className="font-semibold text-pink-light">-0.03em</span></p>
+                  <p className="text-white/80">Weight: <span className="font-semibold text-pink-light">{content.typography.logoFont.weight}</span></p>
+                  <p className="text-white/80">Letter-spacing: <span className="font-semibold text-pink-light">{content.typography.logoFont.letterSpacing}</span></p>
                 </div>
               </div>
             </div>

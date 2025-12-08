@@ -1,9 +1,24 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render } from "@testing-library/react";
 import * as fc from "fast-check";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { KoeoLogo } from "@/components/ui/KoeoLogo";
+import { LocaleProvider } from "@/lib/i18n";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+}));
+
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(
+    <LocaleProvider locale="en">
+      {ui}
+    </LocaleProvider>
+  );
+};
 
 /**
  * **Feature: koeo-marketing-website, Property 3: Interactive elements have ARIA attributes**
@@ -16,7 +31,7 @@ describe("Layout Components - Property Tests for Accessibility", () => {
   it("Property 3: Header interactive elements have ARIA attributes", () => {
     fc.assert(
       fc.property(fc.constant(true), () => {
-        const { container } = render(<Header />);
+        const { container } = renderWithLocale(<Header />);
 
         // Check navigation has aria-label
         const navElements = container.querySelectorAll("nav");
@@ -96,7 +111,7 @@ describe("Layout Components - Property Tests for Image Alt Text", () => {
   it("Property 4: Header Logo has accessible alt text", () => {
     fc.assert(
       fc.property(fc.constant(true), () => {
-        const { container } = render(<Header />);
+        const { container } = renderWithLocale(<Header />);
 
         // Find all elements with role="img" (KoeoLogo wrapper div)
         const imgElements = container.querySelectorAll('[role="img"]');

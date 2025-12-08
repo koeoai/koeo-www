@@ -1,29 +1,18 @@
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+"use client";
 
-const DEVELOPER_FEATURES = [
-  {
-    title: "OpenAI-compatible API",
-    description:
-      "Once you're onboarded to the beta, you'll get OpenAI-style endpoints you can plug into existing clients and SDKs. In most cases you just update the base URL and auth, and keep the rest of your code the same.",
-    link: { text: "View API Docs", href: "/docs/api" },
-  },
-  {
-    title: "Early-access dashboard",
-    description:
-      "Beta users get access to an evolving dashboard to monitor usage, latency and error rates, and to manage keys and models. We're iterating quickly here, and your feedback directly shapes what we build next.",
-    link: { text: "Request Dashboard Access", href: "/beta" },
-  },
-];
+import { cn } from "@/lib/utils";
+import { LocaleLink } from "@/components/ui/locale-link";
+import type { DeveloperFeature } from "@/content";
 
 export interface DeveloperFeaturesProps {
+  features: DeveloperFeature[];
   className?: string;
 }
 
-export function DeveloperFeatures({ className }: DeveloperFeaturesProps) {
+export function DeveloperFeatures({ features, className }: DeveloperFeaturesProps) {
   return (
     <div className={cn("grid gap-8 sm:grid-cols-2 lg:col-span-2", className)}>
-      {DEVELOPER_FEATURES.map((feature) => (
+      {features.map((feature) => (
         <div
           key={feature.title}
           className="group relative rounded-2xl border border-purple-primary/10 bg-white/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-purple-primary/30 hover:bg-white/80 hover:shadow-lg"
@@ -54,7 +43,7 @@ export function DeveloperFeatures({ className }: DeveloperFeaturesProps) {
             <p className="mb-4 text-sm leading-relaxed text-text-primary/70">
               {feature.description}
             </p>
-            <Link
+            <LocaleLink
               href={feature.link.href}
               className="inline-flex items-center gap-2 text-sm font-medium text-purple-primary transition-colors hover:text-magenta"
             >
@@ -72,7 +61,7 @@ export function DeveloperFeatures({ className }: DeveloperFeaturesProps) {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </Link>
+            </LocaleLink>
           </div>
         </div>
       ))}

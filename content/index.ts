@@ -65,6 +65,25 @@ export type {
   ProductPageContent,
 } from "./en/product";
 
+// Brandkit page type exports
+export type {
+  BrandkitHeroContent,
+  BrandkitSectionHeader,
+  BrandkitTypographyContent,
+  BrandkitGradientContent,
+  BrandkitPageContent,
+} from "./en/brandkit";
+
+// Providers page type exports
+export type {
+  ProvidersHeroContent,
+  ProvidersBenefit,
+  ProvidersType,
+  ProvidersFaqItem,
+  ProvidersSectionContent,
+  ProvidersPageContent,
+} from "./en/providers";
+
 
 /**
  * Content by locale mapping
@@ -140,3 +159,22 @@ export {
   PRODUCT_CTA_CONTENT,
   PRODUCT_PAGE_CONTENT,
 } from "./en/product";
+
+// Brandkit page content exports
+export {
+  BRANDKIT_HERO_CONTENT,
+  BRANDKIT_SECTIONS,
+  BRANDKIT_TYPOGRAPHY_CONTENT,
+  BRANDKIT_GRADIENT_CONTENT,
+  BRANDKIT_PAGE_CONTENT,
+} from "./en/brandkit";
+
+// Providers page content exports
+export {
+  PROVIDERS_HERO_CONTENT,
+  PROVIDERS_SECTIONS,
+  PROVIDERS_BENEFITS,
+  PROVIDERS_TYPES,
+  PROVIDERS_FAQ,
+  PROVIDERS_PAGE_CONTENT,
+} from "./en/providers";

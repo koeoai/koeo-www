@@ -1,26 +1,28 @@
+"use client";
+
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { BETA_PAGE_CONTENT, BETA_CRITERIA } from "@/content";
+import { useContent } from "@/lib/i18n";
+import type { BetaPageContent } from "@/content";
 
 export interface BetaWhoSectionProps {
   className?: string;
 }
 
-const INTRO_TEXT =
-  "We're looking for teams who are serious about building AI-powered products and want a better way to run inference.";
-
 const BetaWhoSection = React.forwardRef<HTMLElement, BetaWhoSectionProps>(
   ({ className }, ref) => {
+    const content = useContent<BetaPageContent>("BETA_PAGE_CONTENT");
+
     return (
       <Section ref={ref} id="beta-who" background="default" className={className}>
         <Container>
-          <SectionHeader heading={BETA_PAGE_CONTENT.whoHeading} intro={INTRO_TEXT} />
+          <SectionHeader heading={content.whoHeading} />
 
           <div className="mx-auto max-w-3xl">
             <ul className="space-y-6">
-              {BETA_CRITERIA.map((criterion, index) => (
+              {content.criteria.map((criterion, index) => (
                 <li
                   key={index}
                   className="flex items-start gap-4 rounded-xl border border-purple-primary/10 bg-white/80 p-6 backdrop-blur-sm"

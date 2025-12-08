@@ -120,17 +120,28 @@
     - Update page components to use `useContent` hook for localized content
     - _Requirements: 1.1, 1.2_
 
-- [ ] 6. Implement language switcher component
-  - [ ] 6.1 Create LanguageSwitcher component
+- [x] 6. Implement language switcher component
+
+
+
+
+
+  - [x] 6.1 Create LanguageSwitcher component
+
+
     - Create `components/ui/language-switcher.tsx`
     - Implement locale switching with path preservation
     - Style consistently with existing UI components
     - _Requirements: 2.1, 2.2_
-  - [ ] 6.2 Integrate language switcher into navigation
+
+  - [x] 6.2 Integrate language switcher into navigation
+
     - Add LanguageSwitcher to header/navigation component
     - Ensure proper positioning and responsive behavior
     - _Requirements: 2.1_
-  - [ ] 6.3 Write unit tests for language switcher
+
+
+  - [x] 6.3 Write unit tests for language switcher
     - Test correct link generation for each locale
     - Test current locale highlighting
     - _Requirements: 2.1, 2.2_

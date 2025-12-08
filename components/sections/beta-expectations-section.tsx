@@ -1,8 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
-import { BETA_PAGE_CONTENT } from "@/content";
+import { useContent } from "@/lib/i18n";
+import type { BetaPageContent } from "@/content";
 
 export interface BetaExpectationsSectionProps {
   className?: string;
@@ -12,14 +15,16 @@ const BetaExpectationsSection = React.forwardRef<
   HTMLElement,
   BetaExpectationsSectionProps
 >(({ className }, ref) => {
+  const content = useContent<BetaPageContent>("BETA_PAGE_CONTENT");
+
   return (
     <Section ref={ref} id="beta-expectations" background="default" className={className}>
       <Container>
-        <SectionHeader heading={BETA_PAGE_CONTENT.expectations.heading} intro={BETA_PAGE_CONTENT.expectations.intro} />
+        <SectionHeader heading={content.expectations.heading} intro={content.expectations.intro} />
 
         <div className="mx-auto max-w-3xl">
           <ul className="space-y-6">
-            {BETA_PAGE_CONTENT.expectations.items.map((expectation, index) => (
+            {content.expectations.items.map((expectation, index) => (
               <li
                 key={index}
                 className="flex items-start gap-4 rounded-xl border border-purple-primary/10 bg-white/80 p-6 backdrop-blur-sm"

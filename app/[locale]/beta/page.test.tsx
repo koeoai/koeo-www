@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import BetaPage from "./page";
+import { LocaleProvider } from "@/lib/i18n";
 
 // Mock next/link to render as a simple anchor
 vi.mock("next/link", () => ({
@@ -18,12 +19,26 @@ vi.mock("next/link", () => ({
   ),
 }));
 
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/beta"),
+}));
+
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement, locale: "en" | "fr" = "en") => {
+  return render(
+    <LocaleProvider locale={locale}>
+      {ui}
+    </LocaleProvider>
+  );
+};
+
 describe("Beta Page Assembly", () => {
   /**
    * Verify Header and Footer render
    */
   it("renders Header and Footer for consistent navigation", () => {
-    render(<BetaPage />);
+    renderWithLocale(<BetaPage />);
 
     expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
@@ -34,7 +49,7 @@ describe("Beta Page Assembly", () => {
    * Requirements: 7.1, 7.2
    */
   it("renders hero and form sections", () => {
-    render(<BetaPage />);
+    renderWithLocale(<BetaPage />);
 
     // Verify BetaHero renders with title (text split across elements)
     expect(screen.getByText(/Apply for/i)).toBeInTheDocument();
@@ -54,7 +69,7 @@ describe("Beta Page Assembly", () => {
    * Requirements: 7.5, 8.1
    */
   it("renders the survey form", () => {
-    render(<BetaPage />);
+    renderWithLocale(<BetaPage />);
 
     // Verify required form fields are present
     expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
@@ -71,7 +86,7 @@ describe("Beta Page Assembly", () => {
    * Verify section IDs are present for navigation
    */
   it("renders sections with correct IDs", () => {
-    const { container } = render(<BetaPage />);
+    const { container } = renderWithLocale(<BetaPage />);
 
     expect(container.querySelector("#beta-form")).toBeInTheDocument();
   });
@@ -81,7 +96,7 @@ describe("Beta Page Assembly", () => {
    * Requirements: 7.1
    */
   it("renders hero with eyebrow badge", () => {
-    render(<BetaPage />);
+    renderWithLocale(<BetaPage />);
 
     expect(screen.getByText(/limited spots/i)).toBeInTheDocument();
   });
@@ -91,7 +106,7 @@ describe("Beta Page Assembly", () => {
    * Requirements: 7.2
    */
   it("renders who section with three criteria", () => {
-    render(<BetaPage />);
+    renderWithLocale(<BetaPage />);
 
     expect(
       screen.getByText("You're shipping or about to ship AI features")

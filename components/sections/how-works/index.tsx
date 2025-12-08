@@ -1,15 +1,21 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 import { DeveloperFeatures } from "./developer-features";
 import { BetaSteps } from "./beta-steps";
+import { useContent } from "@/lib/i18n";
+import type { HowWorksSectionContent } from "@/content";
 
 export interface HowWorksSectionProps {
   className?: string;
 }
 
 export function HowWorksSection({ className }: HowWorksSectionProps) {
+  const content = useContent<HowWorksSectionContent>("HOW_WORKS_CONTENT");
+
   return (
     <Section 
       id="how-it-works" 
@@ -28,17 +34,17 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
             {/* Left: Headline - Custom layout, not using SectionHeader due to split design */}
             <div className="lg:col-span-1">
               <h2 className="text-3xl font-bold leading-tight text-text-primary md:text-4xl lg:text-5xl">
-                Built by Developers,
+                {content.heading}
                 <br />
-                <span className="bg-gradient-to-r from-purple-primary to-magenta bg-clip-text text-transparent">for Developers</span>
+                <span className="bg-gradient-to-r from-purple-primary to-magenta bg-clip-text text-transparent">{content.headingAccent}</span>
               </h2>
               <p className="mt-4 text-base text-text-primary/60">
-                Developer-first experience, even in beta
+                {content.subheading}
               </p>
             </div>
 
             {/* Right: Feature Columns */}
-            <DeveloperFeatures />
+            <DeveloperFeatures features={content.developerFeatures} />
           </div>
         </Container>
       </div>
@@ -52,7 +58,11 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
           {/* Card glow */}
           <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-purple-primary/20 via-magenta/10 to-pink-light/20 blur-2xl" />
           
-          <BetaSteps />
+          <BetaSteps 
+            stepsHeading={content.stepsHeading}
+            steps={content.steps}
+            cta={content.cta}
+          />
         </Container>
       </div>
     </Section>

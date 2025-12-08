@@ -47,3 +47,22 @@ export {
   PRODUCT_CTA_CONTENT,
   PRODUCT_PAGE_CONTENT,
 } from "./product";
+
+// Brandkit page content
+export {
+  BRANDKIT_HERO_CONTENT,
+  BRANDKIT_SECTIONS,
+  BRANDKIT_TYPOGRAPHY_CONTENT,
+  BRANDKIT_GRADIENT_CONTENT,
+  BRANDKIT_PAGE_CONTENT,
+} from "./brandkit";
+
+// Providers page content
+export {
+  PROVIDERS_HERO_CONTENT,
+  PROVIDERS_SECTIONS,
+  PROVIDERS_BENEFITS,
+  PROVIDERS_TYPES,
+  PROVIDERS_FAQ,
+  PROVIDERS_PAGE_CONTENT,
+} from "./providers";
