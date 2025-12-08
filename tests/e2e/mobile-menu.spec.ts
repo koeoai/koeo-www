@@ -26,8 +26,8 @@ test.describe('Mobile Menu', () => {
     await page.click('button[aria-label="Open menu"]');
     await expect(page.locator('nav[aria-label="Mobile navigation"]')).toBeVisible();
     
-    // Close the menu by clicking the close button (X)
-    await page.click('button[aria-label="Close"]');
+    // Close the menu by clicking the close button (X) - uses sr-only text
+    await page.getByRole('button', { name: 'Close' }).click();
     
     // Verify menu is closed
     await expect(page.locator('nav[aria-label="Mobile navigation"]')).not.toBeVisible();

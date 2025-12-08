@@ -13,8 +13,8 @@ test.describe('Beta Signup Flow', () => {
     // Verify form is visible
     await expect(page.locator('form')).toBeVisible();
     
-    // Verify key form sections are present
-    await expect(page.locator('text=About You')).toBeVisible();
+    // Verify key form sections are present (using exact match to avoid multiple elements)
+    await expect(page.getByRole('heading', { name: 'About you', exact: true })).toBeVisible();
   });
 
   test('should show validation errors for empty required fields', async ({ page }) => {
@@ -45,29 +45,37 @@ test.describe('Beta Signup Flow', () => {
     await page.fill('textarea[name="aiUseCase"]', 'Building AI-powered applications for data analysis');
     
     // Select workload types (multi-select)
-    await page.click('button:has-text("Select workload types")');
-    await page.click('text=Inference (LLM / RAG / vision)');
-    await page.keyboard.press('Escape'); // Close dropdown
+    await page.locator('#workloadTypes').click();
+    await page.getByRole('option', { name: 'Inference (LLM / RAG / vision)' }).click();
+    // Click outside to close dropdown
+    await page.locator('h2:has-text("Tell us about")').click();
+    await expect(page.locator('[role="listbox"]')).not.toBeVisible();
     
     // Fill Current Setup section
-    await page.click('button:has-text("Select infrastructure sources")');
-    await page.click('text=AWS');
-    await page.keyboard.press('Escape');
+    await page.locator('#currentInfraSources').click();
+    await page.getByRole('option', { name: 'AWS' }).click();
+    // Click outside to close dropdown
+    await page.locator('h2:has-text("Tell us about")').click();
+    await expect(page.locator('[role="listbox"]')).not.toBeVisible();
     
-    await page.click('button:has-text("Select monthly spend")');
-    await page.click('text=$500–2k');
+    await page.locator('#monthlySpend').click();
+    await page.getByRole('option', { name: '$500–2k' }).click();
     
     await page.fill('textarea[name="workflow"]', 'We use containerized workloads on Kubernetes');
     
     // Fill Pain Points section
-    await page.click('button:has-text("Select pain points")');
-    await page.click('text=Cost / unpredictable bills');
-    await page.keyboard.press('Escape');
+    await page.locator('#topPainPoints').click();
+    await page.getByRole('option', { name: 'Cost / unpredictable bills' }).click();
+    // Click outside to close dropdown
+    await page.locator('h2:has-text("Tell us about")').click();
+    await expect(page.locator('[role="listbox"]')).not.toBeVisible();
     
     // Fill Features section
-    await page.click('button:has-text("Select valuable features")');
-    await page.click('text=OpenAI-compatible API');
-    await page.keyboard.press('Escape');
+    await page.locator('#mostValuableFeatures').click();
+    await page.getByRole('option', { name: 'OpenAI-compatible API' }).click();
+    // Click outside to close dropdown
+    await page.locator('h2:has-text("Tell us about")').click();
+    await expect(page.locator('[role="listbox"]')).not.toBeVisible();
     
     // Submit the form
     await page.locator('button[type="submit"]').scrollIntoViewIfNeeded();
