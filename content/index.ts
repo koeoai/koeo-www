@@ -195,3 +195,25 @@ export { LANGUAGE_BANNER_CONTENT } from "./en/banner";
 
 // Language banner type exports
 export type { LanguageBannerContent } from "./en/banner";
+
+// Form type exports
+export type {
+  FormOption,
+  ValidationMessages,
+  FormButtonLabels,
+  FormStatusMessages,
+  BetaFormSectionContent,
+  BetaFormContent,
+  CareerFormContent,
+  PartnerFormContent,
+} from "./types";
+
+// Form content exports
+export {
+  BETA_FORM_CONTENT,
+  CAREER_FORM_CONTENT,
+  PARTNER_FORM_CONTENT,
+  COMMON_VALIDATION,
+  COMMON_BUTTONS,
+  COMMON_STATUS,
+} from "./en/forms";

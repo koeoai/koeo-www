@@ -2,13 +2,14 @@
 
 import { FormField } from "@/components/ui/form-field";
 import { GlassCard } from "@/components/ui/glass-card";
-import { WORKLOAD_TYPE_OPTIONS } from "../constants";
+import type { BetaFormContent } from "@/content";
 
 export interface AiUsageSectionProps {
   aiUseCase: string;
   workloadTypes: string[];
   errors: Record<string, string>;
   onFieldChange: (field: string) => (value: string | string[]) => void;
+  content: BetaFormContent;
 }
 
 export function AiUsageSection({
@@ -16,18 +17,21 @@ export function AiUsageSection({
   workloadTypes,
   errors,
   onFieldChange,
+  content,
 }: AiUsageSectionProps) {
+  const { sections, fields, options } = content;
+
   return (
     <GlassCard
-      title="What you're doing with AI"
-      description="A quick snapshot of why you use AI."
+      title={sections.aiUsage.title}
+      description={sections.aiUsage.description}
     >
       <FormField
         id="aiUseCase"
-        label="What are you using AI for?"
+        label={fields.aiUseCase.label}
         type="textarea"
-        placeholder="Tell us what you're working on..."
-        helperText="Plain language is perfect."
+        placeholder={fields.aiUseCase.placeholder}
+        helperText={fields.aiUseCase.helperText}
         required
         value={aiUseCase}
         onChange={onFieldChange("aiUseCase")}
@@ -36,10 +40,10 @@ export function AiUsageSection({
       />
       <FormField
         id="workloadTypes"
-        label="Workload types"
+        label={fields.workloadTypes.label}
         type="multiselect"
-        helperText="Select all that apply."
-        options={[...WORKLOAD_TYPE_OPTIONS]}
+        helperText={fields.workloadTypes.helperText}
+        options={options.workloadTypes}
         required
         value={workloadTypes}
         onChange={onFieldChange("workloadTypes")}

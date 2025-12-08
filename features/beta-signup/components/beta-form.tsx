@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { NetworkBackground } from "@/components/ui/network-background";
+import { useContent } from "@/lib/i18n/use-content";
+import type { BetaFormContent } from "@/content";
 import { SurveyFormData } from "../constants";
 import { useBetaForm } from "../hooks";
 import {
@@ -22,13 +24,14 @@ export interface BetaFormProps {
 }
 
 export function BetaForm({ onSubmit, className }: BetaFormProps) {
+  const content = useContent<BetaFormContent>("BETA_FORM_CONTENT");
   const {
     formData,
     errors,
     formState,
     updateField,
     handleSubmit,
-  } = useBetaForm({ onSubmit });
+  } = useBetaForm({ onSubmit, content });
 
   // Generic field change handler that works with section components
   const onFieldChange = (field: string) => (value: string | string[]) => {
@@ -45,9 +48,9 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="mb-3 text-2xl font-bold text-white">Thanks for sharing your insights!</h3>
+            <h3 className="mb-3 text-2xl font-bold text-white">{content.status.success.title}</h3>
             <p className="text-lg text-white/70">
-              We&apos;ll review your responses and reach out if you expressed interest in the pilot.
+              {content.status.success.message}
             </p>
           </div>
         </div>
@@ -63,11 +66,11 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-3xl font-bold text-transparent md:text-4xl lg:text-5xl">
-            Tell us about your use case and we&apos;ll be in touch.
+            {content.heading}
           </h2>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/60 backdrop-blur-sm">
             <span className="text-lg">🔒</span>
-            We won&apos;t share your answers outside our team
+            {content.status.privacyNotice}
           </div>
         </div>
 
@@ -80,6 +83,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             segment={formData.segment}
             errors={errors}
             onFieldChange={onFieldChange}
+            content={content}
           />
 
           <AiUsageSection
@@ -87,6 +91,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             workloadTypes={formData.workloadTypes}
             errors={errors}
             onFieldChange={onFieldChange}
+            content={content}
           />
 
           <CurrentSetupSection
@@ -95,6 +100,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             workflow={formData.workflow}
             errors={errors}
             onFieldChange={onFieldChange}
+            content={content}
           />
 
           <PainPointsSection
@@ -102,6 +108,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             painNotes={formData.painNotes}
             errors={errors}
             onFieldChange={onFieldChange}
+            content={content}
           />
 
           <FeaturesSection
@@ -109,16 +116,17 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
             anythingElse={formData.anythingElse}
             errors={errors}
             onFieldChange={onFieldChange}
+            content={content}
           />
 
           {formState === "error" && (
             <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-200 backdrop-blur-sm" role="alert">
-              Something went wrong. Please try again.
+              {content.status.error}
             </div>
           )}
 
           <Button type="submit" size="lg" disabled={formState === "applying"} className="w-full bg-gradient-to-r from-purple-primary to-magenta text-lg font-semibold shadow-lg shadow-magenta/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-magenta/40">
-            {formState === "applying" ? "Applying..." : "Apply"}
+            {formState === "applying" ? content.buttons.submitting : content.buttons.submit}
           </Button>
         </form>
       </div>

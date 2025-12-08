@@ -72,3 +72,13 @@ export { NAVIGATION_CONTENT } from "./navigation";
 
 // Language banner content
 export { LANGUAGE_BANNER_CONTENT } from "./banner";
+
+// Form content
+export {
+  BETA_FORM_CONTENT,
+  CAREER_FORM_CONTENT,
+  PARTNER_FORM_CONTENT,
+  COMMON_VALIDATION,
+  COMMON_BUTTONS,
+  COMMON_STATUS,
+} from "./forms";

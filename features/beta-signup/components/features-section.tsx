@@ -2,13 +2,14 @@
 
 import { FormField } from "@/components/ui/form-field";
 import { GlassCard } from "@/components/ui/glass-card";
-import { VALUABLE_FEATURES_OPTIONS } from "../constants";
+import type { BetaFormContent } from "@/content";
 
 export interface FeaturesSectionProps {
   mostValuableFeatures: string[];
   anythingElse: string;
   errors: Record<string, string>;
   onFieldChange: (field: string) => (value: string | string[]) => void;
+  content: BetaFormContent;
 }
 
 export function FeaturesSection({
@@ -16,15 +17,18 @@ export function FeaturesSection({
   anythingElse,
   errors,
   onFieldChange,
+  content,
 }: FeaturesSectionProps) {
+  const { sections, fields, options } = content;
+
   return (
-    <GlassCard title="What would help you most">
+    <GlassCard title={sections.features.title}>
       <FormField
         id="mostValuableFeatures"
-        label="Most valuable features"
+        label={fields.mostValuableFeatures.label}
         type="multiselect"
-        helperText="Pick the ones you actually care about."
-        options={[...VALUABLE_FEATURES_OPTIONS]}
+        helperText={fields.mostValuableFeatures.helperText}
+        options={options.valuableFeatures}
         required
         value={mostValuableFeatures}
         onChange={onFieldChange("mostValuableFeatures")}
@@ -33,9 +37,9 @@ export function FeaturesSection({
       />
       <FormField
         id="anythingElse"
-        label="Anything else you'd like to share?"
+        label={fields.anythingElse.label}
         type="textarea"
-        placeholder="Edge cases, ideas, concerns, wishlist items..."
+        placeholder={fields.anythingElse.placeholder}
         value={anythingElse}
         onChange={onFieldChange("anythingElse")}
         variant="glass"

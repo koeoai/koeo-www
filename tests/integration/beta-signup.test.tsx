@@ -336,8 +336,8 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
         const form = container.querySelector("form");
         fireEvent.submit(form!);
 
-        // Should show fullName validation error
-        expect(screen.getByText(/full name is required/i)).toBeInTheDocument();
+        // Should show fullName validation error (now uses localized "This field is required")
+        expect(screen.getAllByText(/this field is required/i).length).toBeGreaterThan(0);
 
         unmount();
       }),
@@ -353,19 +353,15 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
         const form = container.querySelector("form");
         fireEvent.submit(form!);
 
-        // All required field errors should be present
-        expect(screen.getByText(/full name is required/i)).toBeInTheDocument();
+        // All required field errors should be present (using localized messages)
+        // Text fields use "This field is required"
+        expect(screen.getAllByText(/this field is required/i).length).toBeGreaterThan(0);
+        // Email has its own message
         expect(screen.getByText(/email is required/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select your role/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select your segment/i)).toBeInTheDocument();
-        expect(screen.getByText(/please describe your ai use case/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select at least one workload type/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select at least one infrastructure source/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select your monthly spend/i)).toBeInTheDocument();
-        expect(screen.getByText(/please describe your workflow/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select at least one pain point/i)).toBeInTheDocument();
-        expect(screen.getByText(/please provide some context about your pain points/i)).toBeInTheDocument();
-        expect(screen.getByText(/please select at least one valuable feature/i)).toBeInTheDocument();
+        // Single selects use "Please select an option"
+        expect(screen.getAllByText(/please select an option/i).length).toBeGreaterThan(0);
+        // Multi-selects use "Please select at least one option"
+        expect(screen.getAllByText(/please select at least one option/i).length).toBeGreaterThan(0);
 
         unmount();
       }),

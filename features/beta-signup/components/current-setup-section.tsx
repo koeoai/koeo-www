@@ -2,7 +2,7 @@
 
 import { FormField } from "@/components/ui/form-field";
 import { GlassCard } from "@/components/ui/glass-card";
-import { INFRA_SOURCE_OPTIONS, MONTHLY_SPEND_OPTIONS } from "../constants";
+import type { BetaFormContent } from "@/content";
 
 export interface CurrentSetupSectionProps {
   currentInfraSources: string[];
@@ -10,6 +10,7 @@ export interface CurrentSetupSectionProps {
   workflow: string;
   errors: Record<string, string>;
   onFieldChange: (field: string) => (value: string | string[]) => void;
+  content: BetaFormContent;
 }
 
 export function CurrentSetupSection({
@@ -18,18 +19,21 @@ export function CurrentSetupSection({
   workflow,
   errors,
   onFieldChange,
+  content,
 }: CurrentSetupSectionProps) {
+  const { sections, fields, options } = content;
+
   return (
     <GlassCard
-      title="Your current setup"
-      description="How and where your models run today."
+      title={sections.currentSetup.title}
+      description={sections.currentSetup.description}
     >
       <FormField
         id="currentInfraSources"
-        label="Current Infra sources"
+        label={fields.currentInfraSources.label}
         type="multiselect"
-        helperText="Select all that apply."
-        options={[...INFRA_SOURCE_OPTIONS]}
+        helperText={fields.currentInfraSources.helperText}
+        options={options.infraSources}
         required
         value={currentInfraSources}
         onChange={onFieldChange("currentInfraSources")}
@@ -38,10 +42,10 @@ export function CurrentSetupSection({
       />
       <FormField
         id="monthlySpend"
-        label="Rough monthly AI/GPU spend"
+        label={fields.monthlySpend.label}
         type="select"
-        placeholder="Select your spend range"
-        options={[...MONTHLY_SPEND_OPTIONS]}
+        placeholder={fields.monthlySpend.placeholder}
+        options={options.monthlySpend}
         required
         value={monthlySpend}
         onChange={onFieldChange("monthlySpend")}
@@ -50,9 +54,9 @@ export function CurrentSetupSection({
       />
       <FormField
         id="workflow"
-        label="How do you work today?"
+        label={fields.workflow.label}
         type="textarea"
-        placeholder="e.g. 'Local dev + call OpenAI API'"
+        placeholder={fields.workflow.placeholder}
         required
         value={workflow}
         onChange={onFieldChange("workflow")}

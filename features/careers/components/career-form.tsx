@@ -4,12 +4,12 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { useContent } from "@/lib/i18n/use-content";
+import type { CareerFormContent } from "@/content";
 import {
   CareerFormData,
   FormState,
   INITIAL_FORM_DATA,
-  EXPERIENCE_OPTIONS,
-  INTEREST_OPTIONS,
 } from "../constants";
 
 // Re-export types for backward compatibility
@@ -21,6 +21,7 @@ export interface CareerFormProps {
 }
 
 export function CareerForm({ onSubmit, className }: CareerFormProps) {
+  const content = useContent<CareerFormContent>("CAREER_FORM_CONTENT");
   const [formData, setFormData] = useState<CareerFormData>(INITIAL_FORM_DATA);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formState, setFormState] = useState<FormState>("idle");
@@ -47,13 +48,13 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
     if (!allowedTypes.includes(file.type)) {
-      setErrors((prev) => ({ ...prev, resume: "Please upload a PDF or Word document" }));
+      setErrors((prev) => ({ ...prev, resume: content.validation.fileType }));
       return;
     }
 
     // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
-      setErrors((prev) => ({ ...prev, resume: "File size must be less than 5MB" }));
+      setErrors((prev) => ({ ...prev, resume: content.validation.fileSize }));
       return;
     }
 
@@ -79,15 +80,16 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.email.trim()) newErrors.email = "Email is required";
+    const { validation } = content;
+    if (!formData.fullName.trim()) newErrors.fullName = validation.required;
+    if (!formData.email.trim()) newErrors.email = validation.email;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email";
+      newErrors.email = validation.invalidEmail;
     }
-    if (formData.areasOfInterest.length === 0) newErrors.areasOfInterest = "Please select at least one area";
-    if (!formData.whyKoeo.trim()) newErrors.whyKoeo = "Please tell us why you're interested in Koeo";
-    if (!formData.whatYouBring.trim()) newErrors.whatYouBring = "Please tell us what you'd bring to the team";
-    if (!formData.resumeBase64) newErrors.resume = "Please upload your resume";
+    if (formData.areasOfInterest.length === 0) newErrors.areasOfInterest = validation.selectAtLeastOne;
+    if (!formData.whyKoeo.trim()) newErrors.whyKoeo = validation.required;
+    if (!formData.whatYouBring.trim()) newErrors.whatYouBring = validation.required;
+    if (!formData.resumeBase64) newErrors.resume = validation.required;
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -137,21 +139,23 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="mb-3 text-2xl font-bold text-white">Thanks for your interest!</h3>
+        <h3 className="mb-3 text-2xl font-bold text-white">{content.status.success.title}</h3>
         <p className="text-lg text-white/70">
-          We&apos;ve received your application and will keep it on file. If a role opens up that matches your profile, we&apos;ll be in touch.
+          {content.status.success.message}
         </p>
       </div>
     );
   }
 
+  const { sections, fields, options } = content;
+
   return (
     <form onSubmit={handleSubmit} className={cn("space-y-8", className)}>
-      <GlassCard title="Contact information" description="How can we reach you?">
+      <GlassCard title={sections.contact.title} description={sections.contact.description}>
         <FormField
           id="fullName"
-          label="Full name"
-          placeholder="Jane Smith"
+          label={fields.fullName.label}
+          placeholder={fields.fullName.placeholder}
           required
           value={formData.fullName}
           onChange={updateField("fullName")}
@@ -160,9 +164,9 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         />
         <FormField
           id="email"
-          label="Email"
+          label={fields.email.label}
           type="email"
-          placeholder="jane@example.com"
+          placeholder={fields.email.placeholder}
           required
           value={formData.email}
           onChange={updateField("email")}
@@ -171,55 +175,55 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         />
         <FormField
           id="phone"
-          label="Phone number"
-          placeholder="+1 (555) 123-4567"
+          label={fields.phone.label}
+          placeholder={fields.phone.placeholder}
           value={formData.phone}
           onChange={updateField("phone")}
           variant="glass"
         />
         <FormField
           id="linkedIn"
-          label="LinkedIn profile"
-          placeholder="https://linkedin.com/in/yourprofile"
+          label={fields.linkedIn.label}
+          placeholder={fields.linkedIn.placeholder}
           value={formData.linkedIn}
           onChange={updateField("linkedIn")}
           variant="glass"
         />
         <FormField
           id="portfolio"
-          label="Portfolio / GitHub / Website"
-          placeholder="https://github.com/yourusername"
+          label={fields.portfolio.label}
+          placeholder={fields.portfolio.placeholder}
           value={formData.portfolio}
           onChange={updateField("portfolio")}
           variant="glass"
         />
       </GlassCard>
 
-      <GlassCard title="Your background" description="Tell us about your experience.">
+      <GlassCard title={sections.background.title} description={sections.background.description}>
         <FormField
           id="currentRole"
-          label="Current role / title"
-          placeholder="e.g. Senior Software Engineer"
+          label={fields.currentRole.label}
+          placeholder={fields.currentRole.placeholder}
           value={formData.currentRole}
           onChange={updateField("currentRole")}
           variant="glass"
         />
         <FormField
           id="yearsExperience"
-          label="Years of experience"
+          label={fields.yearsExperience.label}
           type="select"
-          placeholder="Select your experience level"
-          options={[...EXPERIENCE_OPTIONS]}
+          placeholder={fields.yearsExperience.placeholder}
+          options={options.experience}
           value={formData.yearsExperience}
           onChange={updateField("yearsExperience")}
           variant="glass"
         />
         <FormField
           id="areasOfInterest"
-          label="Areas of interest"
+          label={fields.areasOfInterest.label}
           type="multiselect"
-          helperText="What kind of work excites you?"
-          options={[...INTEREST_OPTIONS]}
+          helperText={fields.areasOfInterest.helperText}
+          options={options.interests}
           required
           value={formData.areasOfInterest}
           onChange={updateField("areasOfInterest")}
@@ -228,12 +232,12 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         />
       </GlassCard>
 
-      <GlassCard title="Why Koeo?" description="Help us understand why you'd be a great fit.">
+      <GlassCard title={sections.whyKoeo.title} description={sections.whyKoeo.description}>
         <FormField
           id="whyKoeo"
-          label="Why are you interested in Koeo?"
+          label={fields.whyKoeo.label}
           type="textarea"
-          placeholder="What draws you to our mission? What excites you about AI infrastructure?"
+          placeholder={fields.whyKoeo.placeholder}
           required
           value={formData.whyKoeo}
           onChange={updateField("whyKoeo")}
@@ -242,9 +246,9 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         />
         <FormField
           id="whatYouBring"
-          label="What would you bring to the team?"
+          label={fields.whatYouBring.label}
           type="textarea"
-          placeholder="Tell us about your skills, experiences, or perspectives that would make you a valuable addition..."
+          placeholder={fields.whatYouBring.placeholder}
           required
           value={formData.whatYouBring}
           onChange={updateField("whatYouBring")}
@@ -253,10 +257,10 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         />
       </GlassCard>
 
-      <GlassCard title="Resume" description="Upload your resume so we can learn more about you.">
+      <GlassCard title={sections.resume.title} description={sections.resume.description}>
         <div className="flex flex-col gap-2">
           <label className="text-sm font-medium text-white/90">
-            Resume / CV <span className="text-pink-light">*</span>
+            {fields.resume.label} <span className="text-pink-light">*</span>
           </label>
           <div className="relative">
             <input
@@ -277,11 +281,11 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
               <span className="text-white/60">
-                {formData.resumeFileName || "Click to upload PDF or Word document (max 5MB)"}
+                {formData.resumeFileName || fields.resume.placeholder}
               </span>
             </div>
           </div>
-          <p className="text-sm text-white/50">Accepted formats: PDF, DOC, DOCX</p>
+          <p className="text-sm text-white/50">{fields.resume.helperText}</p>
           {errors.resume && (
             <p id="resume-error" className="text-sm text-red-300" role="alert">
               {errors.resume}
@@ -290,12 +294,12 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         </div>
       </GlassCard>
 
-      <GlassCard title="Anything else?">
+      <GlassCard title={sections.anythingElse.title}>
         <FormField
           id="anythingElse"
-          label="Is there anything else you'd like us to know?"
+          label={fields.anythingElse.label}
           type="textarea"
-          placeholder="Side projects, interests, questions for us..."
+          placeholder={fields.anythingElse.placeholder}
           value={formData.anythingElse}
           onChange={updateField("anythingElse")}
           variant="glass"
@@ -304,7 +308,7 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
 
       {formState === "error" && (
         <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-200 backdrop-blur-sm" role="alert">
-          Something went wrong. Please try again.
+          {content.status.error}
         </div>
       )}
 
@@ -314,7 +318,7 @@ export function CareerForm({ onSubmit, className }: CareerFormProps) {
         disabled={formState === "submitting"}
         className="w-full bg-gradient-to-r from-purple-primary to-magenta text-lg font-semibold shadow-lg shadow-magenta/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-magenta/40"
       >
-        {formState === "submitting" ? "Submitting..." : "Submit application"}
+        {formState === "submitting" ? content.buttons.submitting : content.buttons.submit}
       </Button>
     </form>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import type { BetaFormContent } from "@/content";
 import {
   SurveyFormData,
   FormState,
@@ -20,6 +21,7 @@ export interface UseBetaFormReturn {
 export interface UseBetaFormOptions {
   onSubmit?: (data: SurveyFormData) => Promise<void>;
   initialData?: Partial<SurveyFormData>;
+  content?: BetaFormContent;
 }
 
 /**
@@ -27,7 +29,7 @@ export interface UseBetaFormOptions {
  * Extracts form logic from BetaForm component for reusability and testability.
  */
 export function useBetaForm(options: UseBetaFormOptions = {}): UseBetaFormReturn {
-  const { onSubmit, initialData } = options;
+  const { onSubmit, initialData, content } = options;
   
   const [formData, setFormData] = useState<SurveyFormData>({
     ...INITIAL_FORM_DATA,
@@ -35,6 +37,17 @@ export function useBetaForm(options: UseBetaFormOptions = {}): UseBetaFormReturn
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formState, setFormState] = useState<FormState>("idle");
+
+  // Get validation messages from content or use defaults
+  const validation = content?.validation ?? {
+    required: "This field is required",
+    email: "Email is required",
+    invalidEmail: "Please enter a valid email",
+    selectOne: "Please select an option",
+    selectAtLeastOne: "Please select at least one option",
+    fileType: "Please upload a PDF or Word document",
+    fileSize: "File size must be less than 5MB",
+  };
 
   const updateField = useCallback(
     (field: keyof SurveyFormData) => (value: string | string[]) => {
@@ -56,59 +69,59 @@ export function useBetaForm(options: UseBetaFormOptions = {}): UseBetaFormReturn
 
     // Required string fields
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required";
+      newErrors.fullName = validation.required;
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = validation.email;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email";
+      newErrors.email = validation.invalidEmail;
     }
     
     if (!formData.role) {
-      newErrors.role = "Please select your role";
+      newErrors.role = validation.selectOne;
     }
     
     if (!formData.segment) {
-      newErrors.segment = "Please select your segment";
+      newErrors.segment = validation.selectOne;
     }
     
     if (!formData.aiUseCase.trim()) {
-      newErrors.aiUseCase = "Please describe your AI use case";
+      newErrors.aiUseCase = validation.required;
     }
     
     // Required array fields
     if (formData.workloadTypes.length === 0) {
-      newErrors.workloadTypes = "Please select at least one workload type";
+      newErrors.workloadTypes = validation.selectAtLeastOne;
     }
     
     if (formData.currentInfraSources.length === 0) {
-      newErrors.currentInfraSources = "Please select at least one infrastructure source";
+      newErrors.currentInfraSources = validation.selectAtLeastOne;
     }
     
     if (!formData.monthlySpend) {
-      newErrors.monthlySpend = "Please select your monthly spend";
+      newErrors.monthlySpend = validation.selectOne;
     }
     
     if (!formData.workflow.trim()) {
-      newErrors.workflow = "Please describe your workflow";
+      newErrors.workflow = validation.required;
     }
     
     if (formData.topPainPoints.length === 0) {
-      newErrors.topPainPoints = "Please select at least one pain point";
+      newErrors.topPainPoints = validation.selectAtLeastOne;
     }
     
     if (!formData.painNotes.trim()) {
-      newErrors.painNotes = "Please provide some context about your pain points";
+      newErrors.painNotes = validation.required;
     }
     
     if (formData.mostValuableFeatures.length === 0) {
-      newErrors.mostValuableFeatures = "Please select at least one valuable feature";
+      newErrors.mostValuableFeatures = validation.selectAtLeastOne;
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }, [formData]);
+  }, [formData, validation]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {

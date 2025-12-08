@@ -4,15 +4,12 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { useContent } from "@/lib/i18n/use-content";
+import type { PartnerFormContent } from "@/content";
 import {
   PartnerFormData,
   FormState,
   INITIAL_FORM_DATA,
-  PARTNERSHIP_TYPE_OPTIONS,
-  SUPPORTED_PLATFORMS_OPTIONS,
-  AI_READINESS_OPTIONS,
-  ONBOARDING_TIMELINE_OPTIONS,
-  PREFERRED_NEXT_STEP_OPTIONS,
 } from "../constants";
 
 // Re-export types for backward compatibility
@@ -24,6 +21,7 @@ export interface PartnerFormProps {
 }
 
 export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
+  const content = useContent<PartnerFormContent>("PARTNER_FORM_CONTENT");
   const [formData, setFormData] = useState<PartnerFormData>(INITIAL_FORM_DATA);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formState, setFormState] = useState<FormState>("idle");
@@ -41,27 +39,28 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
+    const { validation } = content;
     
     // Section 1 - About your organization
-    if (!formData.partnerName.trim()) newErrors.partnerName = "Organization name is required";
-    if (!formData.countryRegion.trim()) newErrors.countryRegion = "Country / region is required";
+    if (!formData.partnerName.trim()) newErrors.partnerName = validation.required;
+    if (!formData.countryRegion.trim()) newErrors.countryRegion = validation.required;
     
     // Section 2 - Contact details
-    if (!formData.contactName.trim()) newErrors.contactName = "Contact name is required";
-    if (!formData.contactRole.trim()) newErrors.contactRole = "Role / title is required";
-    if (!formData.contactEmail.trim()) newErrors.contactEmail = "Email is required";
+    if (!formData.contactName.trim()) newErrors.contactName = validation.required;
+    if (!formData.contactRole.trim()) newErrors.contactRole = validation.required;
+    if (!formData.contactEmail.trim()) newErrors.contactEmail = validation.email;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contactEmail)) {
-      newErrors.contactEmail = "Please enter a valid email";
+      newErrors.contactEmail = validation.invalidEmail;
     }
     
     // Section 3 - Infrastructure profile
-    if (!formData.partnershipType) newErrors.partnershipType = "Please select a partnership type";
-    if (formData.supportedPlatforms.length === 0) newErrors.supportedPlatforms = "Please select at least one platform";
-    if (!formData.aiReadiness) newErrors.aiReadiness = "Please select your AI readiness level";
+    if (!formData.partnershipType) newErrors.partnershipType = validation.selectOne;
+    if (formData.supportedPlatforms.length === 0) newErrors.supportedPlatforms = validation.selectAtLeastOne;
+    if (!formData.aiReadiness) newErrors.aiReadiness = validation.selectOne;
     
     // Section 4 - Readiness & next steps
-    if (!formData.onboardingTimeline) newErrors.onboardingTimeline = "Please select a timeline";
-    if (!formData.preferredNextStep) newErrors.preferredNextStep = "Please select your preferred next step";
+    if (!formData.onboardingTimeline) newErrors.onboardingTimeline = validation.selectOne;
+    if (!formData.preferredNextStep) newErrors.preferredNextStep = validation.selectOne;
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -99,9 +98,9 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="mb-3 text-2xl font-bold text-white">Thanks for reaching out!</h3>
+            <h3 className="mb-3 text-2xl font-bold text-white">{content.status.success.title}</h3>
             <p className="text-lg text-white/70">
-              We&apos;ll review your information and get back to you based on your preferred next step.
+              {content.status.success.message}
             </p>
           </div>
         </div>
@@ -125,6 +124,8 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
   );
 
 
+  const { sections, fields, options } = content;
+
   return (
     <section id="provider-cta-form" className={cn("relative py-16 md:py-24", className)}>
       {/* Decorative elements */}
@@ -135,25 +136,25 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-3xl font-bold text-transparent md:text-4xl lg:text-5xl">
-            Ready to join the network?
+            {content.heading}
           </h2>
           <p className="mt-4 text-lg text-white/70">
-            Fill out the form below and we&apos;ll be in touch to discuss partnership opportunities.
+            {content.subheading}
           </p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/60 backdrop-blur-sm">
             <span className="text-lg">🔒</span>
-            We won&apos;t share your information outside our team
+            {content.status.privacyNotice}
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Section 1 - About your organization */}
-          <GlassCard title="About your organization" description="Who are you, and where are you based?">
+          <GlassCard title={sections.organization.title} description={sections.organization.description}>
             <FormField
               id="partnerName"
-              label="Organization / partner name"
-              placeholder="Example: HydroCloud DC Montreal"
-              helperText="Your company or organization name."
+              label={fields.partnerName.label}
+              placeholder={fields.partnerName.placeholder}
+              helperText={fields.partnerName.helperText}
               required
               value={formData.partnerName}
               onChange={updateField("partnerName")}
@@ -162,19 +163,19 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="website"
-              label="Website"
+              label={fields.website.label}
               type="text"
-              placeholder="https://yourcompany.com"
-              helperText="Main website or landing page, if available."
+              placeholder={fields.website.placeholder}
+              helperText={fields.website.helperText}
               value={formData.website}
               onChange={updateField("website")}
               variant="glass"
             />
             <FormField
               id="countryRegion"
-              label="Country / region"
-              placeholder="Canada – Quebec"
-              helperText="Where your main facility or operations relevant to KOEO are located."
+              label={fields.countryRegion.label}
+              placeholder={fields.countryRegion.placeholder}
+              helperText={fields.countryRegion.helperText}
               required
               value={formData.countryRegion}
               onChange={updateField("countryRegion")}
@@ -183,9 +184,9 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="cityLocation"
-              label="City / facility location"
-              placeholder="Montreal or Toronto DC1"
-              helperText="City and, if relevant, the specific facility or site."
+              label={fields.cityLocation.label}
+              placeholder={fields.cityLocation.placeholder}
+              helperText={fields.cityLocation.helperText}
               value={formData.cityLocation}
               onChange={updateField("cityLocation")}
               variant="glass"
@@ -193,12 +194,12 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
           </GlassCard>
 
           {/* Section 2 - Contact details */}
-          <GlassCard title="Contact details" description="Who should KOEO talk to?">
+          <GlassCard title={sections.contact.title} description={sections.contact.description}>
             <FormField
               id="contactName"
-              label="Your name"
-              placeholder="Jane Doe"
-              helperText="Main point of contact for this partnership."
+              label={fields.contactName.label}
+              placeholder={fields.contactName.placeholder}
+              helperText={fields.contactName.helperText}
               required
               value={formData.contactName}
               onChange={updateField("contactName")}
@@ -207,9 +208,9 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="contactRole"
-              label="Your role / title"
-              placeholder="CTO, Datacenter Ops Lead, Founder…"
-              helperText="Your position in the organization."
+              label={fields.contactRole.label}
+              placeholder={fields.contactRole.placeholder}
+              helperText={fields.contactRole.helperText}
               required
               value={formData.contactRole}
               onChange={updateField("contactRole")}
@@ -218,10 +219,10 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="contactEmail"
-              label="Work email"
+              label={fields.contactEmail.label}
               type="email"
-              placeholder="name@yourcompany.com"
-              helperText="We'll use this to follow up about KOEO partnership details."
+              placeholder={fields.contactEmail.placeholder}
+              helperText={fields.contactEmail.helperText}
               required
               value={formData.contactEmail}
               onChange={updateField("contactEmail")}
@@ -230,10 +231,10 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="contactPhone"
-              label="Phone"
+              label={fields.contactPhone.label}
               type="text"
-              placeholder="+1 514 555 1234"
-              helperText="Only if you prefer a quick call. Include country code."
+              placeholder={fields.contactPhone.placeholder}
+              helperText={fields.contactPhone.helperText}
               value={formData.contactPhone}
               onChange={updateField("contactPhone")}
               variant="glass"
@@ -242,14 +243,14 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
 
 
           {/* Section 3 - Infrastructure profile */}
-          <GlassCard title="Infrastructure profile" description="Understand what kind of infra / capacity you have.">
+          <GlassCard title={sections.infrastructure.title} description={sections.infrastructure.description}>
             <FormField
               id="partnershipType"
-              label="Partnership type"
+              label={fields.partnershipType.label}
               type="select"
-              placeholder="Select one…"
-              helperText="Select the option that best describes how you'd work with KOEO."
-              options={[...PARTNERSHIP_TYPE_OPTIONS]}
+              placeholder={fields.partnershipType.placeholder}
+              helperText={fields.partnershipType.helperText}
+              options={options.partnershipTypes}
               required
               value={formData.partnershipType}
               onChange={updateField("partnershipType")}
@@ -258,20 +259,20 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="capacityMw"
-              label="Capacity available (MW)"
+              label={fields.capacityMw.label}
               type="text"
-              placeholder="1 or 2.5"
-              helperText="Rough estimate of power capacity you could allocate to AI workloads. A ballpark is fine."
+              placeholder={fields.capacityMw.placeholder}
+              helperText={fields.capacityMw.helperText}
               value={formData.capacityMw}
               onChange={updateField("capacityMw")}
               variant="glass"
             />
             <FormField
               id="supportedPlatforms"
-              label="Supported platforms / services"
+              label={fields.supportedPlatforms.label}
               type="multiselect"
-              helperText="What types of infrastructure or services do you currently offer or plan to offer?"
-              options={[...SUPPORTED_PLATFORMS_OPTIONS]}
+              helperText={fields.supportedPlatforms.helperText}
+              options={options.supportedPlatforms}
               required
               value={formData.supportedPlatforms}
               onChange={updateField("supportedPlatforms")}
@@ -280,11 +281,11 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="aiReadiness"
-              label="How mature is your infrastructure for AI workloads?"
+              label={fields.aiReadiness.label}
               type="select"
-              placeholder="Select one…"
-              helperText="This helps us understand how quickly we can collaborate."
-              options={[...AI_READINESS_OPTIONS]}
+              placeholder={fields.aiReadiness.placeholder}
+              helperText={fields.aiReadiness.helperText}
+              options={options.aiReadiness}
               required
               value={formData.aiReadiness}
               onChange={updateField("aiReadiness")}
@@ -293,10 +294,10 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="infraDetails"
-              label="Tell us about your infrastructure"
+              label={fields.infraDetails.label}
               type="textarea"
-              placeholder="We operate a 5 MW hydro-powered facility near Montreal with Tier 1 connectivity and are adding racks with NVIDIA and AMD GPUs…"
-              helperText="2–4 sentences about power, cooling, network, GPU types, regions, or anything else relevant."
+              placeholder={fields.infraDetails.placeholder}
+              helperText={fields.infraDetails.helperText}
               value={formData.infraDetails}
               onChange={updateField("infraDetails")}
               variant="glass"
@@ -304,14 +305,14 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
           </GlassCard>
 
           {/* Section 4 - Readiness & next steps */}
-          <GlassCard title="Readiness & next steps" description="Qualify timeline and align on how to engage.">
+          <GlassCard title={sections.readiness.title} description={sections.readiness.description}>
             <FormField
               id="onboardingTimeline"
-              label="How soon could you onboard KOEO workloads?"
+              label={fields.onboardingTimeline.label}
               type="select"
-              placeholder="Select one…"
-              helperText="Even a rough estimate is helpful for planning."
-              options={[...ONBOARDING_TIMELINE_OPTIONS]}
+              placeholder={fields.onboardingTimeline.placeholder}
+              helperText={fields.onboardingTimeline.helperText}
+              options={options.onboardingTimeline}
               required
               value={formData.onboardingTimeline}
               onChange={updateField("onboardingTimeline")}
@@ -320,21 +321,21 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             />
             <FormField
               id="goals"
-              label="What are you hoping KOEO can help with?"
+              label={fields.goals.label}
               type="textarea"
-              placeholder="We'd like to attract AI customers to our Quebec facility and offer them a reliable GPU platform without building all the software ourselves…"
-              helperText="Share your main goals: filling GPU capacity, attracting AI customers, compliance positioning, regional focus, etc."
+              placeholder={fields.goals.placeholder}
+              helperText={fields.goals.helperText}
               value={formData.goals}
               onChange={updateField("goals")}
               variant="glass"
             />
             <FormField
               id="preferredNextStep"
-              label="Preferred next step"
+              label={fields.preferredNextStep.label}
               type="select"
-              placeholder="Select one…"
-              helperText="Tell us how you'd like to start the conversation."
-              options={[...PREFERRED_NEXT_STEP_OPTIONS]}
+              placeholder={fields.preferredNextStep.placeholder}
+              helperText={fields.preferredNextStep.helperText}
+              options={options.preferredNextStep}
               required
               value={formData.preferredNextStep}
               onChange={updateField("preferredNextStep")}
@@ -345,7 +346,7 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
 
           {formState === "error" && (
             <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-200 backdrop-blur-sm" role="alert">
-              Something went wrong. Please try again.
+              {content.status.error}
             </div>
           )}
 
@@ -355,7 +356,7 @@ export function PartnerForm({ onSubmit, className }: PartnerFormProps) {
             disabled={formState === "submitting"}
             className="w-full bg-gradient-to-r from-purple-primary to-magenta text-lg font-semibold shadow-lg shadow-magenta/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-magenta/40"
           >
-            {formState === "submitting" ? "Submitting..." : "Join our network"}
+            {formState === "submitting" ? content.buttons.submitting : content.buttons.submit}
           </Button>
         </form>
       </div>

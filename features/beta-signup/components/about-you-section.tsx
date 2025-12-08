@@ -2,7 +2,7 @@
 
 import { FormField } from "@/components/ui/form-field";
 import { GlassCard } from "@/components/ui/glass-card";
-import { ROLE_OPTIONS, SEGMENT_OPTIONS } from "../constants";
+import type { BetaFormContent } from "@/content";
 
 export interface AboutYouSectionProps {
   fullName: string;
@@ -12,6 +12,7 @@ export interface AboutYouSectionProps {
   segment: string;
   errors: Record<string, string>;
   onFieldChange: (field: string) => (value: string | string[]) => void;
+  content: BetaFormContent;
 }
 
 export function AboutYouSection({
@@ -22,16 +23,19 @@ export function AboutYouSection({
   segment,
   errors,
   onFieldChange,
+  content,
 }: AboutYouSectionProps) {
+  const { sections, fields, options } = content;
+
   return (
     <GlassCard
-      title="About you"
-      description="A bit about who you are and how you'd like us to contact you."
+      title={sections.aboutYou.title}
+      description={sections.aboutYou.description}
     >
       <FormField
         id="fullName"
-        label="Full name"
-        placeholder="Jane Smith"
+        label={fields.fullName.label}
+        placeholder={fields.fullName.placeholder}
         required
         value={fullName}
         onChange={onFieldChange("fullName")}
@@ -40,10 +44,10 @@ export function AboutYouSection({
       />
       <FormField
         id="email"
-        label="Email"
+        label={fields.email.label}
         type="email"
-        placeholder="jane@company.com"
-        helperText="We'll only use this to follow up. No spam."
+        placeholder={fields.email.placeholder}
+        helperText={fields.email.helperText}
         required
         value={email}
         onChange={onFieldChange("email")}
@@ -52,19 +56,19 @@ export function AboutYouSection({
       />
       <FormField
         id="organizationName"
-        label="Organization name"
-        placeholder="e.g. McGill University, Stealth AI startup"
-        helperText="Where you work or study."
+        label={fields.organizationName.label}
+        placeholder={fields.organizationName.placeholder}
+        helperText={fields.organizationName.helperText}
         value={organizationName}
         onChange={onFieldChange("organizationName")}
         variant="glass"
       />
       <FormField
         id="role"
-        label="Role / Persona"
+        label={fields.role.label}
         type="select"
-        placeholder="Select your role"
-        options={[...ROLE_OPTIONS]}
+        placeholder={fields.role.placeholder}
+        options={options.roles}
         required
         value={role}
         onChange={onFieldChange("role")}
@@ -73,10 +77,10 @@ export function AboutYouSection({
       />
       <FormField
         id="segment"
-        label="Segment"
+        label={fields.segment.label}
         type="select"
-        placeholder="Select your segment"
-        options={[...SEGMENT_OPTIONS]}
+        placeholder={fields.segment.placeholder}
+        options={options.segments}
         required
         value={segment}
         onChange={onFieldChange("segment")}

@@ -2,13 +2,14 @@
 
 import { FormField } from "@/components/ui/form-field";
 import { GlassCard } from "@/components/ui/glass-card";
-import { PAIN_POINT_OPTIONS } from "../constants";
+import type { BetaFormContent } from "@/content";
 
 export interface PainPointsSectionProps {
   topPainPoints: string[];
   painNotes: string;
   errors: Record<string, string>;
   onFieldChange: (field: string) => (value: string | string[]) => void;
+  content: BetaFormContent;
 }
 
 export function PainPointsSection({
@@ -16,18 +17,21 @@ export function PainPointsSection({
   painNotes,
   errors,
   onFieldChange,
+  content,
 }: PainPointsSectionProps) {
+  const { sections, fields, options } = content;
+
   return (
     <GlassCard
-      title="Pain points"
-      description="What's hard, annoying, slow, or expensive."
+      title={sections.painPoints.title}
+      description={sections.painPoints.description}
     >
       <FormField
         id="topPainPoints"
-        label="Top pain points"
+        label={fields.topPainPoints.label}
         type="multiselect"
-        helperText="Focus on the top 2–3 that really hurt."
-        options={[...PAIN_POINT_OPTIONS]}
+        helperText={fields.topPainPoints.helperText}
+        options={options.painPoints}
         required
         value={topPainPoints}
         onChange={onFieldChange("topPainPoints")}
@@ -36,9 +40,9 @@ export function PainPointsSection({
       />
       <FormField
         id="painNotes"
-        label="Pain notes"
+        label={fields.painNotes.label}
         type="textarea"
-        placeholder="Any extra context..."
+        placeholder={fields.painNotes.placeholder}
         required
         value={painNotes}
         onChange={onFieldChange("painNotes")}

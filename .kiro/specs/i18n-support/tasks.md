@@ -216,20 +216,21 @@
     - **Property 10: Language suggestion banner display**
     - **Validates: Requirements 5.2**
 
-- [ ] 10. Localize forms
-  - [ ] 10.1 Create form content translations
+- [x] 10. Localize forms
+
+  - [x] 10.1 Create form content translations
     - Add form labels, placeholders, and validation messages to locale content files
     - Define `FormContent` type in `content/types.ts`
     - _Requirements: 7.1, 7.2, 7.3_
-  - [ ] 10.2 Update beta signup form for i18n
+  - [x] 10.2 Update beta signup form for i18n
     - Modify `features/beta-signup/` components to use localized content
     - Update validation messages to use locale-specific strings
     - _Requirements: 7.1, 7.2, 7.3_
-  - [ ] 10.3 Update other forms for i18n
+  - [x] 10.3 Update other forms for i18n
     - Localize career application form
     - Localize partner signup form
     - _Requirements: 7.1, 7.2, 7.3_
-  - [ ] 10.4 Write property test for form localization
+  - [x] 10.4 Write property test for form localization
     - **Property 11: Form content localization**
     - **Validates: Requirements 7.1, 7.2, 7.3**
 

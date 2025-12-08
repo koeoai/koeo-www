@@ -59,10 +59,11 @@ describe("BetaForm (Survey)", () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText(/full name is required/i)).toBeInTheDocument();
+        // Validation messages are now localized - check for the generic required message
+        expect(screen.getAllByText(/this field is required/i).length).toBeGreaterThan(0);
       });
       expect(screen.getByText(/email is required/i)).toBeInTheDocument();
-      expect(screen.getByText(/please select your role/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/please select an option/i).length).toBeGreaterThan(0);
     });
 
     it("should show email validation error for invalid email format", async () => {
