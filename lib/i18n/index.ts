@@ -11,3 +11,4 @@ export {
   parseAcceptLanguage,
 } from "./utils";
 export { LocaleProvider, useLocale } from "./locale-context";
+export { useContent } from "./use-content";
