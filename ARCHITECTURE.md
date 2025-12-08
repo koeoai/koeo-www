@@ -4,10 +4,10 @@ This document describes the architecture, folder structure, and development patt
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS with `class-variance-authority` for component variants
-- **Testing**: Vitest with `fast-check` for property-based testing
+- **Styling**: Tailwind CSS 4 with `class-variance-authority` for component variants
+- **Testing**: Vitest with `fast-check` for property-based testing, Playwright for E2E
 - **Data Storage**: Airtable (for form submissions)
 - **Deployment**: Vercel
 
@@ -35,13 +35,20 @@ This document describes the architecture, folder structure, and development patt
 ├── content/                # Centralized marketing copy
 │   ├── types.ts            # TypeScript interfaces for content
 │   ├── homepage.ts         # Homepage content
+│   ├── beta.ts             # Beta page content
+│   ├── about.ts            # About page content
+│   ├── careers.ts          # Careers page content
+│   ├── product.ts          # Product page content
 │   └── index.ts            # Barrel export
 │
 ├── features/               # Domain-specific feature modules
-│   └── beta-signup/        # Beta signup feature
-│       ├── components/     # Feature-specific components
-│       ├── constants.ts    # Form options and initial data
-│       └── index.ts        # Barrel export
+│   ├── beta-signup/        # Beta signup feature
+│   │   ├── components/     # Feature-specific components
+│   │   ├── hooks/          # Custom hooks (useBetaForm)
+│   │   ├── constants.ts    # Form options and initial data
+│   │   └── index.ts        # Barrel export
+│   ├── partner-signup/     # Partner signup feature
+│   └── careers/            # Career application feature
 │
 ├── lib/                    # Shared utilities and services
 │   ├── airtable/           # Airtable client and table definitions
@@ -55,6 +62,7 @@ This document describes the architecture, folder structure, and development patt
 ├── scripts/                # Development and utility scripts
 │
 └── tests/                  # Test utilities and integration tests
+    ├── e2e/                # End-to-end tests (Playwright)
     ├── integration/        # Integration tests
     └── setup.ts            # Test setup configuration
 ```
@@ -362,9 +370,8 @@ components/ui/button.test.tsx
 ### Running Tests
 
 ```bash
-npm test              # Run tests in watch mode
-npm run test:run      # Run tests once
-npm run test:coverage # Run with coverage
+npm test           # Run unit/integration tests
+npm run test:e2e   # Run E2E tests with Playwright
 ```
 
 ### Property-Based Tests
@@ -407,5 +414,6 @@ Create a `.env.local` file for local development (not committed to git).
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
-| `npm run typecheck` | Run TypeScript type checking |
-| `npm test` | Run tests |
+| `npm test` | Run unit and integration tests |
+| `npm run test:e2e` | Run E2E tests with Playwright |
+| `npm run test:e2e:ui` | Run E2E tests with Playwright UI |

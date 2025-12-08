@@ -1,90 +1,92 @@
+---
+inclusion: fileMatch
+fileMatchPattern: ['**/*.tsx', '**/*.css', 'components/**/*', 'app/**/*']
+---
+
 # Koeo Brand Guidelines
 
-This document defines the visual identity standards for the Koeo marketing website. All components and pages must adhere to these guidelines to maintain brand consistency.
+Visual identity standards for the Koeo marketing website. Apply these rules when creating or modifying UI components, styles, and layouts.
 
-## Color Palette
+## Color Reference
 
-### Primary Colors
-
-| Color Name | Hex Value | CSS Variable | Usage |
-|------------|-----------|--------------|-------|
-| Deep Purple | `#4C1D95` | `--color-purple-deep` | Dark accents, depth, footer backgrounds |
-| Primary Purple | `#7C3AED` | `--color-purple-primary` | Main brand color, primary CTAs, links |
-| Magenta | `#E02F87` | `--color-magenta` | Accents, energy, highlights, gradient endpoints |
-| Light Pink | `#F472B6` | `--color-pink-light` | Hover states, subtle backgrounds |
+### Primary Colors (use these Tailwind/CSS values)
+| Name | Hex | Tailwind | When to Use |
+|------|-----|----------|-------------|
+| Deep Purple | `#4C1D95` | `purple-900` | Footer backgrounds, dark accents |
+| Primary Purple | `#7C3AED` | `violet-500` | Primary CTAs, links, brand elements |
+| Magenta | `#E02F87` | `pink-600` | Gradient endpoints, highlights |
+| Light Pink | `#F472B6` | `pink-400` | Hover states, subtle accents |
 
 ### Text Colors
+| Context | Hex | Tailwind |
+|---------|-----|----------|
+| Light backgrounds | `#0F172A` | `slate-900` |
+| Dark backgrounds | `#E2E8F0` | `slate-200` |
 
-| Color Name | Hex Value | CSS Variable | Usage |
-|------------|-----------|--------------|-------|
-| Primary Text | `#0F172A` | `--color-text-primary` | Headings, body text on light backgrounds |
-| Light Text | `#E2E8F0` | `--color-text-light` | Text on dark backgrounds |
-
-### Background Colors
-
-| Color Name | Hex Value | Usage |
-|------------|-----------|-------|
-| White | `#FFFFFF` | Primary page background |
-| Slate 50 | `#F8FAFC` | Subtle section backgrounds |
+### Backgrounds
+- Primary: `#FFFFFF` (white)
+- Alternate sections: `#F8FAFC` (`slate-50`)
 
 ## Gradients
 
-### Primary Gradient
-- **CSS**: `linear-gradient(135deg, #7C3AED, #E02F87)`
-- **Usage**: Hero CTAs, primary buttons, accent elements
-- **Direction**: 135 degrees (top-left to bottom-right)
+```css
+/* Primary - use for CTAs, primary buttons */
+background: linear-gradient(135deg, #7C3AED, #E02F87);
 
-### Deep Gradient
-- **CSS**: `linear-gradient(135deg, #4C1D95, #7C3AED)`
-- **Usage**: Dark section backgrounds, footer accents
+/* Deep - use for dark sections, footer */
+background: linear-gradient(135deg, #4C1D95, #7C3AED);
+```
+
+Tailwind: `bg-gradient-to-br from-violet-500 to-pink-600`
 
 ## Typography
 
-### Font Family
-- **Primary Font**: Inter
-- **Fallback Stack**: `'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif`
-- **Loading**: Use Next.js font optimization (`next/font/google`)
+Font: Inter via `next/font/google`
+
+### Responsive Type Scale
+| Element | Classes |
+|---------|---------|
+| H1 | `text-4xl md:text-5xl lg:text-6xl font-bold` |
+| H2 | `text-3xl md:text-4xl font-bold` |
+| H3 | `text-xl md:text-2xl font-semibold` |
+| Body | `text-base font-normal` |
+| Small | `text-sm` |
 
 ### Font Weights
+- 400: Body text
+- 500: Nav links, subtle emphasis
+- 600: Subheadings, buttons
+- 700: Main headings
 
-| Weight | Name | Usage |
-|--------|------|-------|
-| 400 | Regular | Body text, paragraphs |
-| 500 | Medium | Navigation links, subtle emphasis |
-| 600 | Semi-Bold | Subheadings, button text |
-| 700 | Bold | Main headings, strong emphasis |
-
-### Type Scale (Tailwind Classes)
-
-| Element | Class | Size |
-|---------|-------|------|
-| H1 (Hero) | `text-4xl md:text-5xl lg:text-6xl` | 36px / 48px / 60px |
-| H2 (Section) | `text-3xl md:text-4xl` | 30px / 36px |
-| H3 (Subsection) | `text-xl md:text-2xl` | 20px / 24px |
-| Body | `text-base` | 16px |
-| Small | `text-sm` | 14px |
-
-## Component Styling Guidelines
+## Component Patterns
 
 ### Buttons
-- Use `rounded-full` for pill-shaped buttons
-- Primary buttons use the Primary Gradient
-- Hover states should use `hover:opacity-90` or subtle scale transform
-- Focus states must include visible ring (`focus-visible:ring-2`)
+```tsx
+// Primary button pattern
+className="rounded-full bg-gradient-to-br from-violet-500 to-pink-600 
+           hover:opacity-90 focus-visible:ring-2 focus-visible:ring-violet-500"
+```
 
 ### Links
-- Default color: Primary Purple (`#7C3AED`)
-- Hover color: Light Pink (`#F472B6`)
-- Include underline on hover for accessibility
+```tsx
+// Standard link pattern
+className="text-violet-500 hover:text-pink-400 hover:underline"
+```
 
-### Cards and Containers
-- Use subtle shadows: `shadow-sm` or `shadow-md`
-- Border radius: `rounded-lg` (8px) or `rounded-xl` (12px)
-- Max content width: 1280px (`max-w-7xl`)
+### Cards
+```tsx
+// Card pattern
+className="rounded-lg shadow-sm" // or rounded-xl shadow-md
+```
 
-## Accessibility Requirements
+### Container
+- Max width: `max-w-7xl` (1280px)
 
-- All text must meet WCAG 2.1 AA contrast requirements (4.5:1 for normal text)
-- Interactive elements must have visible focus states
-- Images must include descriptive alt text
-- Use semantic HTML elements appropriately
+## Accessibility Checklist
+
+When creating UI components, ensure:
+- [ ] Text contrast meets WCAG 2.1 AA (4.5:1 minimum)
+- [ ] Interactive elements have `focus-visible:ring-2` states
+- [ ] Images include descriptive `alt` text
+- [ ] Use semantic HTML (`<nav>`, `<main>`, `<footer>`, `<button>`)
+- [ ] Buttons are keyboard accessible

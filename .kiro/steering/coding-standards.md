@@ -1,127 +1,92 @@
+---
+inclusion: fileMatch
+fileMatchPattern: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx']
+---
+
 # Koeo Coding Standards
 
-This document defines the coding conventions and best practices for the Koeo marketing website project.
+## Naming Conventions
 
-## Component Naming Conventions
+| Type | Convention | Example |
+|------|------------|---------|
+| Files | kebab-case | `hero-section.tsx`, `use-beta-form.ts` |
+| Components | PascalCase | `HeroSection`, `BetaForm` |
+| Functions/Variables | camelCase | `handleClick`, `isOpen` |
+| Constants | SCREAMING_SNAKE_CASE | `NAV_ITEMS`, `ROLE_OPTIONS` |
+| Interfaces/Types | PascalCase + suffix | `ButtonProps`, `NavItem` |
+| Test files | `.test.tsx` suffix | `button.test.tsx` |
 
-### File Naming
-- Use **kebab-case** for all file names: `button.tsx`, `hero-section.tsx`, `mobile-nav.tsx`
-- Test files use `.test.tsx` suffix: `button.test.tsx`
-- Index files for barrel exports: `index.ts`
+## Component File Structure
 
-### Component Naming
-- Use **PascalCase** for React components: `Button`, `HeroSection`, `MobileNav`
-- Use **camelCase** for functions and variables: `handleClick`, `isOpen`, `navItems`
-- Use **SCREAMING_SNAKE_CASE** for constants: `DEFAULT_HEADLINE`, `NAV_ITEMS`
+Follow this order in every component file:
 
-### Interface/Type Naming
-- Use **PascalCase** with descriptive suffixes: `ButtonProps`, `NavItem`, `FooterLinkGroup`
-- Prefix interfaces with component name when specific: `HeroProps`, `HeaderProps`
-
-## File Organization Standards
-
-### Directory Structure
-```
-components/
-├── ui/           # Reusable UI primitives (Button, Container, Section)
-├── layout/       # Layout components (Header, Footer)
-└── sections/     # Page-specific sections (Hero, Features)
-```
-
-### Component File Structure
-Each component file should follow this order:
-1. Imports (external, then internal)
-2. Type definitions/interfaces
-3. Constants
-4. Helper functions
-5. Component definition
-6. Default export
-
-### Example Component Structure
 ```typescript
-// 1. Imports
-import { cva, type VariantProps } from "class-variance-authority";
+// 1. Imports (external → internal via @/ alias → relative)
+import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-// 2. Type definitions
+// 2. Types/Interfaces
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "default" | "secondary" | "ghost";
-  size?: "sm" | "default" | "lg";
 }
 
 // 3. Constants
 const buttonVariants = cva("...", { variants: { ... } });
 
-// 4. Component
-export function Button({ className, variant, size, ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+// 4. Component + export
+export function Button({ className, variant = "default", ...props }: ButtonProps) {
+  return <button className={cn(buttonVariants({ variant }), className)} {...props} />;
 }
 ```
 
-## TypeScript Best Practices
+## TypeScript Rules
 
-### Type Safety
-- Always define explicit types for component props
-- Avoid `any` type - use `unknown` if type is truly unknown
+- Define explicit types for all component props
+- Never use `any` — use `unknown` if type is uncertain
 - Use union types for constrained values: `variant: "default" | "secondary"`
-- Prefer interfaces for object shapes, types for unions/primitives
+- Prefer interfaces for objects, types for unions/primitives
+- Use `React.ComponentPropsWithoutRef<"element">` when extending HTML elements
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Avoid non-null assertions (`!`)
 
-### Props Handling
-- Destructure props with defaults: `{ variant = "default", ...props }`
-- Use `React.ComponentPropsWithoutRef<"element">` for extending HTML elements
-- Support `className` prop for customization using `cn()` utility
+## React/Next.js Patterns
 
-### Null Safety
-- Use optional chaining: `user?.name`
-- Use nullish coalescing: `value ?? defaultValue`
-- Avoid non-null assertions (`!`) unless absolutely necessary
+- Use function components with hooks (no class components)
+- Add `"use client"` only when client interactivity is required
+- Keep components single-responsibility; extract logic to custom hooks
+- Use `PageShell` wrapper for all pages
+- Use `Section`, `Container`, `SectionHeader` for page sections
 
-## React/Next.js Conventions
+## Styling
 
-### Component Patterns
-- Prefer function components with hooks
-- Use `"use client"` directive only when client-side interactivity is needed
-- Keep components focused and single-responsibility
-- Extract reusable logic into custom hooks
-
-### Styling
-- Use Tailwind CSS utility classes
-- Use `cn()` helper for conditional classes
+- Use Tailwind CSS utility classes exclusively
+- Use `cn()` helper from `@/lib/utils` for conditional classes
 - Use `class-variance-authority` (cva) for component variants
-- Keep responsive classes in order: base, sm, md, lg, xl
+- Order responsive classes: base → sm → md → lg → xl
 
-### Accessibility
-- Include ARIA labels on interactive elements
-- Use semantic HTML elements (`<nav>`, `<main>`, `<footer>`)
-- Ensure keyboard navigation works
-- Test with screen readers when possible
+## Accessibility Requirements
 
-## Import Conventions
+- Add ARIA labels on all interactive elements
+- Use semantic HTML: `<nav>`, `<main>`, `<section>`, `<footer>`
+- Ensure keyboard navigation works for all interactive elements
 
-### Import Order
-1. React/Next.js imports
-2. External library imports
-3. Internal component imports (using `@/` alias)
-4. Relative imports
-5. Type imports
+## Import Order
 
-### Path Aliases
-- Use `@/components` for components
-- Use `@/lib` for utilities
-- Use `@/app` for app-specific code
+1. React/Next.js (`import { useState } from "react"`)
+2. External libraries (`import { cva } from "class-variance-authority"`)
+3. Internal imports via alias (`import { Button } from "@/components/ui/button"`)
+4. Relative imports (`import { helper } from "./utils"`)
+5. Type-only imports (`import type { Props } from "./types"`)
 
-## Testing Standards
+## Path Aliases
 
-### Test File Location
-- Co-locate tests with source files: `button.tsx` → `button.test.tsx`
-- Use `tests/` directory for setup and shared utilities
+- `@/components` — UI components
+- `@/lib` — Utilities, validation, API clients
+- `@/content` — Marketing copy and content
+- `@/features` — Feature modules with forms/hooks
 
-### Test Naming
-- Describe what the component/function does
-- Use clear, readable test names
-- Group related tests with `describe` blocks
+## Testing
 
-### Property-Based Tests
-- Tag with: `**Feature: koeo-marketing-website, Property {N}: {description}**`
-- Run minimum 100 iterations
-- Reference correctness properties from design document
+- Co-locate tests: `button.tsx` → `button.test.tsx`
+- Use `tests/` for setup files and shared utilities
+- Property-based tests: tag with `**Feature: koeo-marketing-website, Property {N}: {description}**`, run 100+ iterations

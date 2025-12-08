@@ -76,7 +76,9 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 | `npm run build` | Build the production application |
 | `npm run start` | Start the production server |
 | `npm run lint` | Run ESLint to check code quality |
-| `npm run test` | Run the test suite with Vitest |
+| `npm test` | Run unit and integration tests with Vitest |
+| `npm run test:e2e` | Run E2E tests with Playwright |
+| `npm run test:e2e:ui` | Run E2E tests with Playwright UI |
 
 ## Project Structure
 
@@ -101,6 +103,17 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │   ├── seo/                # SEO components (JSON-LD)
 │   └── ui/                 # Reusable UI primitives
 │
+├── content/                # Centralized marketing copy
+│   ├── homepage.ts         # Homepage content
+│   ├── beta.ts             # Beta page content
+│   ├── about.ts            # About page content
+│   └── ...                 # Other page content
+│
+├── features/               # Domain-specific feature modules
+│   ├── beta-signup/        # Beta signup form and logic
+│   ├── partner-signup/     # Partner signup feature
+│   └── careers/            # Career application feature
+│
 ├── lib/                    # Utility libraries
 │   ├── airtable/           # Airtable client and table mappings
 │   ├── seo/                # SEO utilities and metadata
@@ -114,6 +127,8 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 │   └── *.ts                # Airtable testing and brand generation
 │
 └── tests/                  # Test configuration
+    ├── e2e/                # End-to-end tests (Playwright)
+    ├── integration/        # Integration tests
     └── setup.ts            # Vitest setup
 ```
 
@@ -125,7 +140,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Forms**: Airtable API integration
 - **File Storage**: Vercel Blob
-- **Testing**: Vitest + React Testing Library + fast-check (property-based testing)
+- **Testing**: Vitest + React Testing Library + fast-check (property-based testing) + Playwright (E2E)
 
 ## Development
 
@@ -143,10 +158,11 @@ This project follows the coding standards defined in `.kiro/steering/coding-stan
 Run the test suite:
 
 ```bash
-npm run test
+npm test              # Unit and integration tests
+npm run test:e2e      # E2E tests with Playwright
 ```
 
-Tests are co-located with source files using the `.test.tsx` suffix.
+Unit tests are co-located with source files using the `.test.tsx` suffix. E2E tests are in `tests/e2e/`.
 
 ### Linting
 
