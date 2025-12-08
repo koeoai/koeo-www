@@ -230,17 +230,30 @@
 
     - _Requirements: 9.1, 9.2, 9.3, 9.4_
 
-- [ ] 11. Add integration tests for beta signup
-  - [ ] 11.1 Create tests/integration/beta-signup.test.tsx
+- [x] 11. Add integration tests for beta signup
+
+
+
+
+
+  - [x] 11.1 Create tests/integration/beta-signup.test.tsx
+
+
     - Test successful form submission shows success state
     - _Requirements: 10.1_
-  - [ ] 11.2 Write property test for form validation
+
+  - [x] 11.2 Write property test for form validation
+
     - **Property 4: Form validation identifies invalid inputs**
     - **Validates: Requirements 10.2**
-  - [ ] 11.3 Add test for API error handling
+  - [x] 11.3 Add test for API error handling
+
+
     - Mock API to return error, verify error state
     - _Requirements: 10.3_
-  - [ ] 11.4 Write property test for field value capture
+  - [x] 11.4 Write property test for field value capture
+
+
     - **Property 5: Form state captures field values correctly**
     - **Validates: Requirements 10.4**
 
