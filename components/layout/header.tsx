@@ -13,28 +13,8 @@ import {
 } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { LocaleLink } from "@/components/ui/locale-link";
-
-interface NavItem {
-  label: string;
-  href: string;
-}
-
-interface DropdownItem {
-  label: string;
-  items: NavItem[];
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Product", href: "/product" },
-];
-
-const COMPANY_DROPDOWN: DropdownItem = {
-  label: "Company",
-  items: [
-    { label: "About Us", href: "/about" },
-    { label: "Careers", href: "/careers" },
-  ],
-};
+import { useContent } from "@/lib/i18n";
+import type { NavigationContent } from "@/content";
 
 export interface HeaderProps {
   className?: string;
@@ -43,6 +23,7 @@ export interface HeaderProps {
 export function Header({ className }: HeaderProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [companyOpen, setCompanyOpen] = React.useState(false);
+  const nav = useContent<NavigationContent>("NAVIGATION_CONTENT");
 
   return (
     <header
@@ -58,7 +39,7 @@ export function Header({ className }: HeaderProps) {
         </LocaleLink>
 
         {/* Desktop Links */}
-        {NAV_ITEMS.map((item) => (
+        {nav.header.navItems.map((item) => (
           <LocaleLink
             key={item.href}
             href={item.href}
@@ -79,14 +60,14 @@ export function Header({ className }: HeaderProps) {
             aria-expanded={companyOpen}
             aria-haspopup="true"
           >
-            {COMPANY_DROPDOWN.label}
+            {nav.header.companyDropdown.label}
             <ChevronDown className={cn("h-4 w-4 transition-transform", companyOpen && "rotate-180")} />
           </button>
           
           {companyOpen && (
             <div className="absolute left-1/2 top-full pt-2 -translate-x-1/2">
               <div className="min-w-[140px] rounded-xl border border-white/10 bg-purple-deep/90 p-2 backdrop-blur-xl shadow-lg">
-                {COMPANY_DROPDOWN.items.map((item) => (
+                {nav.header.companyDropdown.items.map((item) => (
                   <LocaleLink
                     key={item.href}
                     href={item.href}
@@ -104,7 +85,7 @@ export function Header({ className }: HeaderProps) {
         <LanguageSwitcher className="hidden md:flex" />
 
         <Button asChild className="hidden md:inline-flex">
-          <LocaleLink href="/beta">Join Beta</LocaleLink>
+          <LocaleLink href="/beta">{nav.header.joinBeta}</LocaleLink>
         </Button>
 
         {/* Mobile Menu */}
@@ -124,7 +105,7 @@ export function Header({ className }: HeaderProps) {
               <SheetContent side="right" className="w-[300px]">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <nav className="flex flex-col gap-4 mt-8" aria-label="Mobile navigation">
-                  {NAV_ITEMS.map((item) => (
+                  {nav.header.navItems.map((item) => (
                     <LocaleLink
                       key={item.href}
                       href={item.href}
@@ -136,8 +117,8 @@ export function Header({ className }: HeaderProps) {
                   ))}
                   {/* Company section - Mobile */}
                   <div className="border-t border-white/10 pt-4">
-                    <p className="text-sm font-medium text-text-primary/60 mb-2">{COMPANY_DROPDOWN.label}</p>
-                    {COMPANY_DROPDOWN.items.map((item) => (
+                    <p className="text-sm font-medium text-text-primary/60 mb-2">{nav.header.companyDropdown.label}</p>
+                    {nav.header.companyDropdown.items.map((item) => (
                       <LocaleLink
                         key={item.href}
                         href={item.href}
@@ -150,12 +131,12 @@ export function Header({ className }: HeaderProps) {
                   </div>
                   <Button asChild className="mt-4">
                     <LocaleLink href="/beta" onClick={() => setIsOpen(false)}>
-                      Join Beta
+                      {nav.header.joinBeta}
                     </LocaleLink>
                   </Button>
                   {/* Language Switcher - Mobile */}
                   <div className="border-t border-white/10 pt-4 mt-4">
-                    <p className="text-sm font-medium text-text-primary/60 mb-2">Language</p>
+                    <p className="text-sm font-medium text-text-primary/60 mb-2">{nav.header.languageLabel}</p>
                     <LanguageSwitcher variant="mobile" showIcon={false} />
                   </div>
                 </nav>

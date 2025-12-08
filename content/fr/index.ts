@@ -69,3 +69,6 @@ export {
   PROVIDERS_FAQ,
   PROVIDERS_PAGE_CONTENT,
 } from "./providers";
+
+// Navigation content
+export { NAVIGATION_CONTENT } from "./navigation";

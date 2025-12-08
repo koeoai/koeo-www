@@ -11,43 +11,14 @@ import {
   ExternalLinkIcon,
 } from "@/components/ui/icons";
 import { LocaleLink } from "@/components/ui/locale-link";
-
-interface FooterLink {
-  label: string;
-  href: string;
-  external?: boolean;
-}
-
-interface FooterLinkGroup {
-  title: string;
-  links: FooterLink[];
-}
+import { useContent } from "@/lib/i18n";
+import type { NavigationContent } from "@/content";
 
 interface SocialLink {
   label: string;
   href: string;
   icon: React.ReactNode;
 }
-
-const FOOTER_GROUPS: FooterLinkGroup[] = [
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Join Beta", href: "/beta" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Suggest an Idea", href: "https://github.com/koeo-ai/feedback", external: true },
-      { label: "Report a Bug", href: "https://github.com/koeo-ai/feedback/issues", external: true },
-      { label: "Brandkit", href: "/brandkit" },
-      { label: "Become a Provider", href: "/providers" },
-    ],
-  },
-];
 
 const SOCIAL_LINKS: SocialLink[] = [
   {
@@ -78,6 +49,7 @@ export interface FooterProps {
 
 export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const nav = useContent<NavigationContent>("NAVIGATION_CONTENT");
 
   return (
     <footer
@@ -94,12 +66,12 @@ export function Footer({ className }: FooterProps) {
               <KoeoLogo size={32} showWordmark variant="white" />
             </LocaleLink>
             <p className="mt-4 text-sm text-text-light/80 max-w-xs">
-              One runtime, any model, no infra headaches.
+              {nav.footer.tagline}
             </p>
           </div>
 
           {/* Link Groups */}
-          {FOOTER_GROUPS.map((group) => (
+          {nav.footer.groups.map((group) => (
             <div key={group.title}>
               <h3 className="text-sm font-semibold text-white mb-4">
                 {group.title}
@@ -134,7 +106,7 @@ export function Footer({ className }: FooterProps) {
           {/* Social Links */}
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">
-              Connect
+              {nav.footer.connectTitle}
             </h3>
             <div className="flex flex-wrap gap-3">
               {SOCIAL_LINKS.map((social) => (
@@ -156,7 +128,7 @@ export function Footer({ className }: FooterProps) {
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <p className="text-sm text-text-light/60">
-            © {currentYear} Koeo. All rights reserved.
+            © {currentYear} Koeo. {nav.footer.copyright}
           </p>
         </div>
       </div>

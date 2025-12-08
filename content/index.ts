@@ -178,3 +178,14 @@ export {
   PROVIDERS_FAQ,
   PROVIDERS_PAGE_CONTENT,
 } from "./en/providers";
+
+// Navigation content exports
+export { NAVIGATION_CONTENT } from "./en/navigation";
+
+// Navigation type exports
+export type {
+  NavItem,
+  NavDropdown,
+  FooterLinkGroup,
+  NavigationContent,
+} from "./en/navigation";
