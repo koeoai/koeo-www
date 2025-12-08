@@ -6,11 +6,14 @@ import {
   hasValidKeywords,
   validateMetadata,
   generateMetadata,
+  generateHreflangLinks,
+  localeToOgLocale,
   TITLE_MIN_LENGTH,
   TITLE_MAX_LENGTH,
   DESCRIPTION_MIN_LENGTH,
   DESCRIPTION_MAX_LENGTH,
 } from "./metadata";
+import { i18nConfig, Locale } from "@/lib/i18n/config";
 
 /**
  * **Feature: seo-optimization, Property 2: Metadata title length bounds**
@@ -391,5 +394,190 @@ describe("Property 7: Twitter Card completeness", () => {
     });
 
     expect(metadata.twitter?.creator).toBe("@koeo_ai");
+  });
+});
+
+
+/**
+ * **Feature: i18n-support, Property 6: Hreflang tags present for all locales**
+ * **Validates: Requirements 4.1**
+ *
+ * For any rendered page, the hreflang link tags SHALL include entries for all
+ * supported locales with correct href values.
+ */
+describe("Property 6: Hreflang tags present for all locales", () => {
+  // Generator for valid URL paths (lowercase letters, numbers, hyphens)
+  const validPathArb = fc.stringMatching(/^\/[a-z][a-z0-9-]{0,20}$/);
+
+  it("should generate hreflang links for all supported locales", () => {
+    fc.assert(
+      fc.property(validPathArb, (path) => {
+        const hreflangLinks = generateHreflangLinks(path);
+
+        // Should have entries for all supported locales
+        for (const locale of i18nConfig.locales) {
+          expect(hreflangLinks[locale]).toBeDefined();
+          expect(hreflangLinks[locale]).toContain("https://koeo.ai");
+        }
+
+        // Should have x-default entry
+        expect(hreflangLinks["x-default"]).toBeDefined();
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should generate correct URLs for each locale", () => {
+    fc.assert(
+      fc.property(validPathArb, (path) => {
+        const hreflangLinks = generateHreflangLinks(path);
+
+        // English (default) should not have locale prefix
+        expect(hreflangLinks["en"]).toBe(`https://koeo.ai${path}`);
+
+        // French should have /fr prefix
+        expect(hreflangLinks["fr"]).toBe(`https://koeo.ai/fr${path}`);
+
+        // x-default should point to default locale (English)
+        expect(hreflangLinks["x-default"]).toBe(hreflangLinks["en"]);
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should include hreflang links in generated metadata", () => {
+    fc.assert(
+      fc.property(
+        validPathArb,
+        fc.constantFrom(...i18nConfig.locales),
+        (path, locale) => {
+          const metadata = generateMetadata({
+            title: "A".repeat(55),
+            description: "B".repeat(155),
+            path,
+            locale,
+          });
+
+          // Alternates should include languages
+          expect(metadata.alternates).toBeDefined();
+          expect(metadata.alternates?.languages).toBeDefined();
+
+          const languages = metadata.alternates?.languages as Record<string, string>;
+
+          // Should have entries for all supported locales
+          for (const loc of i18nConfig.locales) {
+            expect(languages[loc]).toBeDefined();
+          }
+
+          // Should have x-default
+          expect(languages["x-default"]).toBeDefined();
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should handle root path correctly", () => {
+    const hreflangLinks = generateHreflangLinks("/");
+
+    expect(hreflangLinks["en"]).toBe("https://koeo.ai/");
+    expect(hreflangLinks["fr"]).toBe("https://koeo.ai/fr/");
+    expect(hreflangLinks["x-default"]).toBe("https://koeo.ai/");
+  });
+});
+
+
+/**
+ * **Feature: i18n-support, Property 7: Locale-aware metadata generation**
+ * **Validates: Requirements 4.2**
+ *
+ * For any page and locale combination, the generated Open Graph locale tag
+ * SHALL match the current locale format (e.g., "en_US", "fr_FR").
+ */
+describe("Property 7: Locale-aware metadata generation", () => {
+  // Generator for valid URL paths (lowercase letters, numbers, hyphens)
+  const validPathArb = fc.stringMatching(/^\/[a-z][a-z0-9-]{0,20}$/);
+
+  // Generator for valid title (50-60 chars)
+  const validTitleArb = fc
+    .integer({ min: TITLE_MIN_LENGTH, max: TITLE_MAX_LENGTH })
+    .map((len) => "T".repeat(len));
+
+  // Generator for valid description (150-160 chars)
+  const validDescriptionArb = fc
+    .integer({ min: DESCRIPTION_MIN_LENGTH, max: DESCRIPTION_MAX_LENGTH })
+    .map((len) => "D".repeat(len));
+
+  it("should generate OG locale matching the input locale format", () => {
+    fc.assert(
+      fc.property(
+        validPathArb,
+        validTitleArb,
+        validDescriptionArb,
+        fc.constantFrom(...i18nConfig.locales),
+        (path, title, description, locale) => {
+          const metadata = generateMetadata({
+            title,
+            description,
+            path,
+            locale,
+          });
+
+          // OG locale should be defined
+          expect(metadata.openGraph).toBeDefined();
+          const ogLocale = (metadata.openGraph as Record<string, unknown>)?.locale;
+          expect(ogLocale).toBeDefined();
+
+          // OG locale should match the expected format for the input locale
+          expect(ogLocale).toBe(localeToOgLocale[locale]);
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should use correct OG locale format for English", () => {
+    const metadata = generateMetadata({
+      title: "A".repeat(55),
+      description: "B".repeat(155),
+      path: "/test",
+      locale: "en",
+    });
+
+    expect((metadata.openGraph as Record<string, unknown>)?.locale).toBe("en_US");
+  });
+
+  it("should use correct OG locale format for French", () => {
+    const metadata = generateMetadata({
+      title: "A".repeat(55),
+      description: "B".repeat(155),
+      path: "/test",
+      locale: "fr",
+    });
+
+    expect((metadata.openGraph as Record<string, unknown>)?.locale).toBe("fr_FR");
+  });
+
+  it("should default to English locale when no locale is specified", () => {
+    const metadata = generateMetadata({
+      title: "A".repeat(55),
+      description: "B".repeat(155),
+      path: "/test",
+    });
+
+    expect((metadata.openGraph as Record<string, unknown>)?.locale).toBe("en_US");
+  });
+
+  it("should have localeToOgLocale mapping for all supported locales", () => {
+    fc.assert(
+      fc.property(fc.constantFrom(...i18nConfig.locales), (locale) => {
+        // Every supported locale should have an OG locale mapping
+        expect(localeToOgLocale[locale]).toBeDefined();
+
+        // OG locale should follow the format: language_TERRITORY
+        expect(localeToOgLocale[locale]).toMatch(/^[a-z]{2}_[A-Z]{2}$/);
+      }),
+      { numRuns: 100 }
+    );
   });
 });

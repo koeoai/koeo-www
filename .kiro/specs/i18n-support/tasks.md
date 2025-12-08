@@ -146,19 +146,36 @@
     - Test current locale highlighting
     - _Requirements: 2.1, 2.2_
 
-- [ ] 7. Implement SEO for i18n
-  - [ ] 7.1 Add hreflang tags to pages
+- [x] 7. Implement SEO for i18n
+
+
+
+
+
+  - [x] 7.1 Add hreflang tags to pages
+
+
     - Update metadata generation to include hreflang link tags
     - Add alternate links for all supported locales
     - _Requirements: 4.1_
-  - [ ] 7.2 Write property test for hreflang tags
+
+  - [x] 7.2 Write property test for hreflang tags
+
     - **Property 6: Hreflang tags present for all locales**
     - **Validates: Requirements 4.1**
+
+
   - [ ] 7.3 Update metadata generation for locale-aware Open Graph
     - Modify `lib/seo/metadata.ts` to accept locale parameter
+
+
     - Generate locale-specific OG tags (og:locale)
+
+
     - _Requirements: 4.2_
-  - [ ] 7.4 Write property test for locale-aware metadata
+  - [x] 7.4 Write property test for locale-aware metadata
+
+
     - **Property 7: Locale-aware metadata generation**
     - **Validates: Requirements 4.2**
   - [ ] 7.5 Update sitemap for multi-locale support

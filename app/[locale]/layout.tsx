@@ -3,8 +3,9 @@
  *
  * Wraps all pages within a locale segment with the LocaleProvider.
  * Updates HTML lang attribute based on the current locale.
+ * Includes hreflang tags for all supported locales.
  *
- * Requirements: 2.3
+ * Requirements: 2.3, 4.1
  */
 
 import type { Metadata } from "next";
@@ -13,6 +14,7 @@ import { notFound } from "next/navigation";
 import { LocaleProvider, i18nConfig, isValidLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import { seoConfig } from "@/lib/seo/config";
+import { generateHreflangLinks, localeToOgLocale } from "@/lib/seo/metadata";
 import { JsonLd, OrganizationSchema, WebSiteSchema } from "@/components/seo/json-ld";
 import "../globals.css";
 
@@ -22,6 +24,9 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
+
+// Generate hreflang links for the root path
+const rootHreflangLinks = generateHreflangLinks("/");
 
 export const metadata: Metadata = {
   metadataBase: new URL(seoConfig.siteUrl),
@@ -40,10 +45,11 @@ export const metadata: Metadata = {
   creator: seoConfig.siteName,
   alternates: {
     canonical: "/",
+    languages: rootHreflangLinks,
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: localeToOgLocale[i18nConfig.defaultLocale],
     url: seoConfig.siteUrl,
     siteName: seoConfig.siteName,
     title: seoConfig.defaultTitle,
