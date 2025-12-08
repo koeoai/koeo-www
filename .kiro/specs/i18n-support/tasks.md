@@ -165,28 +165,27 @@
     - **Validates: Requirements 4.1**
 
 
-  - [ ] 7.3 Update metadata generation for locale-aware Open Graph
+  - [x] 7.3 Update metadata generation for locale-aware Open Graph
     - Modify `lib/seo/metadata.ts` to accept locale parameter
-
-
     - Generate locale-specific OG tags (og:locale)
-
-
     - _Requirements: 4.2_
   - [x] 7.4 Write property test for locale-aware metadata
-
-
     - **Property 7: Locale-aware metadata generation**
     - **Validates: Requirements 4.2**
-  - [ ] 7.5 Update sitemap for multi-locale support
+  - [x] 7.5 Update sitemap for multi-locale support
     - Modify `app/sitemap.ts` to generate URLs for all locales
     - Add xhtml:link hreflang annotations
     - _Requirements: 4.3_
-  - [ ] 7.6 Write property test for sitemap locale variants
+  - [x] 7.6 Write property test for sitemap locale variants
     - **Property 8: Sitemap includes all locale variants**
     - **Validates: Requirements 4.3**
 
-- [ ] 8. Checkpoint - Ensure all tests pass
+- [x] 8. Checkpoint - Ensure all tests pass
+
+
+
+
+
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 9. Implement language suggestion banner
