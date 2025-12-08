@@ -69,3 +69,6 @@ export {
 
 // Navigation content
 export { NAVIGATION_CONTENT } from "./navigation";
+
+// Language banner content
+export { LANGUAGE_BANNER_CONTENT } from "./banner";

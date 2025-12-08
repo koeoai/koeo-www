@@ -5,15 +5,24 @@
  * - URLs with /fr prefix serve French content
  * - URLs without locale prefix serve English (default) content
  * - English URLs remain clean without /en prefix (internally rewritten to /en)
+ * - Detects browser language from Accept-Language header for language suggestion
  *
- * Requirements: 1.1, 1.2, 1.3
+ * Requirements: 1.1, 1.2, 1.3, 5.1
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { i18nConfig, isValidLocale } from "@/lib/i18n/config";
+import { parseAcceptLanguage } from "@/lib/i18n/utils";
+
+/** Cookie name for storing detected browser locale */
+export const DETECTED_LOCALE_COOKIE = "koeo-detected-locale";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  // Detect browser language from Accept-Language header
+  const acceptLanguage = request.headers.get("accept-language");
+  const detectedLocale = parseAcceptLanguage(acceptLanguage);
 
   // Check if pathname starts with a supported locale
   const pathnameHasLocale = i18nConfig.locales.some(
@@ -29,12 +38,30 @@ export function middleware(request: NextRequest) {
     if (localeSegment === i18nConfig.defaultLocale) {
       const pathWithoutLocale =
         pathname.slice(`/${localeSegment}`.length) || "/";
-      return NextResponse.redirect(new URL(pathWithoutLocale, request.url));
+      const response = NextResponse.redirect(new URL(pathWithoutLocale, request.url));
+      // Set detected locale cookie for language suggestion banner
+      if (detectedLocale) {
+        response.cookies.set(DETECTED_LOCALE_COOKIE, detectedLocale, {
+          httpOnly: false,
+          sameSite: "lax",
+          maxAge: 60 * 60, // 1 hour
+        });
+      }
+      return response;
     }
 
     // For non-default locales (fr), validate and allow
     if (isValidLocale(localeSegment)) {
-      return NextResponse.next();
+      const response = NextResponse.next();
+      // Set detected locale cookie for language suggestion banner
+      if (detectedLocale) {
+        response.cookies.set(DETECTED_LOCALE_COOKIE, detectedLocale, {
+          httpOnly: false,
+          sameSite: "lax",
+          maxAge: 60 * 60, // 1 hour
+        });
+      }
+      return response;
     }
   }
 
@@ -43,7 +70,18 @@ export function middleware(request: NextRequest) {
   // but internally routes to the [locale] dynamic segment
   const url = request.nextUrl.clone();
   url.pathname = `/${i18nConfig.defaultLocale}${pathname}`;
-  return NextResponse.rewrite(url);
+  const response = NextResponse.rewrite(url);
+  
+  // Set detected locale cookie for language suggestion banner
+  if (detectedLocale) {
+    response.cookies.set(DETECTED_LOCALE_COOKIE, detectedLocale, {
+      httpOnly: false,
+      sameSite: "lax",
+      maxAge: 60 * 60, // 1 hour
+    });
+  }
+  
+  return response;
 }
 
 export const config = {

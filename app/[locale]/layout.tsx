@@ -13,6 +13,7 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { LocaleProvider, i18nConfig, isValidLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import { LanguageSuggestionWrapper } from "@/components/ui/language-suggestion-wrapper";
 import { seoConfig } from "@/lib/seo/config";
 import { generateHreflangLinks, localeToOgLocale } from "@/lib/seo/metadata";
 import { JsonLd, OrganizationSchema, WebSiteSchema } from "@/components/seo/json-ld";
@@ -133,7 +134,10 @@ export default async function LocaleLayout({
         <JsonLd data={webSiteSchema} />
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <LocaleProvider locale={validLocale}>{children}</LocaleProvider>
+        <LocaleProvider locale={validLocale}>
+          {children}
+          <LanguageSuggestionWrapper />
+        </LocaleProvider>
       </body>
     </html>
   );

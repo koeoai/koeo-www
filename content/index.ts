@@ -189,3 +189,9 @@ export type {
   FooterLinkGroup,
   NavigationContent,
 } from "./en/navigation";
+
+// Language banner content exports
+export { LANGUAGE_BANNER_CONTENT } from "./en/banner";
+
+// Language banner type exports
+export type { LanguageBannerContent } from "./en/banner";

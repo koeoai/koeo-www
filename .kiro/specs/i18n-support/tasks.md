@@ -188,18 +188,31 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Implement language suggestion banner
-  - [ ] 9.1 Create language suggestion banner component
+- [x] 9. Implement language suggestion banner
+
+
+
+
+
+  - [x] 9.1 Create language suggestion banner component
+
+
     - Create `components/ui/language-suggestion-banner.tsx`
     - Implement non-intrusive banner UI with dismiss functionality
     - Use session storage to remember dismissal
     - _Requirements: 5.2, 5.3_
-  - [ ] 9.2 Integrate banner with locale detection
+  - [x] 9.2 Integrate banner with locale detection
+
+
     - Add banner to root layout
     - Connect to Accept-Language detection from middleware
     - Show only when detected locale differs from current
     - _Requirements: 5.1, 5.2_
-  - [ ] 9.3 Write property test for banner display logic
+
+
+  - [x] 9.3 Write property test for banner display logic
+
+
     - **Property 10: Language suggestion banner display**
     - **Validates: Requirements 5.2**
 
