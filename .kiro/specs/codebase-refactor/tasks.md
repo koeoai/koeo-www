@@ -294,14 +294,25 @@
     - Compose feature-list and architecture-diagram
     - _Requirements: 12.5_
 
-- [ ] 15. Decompose how-works-section
-  - [ ] 15.1 Create components/sections/how-works/developer-features.tsx
+- [x] 15. Decompose how-works-section
+
+
+
+
+
+  - [x] 15.1 Create components/sections/how-works/developer-features.tsx
+
+
     - Extract DEVELOPER_FEATURES and rendering
     - _Requirements: 12.3_
-  - [ ] 15.2 Create components/sections/how-works/beta-steps.tsx
+
+  - [-] 15.2 Create components/sections/how-works/beta-steps.tsx
+
     - Extract STEPS and rendering
+
     - _Requirements: 12.4_
-  - [ ] 15.3 Create components/sections/how-works/index.tsx
+  - [-] 15.3 Create components/sections/how-works/index.tsx
+
     - Compose developer-features and beta-steps
     - _Requirements: 12.5_
 
