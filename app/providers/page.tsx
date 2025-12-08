@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 import { PartnerForm } from "@/components/sections/partner-form";
@@ -121,9 +120,7 @@ function FaqItem({ question, answer, index }: FaqItemProps) {
 
 export default function ProvidersPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="relative flex-1 overflow-hidden">
+    <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network */}
         <div className="fixed inset-0 -z-10">
           <div 
@@ -261,8 +258,6 @@ export default function ProvidersPage() {
 
         {/* CTA Form Section */}
         <PartnerForm />
-      </main>
-      <Footer />
-    </div>
+    </PageShell>
   );
 }

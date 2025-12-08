@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/layout/page-shell";
 import { BetaHero } from "@/components/sections/beta-hero";
 import { BetaForm } from "@/components/sections/beta-form";
 
@@ -20,13 +19,9 @@ export const metadata: Metadata = {
 
 export default function BetaPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#7C3AED]">
-      <Header />
-      <main className="flex-1">
-        <BetaHero />
-        <BetaForm />
-      </main>
-      <Footer />
-    </div>
+    <PageShell rootClassName="bg-[#7C3AED]">
+      <BetaHero />
+      <BetaForm />
+    </PageShell>
   );
 }

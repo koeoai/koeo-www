@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 
@@ -310,9 +309,7 @@ function SectionHeader({ title, description, index }: { title: string; descripti
 
 export default function BrandPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="relative flex-1 overflow-hidden">
+    <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network */}
         <div className="fixed inset-0 -z-10">
           <div 
@@ -482,8 +479,6 @@ export default function BrandPage() {
         </section>
 
 
-      </main>
-      <Footer />
-    </div>
+    </PageShell>
   );
 }

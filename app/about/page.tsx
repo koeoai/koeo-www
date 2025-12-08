@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 
@@ -51,9 +50,7 @@ const PRINCIPLES = [
 
 export default function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="relative flex-1 overflow-hidden">
+    <PageShell className="relative overflow-hidden">
         {/* Gradient Background with Neural Network - same as providers */}
         <div className="fixed inset-0 -z-10">
           <div 
@@ -195,8 +192,6 @@ export default function AboutPage() {
             </div>
           </Container>
         </section>
-      </main>
-      <Footer />
-    </div>
+    </PageShell>
   );
 }
