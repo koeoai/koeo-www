@@ -392,18 +392,19 @@
     - Run next build and verify no errors
     - _Requirements: 15.3_
 
-- [ ] 19. Implement lazy loading for below-fold content
-  - [ ] 19.1 Add dynamic imports for heavy section components
+- [x] 19. Implement lazy loading for below-fold content
+  - [x] 19.1 Add dynamic imports for heavy section components
     - Use next/dynamic for what-is-section, how-works-section
     - Add loading states
     - _Requirements: 16.1, 16.2_
-  - [ ] 19.2 Verify Core Web Vitals are not negatively impacted
+  - [x] 19.2 Verify Core Web Vitals are not negatively impacted
     - Run Lighthouse audit
     - _Requirements: 16.3_
 
 - [ ] 20. Centralize content for all pages
   - [ ] 20.1 Create content/beta.ts
     - Centralize beta page content
+
     - _Requirements: 17.1, 17.2_
   - [ ] 20.2 Create content/about.ts
     - Centralize about page content
