@@ -4,7 +4,6 @@
 
 import type {
   BrandkitHeroContent,
-  BrandkitSectionHeader,
   BrandkitTypographyContent,
   BrandkitGradientContent,
   BrandkitPageContent,

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useLocale, i18nConfig, getLocalizedPath, Locale } from "@/lib/i18n";
+import { useLocale, i18nConfig, getLocalizedPath } from "@/lib/i18n";
 
 export interface LanguageSwitcherProps {
   /** Additional CSS classes */
@@ -81,9 +81,9 @@ export function LanguageSwitcher({
                 ]
               )}
               aria-current={locale === currentLocale ? "true" : undefined}
-              aria-label={`Switch to ${i18nConfig.localeNames[locale]}`}
+              aria-label={`Switch to ${i18nConfig.localeFullNames[locale]}`}
             >
-              {i18nConfig.localeNames[locale]}
+              {variant === "mobile" ? i18nConfig.localeFullNames[locale] : i18nConfig.localeNames[locale]}
             </Link>
             {variant === "default" &&
               index < i18nConfig.locales.length - 1 && (

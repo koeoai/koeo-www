@@ -78,7 +78,7 @@
 
     - Translate `content/fr/beta.ts` with beta page content
     - _Requirements: 1.1, 3.1_
-  - [ ] 3.5 Create French translations for remaining pages
+  - [x] 3.5 Create French translations for remaining pages
     - Translate `content/fr/about.ts`, `content/fr/careers.ts`, `content/fr/product.ts`
     - _Requirements: 1.1, 3.1_
 

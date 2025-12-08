@@ -8,6 +8,11 @@ export const i18nConfig = {
   defaultLocale: "en" as const,
   locales: ["en", "fr"] as const,
   localeNames: {
+    en: "EN",
+    fr: "FR",
+  },
+  /** Full locale names for accessibility and mobile views */
+  localeFullNames: {
     en: "English",
     fr: "Français",
   },

@@ -6,7 +6,7 @@ import {
   getLocaleFromPath,
   parseAcceptLanguage,
 } from "./utils";
-import { i18nConfig, Locale } from "./config";
+// i18nConfig imported for reference but tests use direct function calls
 
 /**
  * **Feature: i18n-support, Property 1: French locale routing**

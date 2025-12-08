@@ -150,17 +150,31 @@ describe("LanguageSwitcher Component", () => {
       expect(nav).toBeInTheDocument();
     });
 
-    it("renders all supported locales", () => {
+    it("renders all supported locales with short names in default variant", () => {
       render(
         <LocaleProvider locale="en">
           <LanguageSwitcher />
         </LocaleProvider>
       );
 
-      // Should have links for all locales
+      // Default variant shows short names (EN, FR)
       i18nConfig.locales.forEach((locale) => {
         const localeName = i18nConfig.localeNames[locale];
         expect(screen.getByText(localeName)).toBeInTheDocument();
+      });
+    });
+
+    it("renders full locale names in mobile variant", () => {
+      render(
+        <LocaleProvider locale="en">
+          <LanguageSwitcher variant="mobile" />
+        </LocaleProvider>
+      );
+
+      // Mobile variant shows full names (English, Français)
+      i18nConfig.locales.forEach((locale) => {
+        const fullName = i18nConfig.localeFullNames[locale];
+        expect(screen.getByText(fullName)).toBeInTheDocument();
       });
     });
   });
