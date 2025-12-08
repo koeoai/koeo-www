@@ -4,6 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { FormField } from "@/components/ui/form-field";
+import { GlassCard } from "@/components/ui/glass-card";
 import { NetworkBackground } from "@/components/ui/network-background";
 
 export interface SurveyFormData {
@@ -204,23 +205,6 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
     );
   }
 
-
-  // Glass card wrapper for form sections
-  const GlassCard = ({ children, title, description }: { children: React.ReactNode; title: string; description?: string }) => (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-white/10">
-      {/* Animated gradient border effect */}
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-[-1px] rounded-2xl bg-gradient-to-r from-purple-primary/20 via-magenta/20 to-pink-light/20" />
-      </div>
-      <div className="relative">
-        <div className="mb-6 border-b border-white/10 pb-4">
-          <h3 className="text-xl font-semibold text-white">{title}</h3>
-          {description && <p className="mt-1 text-sm text-white/60">{description}</p>}
-        </div>
-        <div className="space-y-5">{children}</div>
-      </div>
-    </div>
-  );
 
   return (
     <section id="beta-form" className={cn("relative py-16 md:py-24 bg-gradient-to-b from-[#7C3AED] via-[#6D28D9] to-[#5B21B6]", className)}>

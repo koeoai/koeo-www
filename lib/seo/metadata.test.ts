@@ -285,7 +285,7 @@ describe("Property 6: Open Graph completeness", () => {
           expect(og?.title).toBeDefined();
           expect(og?.description).toBeDefined();
           expect(og?.url).toBeDefined();
-          expect(og?.type).toBeDefined();
+          expect((og as Record<string, unknown>)?.type).toBeDefined();
           expect(og?.images).toBeDefined();
 
           // Title and description should match input
@@ -296,7 +296,7 @@ describe("Property 6: Open Graph completeness", () => {
           expect(og?.url).toContain(path);
 
           // Type should be "website"
-          expect(og?.type).toBe("website");
+          expect((og as Record<string, unknown>)?.type).toBe("website");
 
           // Images should be an array with at least one image
           expect(Array.isArray(og?.images)).toBe(true);
@@ -363,13 +363,13 @@ describe("Property 7: Twitter Card completeness", () => {
           const twitter = metadata.twitter;
 
           // All required fields should be present
-          expect(twitter?.card).toBeDefined();
+          expect((twitter as Record<string, unknown>)?.card).toBeDefined();
           expect(twitter?.title).toBeDefined();
           expect(twitter?.description).toBeDefined();
           expect(twitter?.images).toBeDefined();
 
           // Card type should be "summary_large_image"
-          expect(twitter?.card).toBe("summary_large_image");
+          expect((twitter as Record<string, unknown>)?.card).toBe("summary_large_image");
 
           // Title and description should match input
           expect(twitter?.title).toBe(title);

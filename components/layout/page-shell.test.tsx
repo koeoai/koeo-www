@@ -63,7 +63,7 @@ describe("PageShell - Property Tests", () => {
         const testChild = container.querySelector('[data-testid="test-child"]');
         expect(testChild).toBeInTheDocument();
         expect(testChild?.textContent).toBe(childText);
-        expect(main).toContainElement(testChild);
+        expect(main).toContainElement(testChild as HTMLElement);
 
         // Verify Footer is present (footer element exists)
         const footer = container.querySelector("footer");
