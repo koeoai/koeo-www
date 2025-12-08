@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageShell } from "@/components/layout/page-shell";
 import { BetaHero } from "@/components/sections/beta-hero";
-import { BetaForm } from "@/components/sections/beta-form";
+import { BetaForm } from "@/features/beta-signup";
 
 export const metadata: Metadata = {
   title: "Apply for Private Beta | KOEO",

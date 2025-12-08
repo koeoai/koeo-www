@@ -4,7 +4,7 @@ import * as React from "react";
 import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
-import { PartnerForm } from "@/components/sections/partner-form";
+import { PartnerForm } from "@/features/partner-signup";
 
 const BENEFITS = [
   {

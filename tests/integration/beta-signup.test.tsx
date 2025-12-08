@@ -1,8 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import * as fc from "fast-check";
-import { BetaForm } from "@/components/sections/beta-form";
-import { SurveyFormData, INITIAL_FORM_DATA } from "@/features/beta-signup/constants";
+import { BetaForm, SurveyFormData } from "@/features/beta-signup";
 
 /**
  * Integration tests for beta signup flow

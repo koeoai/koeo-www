@@ -316,17 +316,30 @@
     - Compose developer-features and beta-steps
     - _Requirements: 12.5_
 
-- [ ] 16. Create feature directory structure
-  - [ ] 16.1 Move beta signup code to features/beta-signup/
+- [x] 16. Create feature directory structure
+
+
+
+
+
+  - [x] 16.1 Move beta signup code to features/beta-signup/
+
+
     - Move components, create index.ts barrel export
     - _Requirements: 13.1, 13.4_
-  - [ ] 16.2 Create features/partner-signup/ structure
+  - [x] 16.2 Create features/partner-signup/ structure
+
+
     - Move partner-form.tsx and related code
     - _Requirements: 13.2, 13.4_
-  - [ ] 16.3 Create features/careers/ structure
+  - [x] 16.3 Create features/careers/ structure
+
+
     - Move career application related code
     - _Requirements: 13.3, 13.4_
-  - [ ] 16.4 Update imports across codebase
+  - [x] 16.4 Update imports across codebase
+
+
     - Update all files importing from old locations
     - _Requirements: 13.1, 13.2, 13.3_
 

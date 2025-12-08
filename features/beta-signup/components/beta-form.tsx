@@ -8,17 +8,17 @@ import {
   SurveyFormData,
   FormState,
   INITIAL_FORM_DATA,
-} from "@/features/beta-signup/constants";
+} from "../constants";
 import {
   AboutYouSection,
   AiUsageSection,
   CurrentSetupSection,
   PainPointsSection,
   FeaturesSection,
-} from "@/features/beta-signup/components";
+} from "./index";
 
 // Re-export types for backward compatibility
-export type { SurveyFormData } from "@/features/beta-signup/constants";
+export type { SurveyFormData } from "../constants";
 
 export interface BetaFormProps {
   onSubmit?: (data: SurveyFormData) => Promise<void>;
