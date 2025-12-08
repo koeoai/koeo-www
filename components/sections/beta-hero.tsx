@@ -2,25 +2,11 @@
 
 import * as React from "react";
 import { InteractiveNetworkCanvas } from "@/components/ui/interactive-network-canvas";
+import { BETA_HERO_CONTENT, BETA_CRITERIA } from "@/content";
 
 export interface BetaHeroProps {
   className?: string;
 }
-
-const CRITERIA = [
-  {
-    title: "You're shipping or about to ship AI features",
-    description: "Chat interfaces, copilots, agents, or any product that relies on model inference.",
-  },
-  {
-    title: "You want to simplify your inference stack",
-    description: "You're tired of managing multiple providers, GPU pools, or complex orchestration.",
-  },
-  {
-    title: "You're open to giving feedback",
-    description: "We're looking for partners who will help us shape the product through real-world usage.",
-  },
-];
 
 const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
   ({ className }, ref) => {
@@ -35,20 +21,20 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                Private Beta · limited spots
+                {BETA_HERO_CONTENT.badge}
               </div>
 
               {/* Headline */}
               <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                Apply for{" "}
+                {BETA_HERO_CONTENT.headline}{" "}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  our private beta
+                  {BETA_HERO_CONTENT.headlineAccent}
                 </span>
               </h1>
 
               {/* Subheadline */}
               <p className="mx-auto mb-12 max-w-2xl text-lg text-text-light/80 sm:text-xl">
-                We&apos;re onboarding teams gradually to ensure a great experience.
+                {BETA_HERO_CONTENT.subtitle}
               </p>
 
               {/* Who we're looking for */}
@@ -57,7 +43,7 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
                   Who we&apos;re looking for
                 </h2>
                 <div className="grid gap-4 sm:grid-cols-3">
-                  {CRITERIA.map((criterion, index) => (
+                  {BETA_CRITERIA.map((criterion, index) => (
                     <div
                       key={index}
                       className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
@@ -84,7 +70,7 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
 
                 {/* Scroll indicator */}
                 <div className="mt-12 flex flex-col items-center gap-2">
-                  <p className="text-sm text-white/50">Scroll to apply</p>
+                  <p className="text-sm text-white/50">{BETA_HERO_CONTENT.scrollIndicator}</p>
                   <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1">
                     <div className="h-2 w-1 animate-bounce rounded-full bg-pink-light" />
                   </div>

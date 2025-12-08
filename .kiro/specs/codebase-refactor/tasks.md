@@ -401,21 +401,35 @@
     - Run Lighthouse audit
     - _Requirements: 16.3_
 
-- [ ] 20. Centralize content for all pages
-  - [ ] 20.1 Create content/beta.ts
+- [x] 20. Centralize content for all pages
+
+
+
+  - [x] 20.1 Create content/beta.ts
+
+
     - Centralize beta page content
 
     - _Requirements: 17.1, 17.2_
-  - [ ] 20.2 Create content/about.ts
+
+
+  - [x] 20.2 Create content/about.ts
     - Centralize about page content
+
     - _Requirements: 17.1, 17.2_
-  - [ ] 20.3 Create content/careers.ts
+
+  - [x] 20.3 Create content/careers.ts
     - Centralize careers page content
+
     - _Requirements: 17.1, 17.2_
-  - [ ] 20.4 Create content/product.ts
+
+  - [x] 20.4 Create content/product.ts
     - Centralize product page content
+
+
+
     - _Requirements: 17.1, 17.2_
-  - [ ] 20.5 Update all pages to use centralized content
+  - [x] 20.5 Update all pages to use centralized content
     - _Requirements: 17.3_
 
 - [ ] 21. Add E2E tests for critical journeys

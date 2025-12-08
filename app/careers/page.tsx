@@ -2,6 +2,7 @@ import { PageShell } from "@/components/layout/page-shell";
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
 import { CareerForm } from "@/features/careers";
+import { CAREERS_PAGE_CONTENT } from "@/content";
 
 export default function CareersPage() {
   return (
@@ -27,20 +28,20 @@ export default function CareersPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                Careers at Koeo
+                {CAREERS_PAGE_CONTENT.hero.badge}
               </div>
 
               {/* Headline */}
               <h1 className="animate-fade-in-up mb-8 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: "100ms" }}>
-                Build the future of{" "}
+                {CAREERS_PAGE_CONTENT.hero.headline}{" "}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
-                  AI infrastructure
+                  {CAREERS_PAGE_CONTENT.hero.headlineAccent}
                 </span>
               </h1>
 
               {/* Subtext */}
               <p className="animate-fade-in-up mx-auto max-w-2xl text-lg text-white/70 sm:text-xl" style={{ animationDelay: "200ms" }}>
-                We&apos;re not actively hiring right now, but we&apos;re always interested in meeting talented people who share our mission.
+                {CAREERS_PAGE_CONTENT.hero.subtitle}
               </p>
             </div>
           </Container>
@@ -58,11 +59,9 @@ export default function CareersPage() {
                     </svg>
                   </div>
                   <div>
-                    <h2 className="mb-2 text-xl font-semibold text-white">No open positions right now</h2>
+                    <h2 className="mb-2 text-xl font-semibold text-white">{CAREERS_PAGE_CONTENT.notice.title}</h2>
                     <p className="text-white/70">
-                      While we don&apos;t have any active roles at the moment, we&apos;re always excited to connect with exceptional people. 
-                      If you&apos;re passionate about AI infrastructure and think you&apos;d be a great fit, we&apos;d love to hear from you. 
-                      Submit your information below and we&apos;ll keep you in mind for future opportunities.
+                      {CAREERS_PAGE_CONTENT.notice.description}
                     </p>
                   </div>
                 </div>
@@ -78,11 +77,11 @@ export default function CareersPage() {
               {/* Header */}
               <div className="mb-12 text-center">
                 <h2 className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
-                  Express your interest
+                  {CAREERS_PAGE_CONTENT.form.heading}
                 </h2>
                 <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/60 backdrop-blur-sm">
                   <span className="text-lg">🔒</span>
-                  Your information is kept confidential
+                  {CAREERS_PAGE_CONTENT.form.confidentialityNote}
                 </div>
               </div>
 

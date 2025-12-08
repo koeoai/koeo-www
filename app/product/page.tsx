@@ -11,6 +11,7 @@ import {
   CodeMigrationAnimation,
 } from "@/components/ui/why-koeo-animations";
 import Link from "next/link";
+import { PRODUCT_PAGE_CONTENT } from "@/content";
 
 // Code snippet animation
 function CodeSnippetAnimation() {
@@ -146,102 +147,24 @@ function ConsoleDashboardAnimation() {
 }
 
 
-// Data constants
-const WHAT_KOEO_IS_POINTS = [
-  "Send requests. Get responses. That's it.",
-  "No VMs to provision, no drivers to install.",
-  "Capacity scales with your traffic automatically.",
-  "You stay focused on prompts and product.",
-];
-
-const WHO_FOR_ITEMS = [
-  {
-    title: "AI Startups",
-    description: "Ship features, not infrastructure. Stop spinning up GPU boxes for every new capability.",
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Product & Platform Teams",
-    description: "Add AI to your product with a predictable API, not a sidecar VM you have to babysit.",
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "ML Teams & Consultants",
-    description: "Your model works. Now serve it to real users without building a deployment pipeline.",
-    icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-      </svg>
-    ),
-  },
-];
-
-const WHY_KOEO_ITEMS = [
-  {
-    number: "01",
-    title: "Runtime, not raw hardware",
-    subtitle: "GPU clouds rent you machines. Koeo gives you inference as a service.",
-    points: [
-      "No VM setup or driver management",
-      "No custom routing or queueing to build",
-      "Built-in health checks and failover",
-    ],
-    footer: "We handle the infrastructure. You handle the product.",
-  },
-  {
-    number: "02",
-    title: "Resilient by default",
-    subtitle: "The runtime monitors GPU health and routes around problems automatically.",
-    points: [
-      "Unhealthy nodes get bypassed instantly",
-      "Load spikes don't take down your app",
-      "Swap hardware or providers without code changes",
-    ],
-    footer: "Your users see consistent responses. You see a single endpoint.",
-  },
-  {
-    number: "03",
-    title: "Zero migration friction",
-    subtitle: "Already using OpenAI? Change two lines and you're on Koeo.",
-    points: [
-      "Same client libraries you already use",
-      "Same request and response shapes",
-      "Run both in parallel while you evaluate",
-    ],
-    footer: "No SDK to learn. No multi-week migration. Just swap the base URL.",
-  },
-];
-
-const HOW_IT_WORKS_STEPS = [
-  {
-    step: 1,
-    title: "Get an API key",
-    description: "Sign up and generate a key in the console. Takes about 30 seconds.",
-  },
-  {
-    step: 2,
-    title: "Swap your base URL",
-    description: "Point your existing OpenAI client to Koeo. Two lines of code.",
-  },
-  {
-    step: 3,
-    title: "Send requests",
-    description: "The runtime handles authentication, routing, and failover. You just get responses.",
-  },
-  {
-    step: 4,
-    title: "Monitor in the console",
-    description: "Track usage, latency, and errors. Know when something needs attention.",
-  },
-];
+// Icon components for who it's for section
+const WHO_FOR_ICONS: Record<string, React.ReactNode> = {
+  rocket: (
+    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+    </svg>
+  ),
+  users: (
+    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+    </svg>
+  ),
+  flask: (
+    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+    </svg>
+  ),
+};
 
 
 export default function ProductPage() {
@@ -267,27 +190,27 @@ export default function ProductPage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
                 </span>
-                Beta
+                {PRODUCT_PAGE_CONTENT.hero.badge}
               </div>
 
               <h1 className="animate-fade-in-up mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl" style={{ animationDelay: "100ms" }}>
                 <span className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-transparent">
-                  Koeo inference runtime
+                  {PRODUCT_PAGE_CONTENT.hero.headline}
                 </span>
               </h1>
               
               <p className="animate-fade-in-up mx-auto mb-4 max-w-3xl text-xl font-medium text-white/90 sm:text-2xl" style={{ animationDelay: "200ms" }}>
-                If you know the OpenAI API, you already know Koeo.
+                {PRODUCT_PAGE_CONTENT.hero.tagline}
               </p>
               
               <p className="animate-fade-in-up mx-auto mb-10 max-w-2xl text-lg text-white/60" style={{ animationDelay: "300ms" }}>
-                A managed inference runtime that turns your models into reliable APIs. Same client libraries, just point to a different endpoint.
+                {PRODUCT_PAGE_CONTENT.hero.subtitle}
               </p>
 
               <div className="animate-fade-in-up flex flex-col items-center justify-center gap-4 sm:flex-row" style={{ animationDelay: "400ms" }}>
-                <Link href="/beta">
+                <Link href={PRODUCT_PAGE_CONTENT.hero.primaryCta.href}>
                   <Button size="lg" className="shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40">
-                    Join the Beta
+                    {PRODUCT_PAGE_CONTENT.hero.primaryCta.text}
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
@@ -297,7 +220,7 @@ export default function ProductPage() {
                   onClick={() => document.getElementById("how-it-works")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
                 >
-                  See how it works
+                  {PRODUCT_PAGE_CONTENT.hero.secondaryCta}
                 </button>
               </div>
             </div>
@@ -309,15 +232,15 @@ export default function ProductPage() {
           <Container>
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16 items-center">
               <div className="animate-fade-in-up">
-                <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">What KOEO is</p>
+                <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.whatIs.label}</p>
                 <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
-                  An inference-first runtime for AI applications
+                  {PRODUCT_PAGE_CONTENT.whatIs.heading}
                 </h2>
                 <p className="mb-6 text-lg text-white/60">
-                  Think of it as serverless, but only for model inference:
+                  {PRODUCT_PAGE_CONTENT.whatIs.description}
                 </p>
                 <ul className="space-y-3">
-                  {WHAT_KOEO_IS_POINTS.map((point, i) => (
+                  {PRODUCT_PAGE_CONTENT.whatIs.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -340,16 +263,16 @@ export default function ProductPage() {
         <section className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">Who it&apos;s for</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.whoFor.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                Built for teams shipping AI
+                {PRODUCT_PAGE_CONTENT.whoFor.heading}
               </h2>
               <p className="mx-auto max-w-2xl text-lg text-white/60">
-                If you already know how to call the OpenAI API, you are in the right place.
+                {PRODUCT_PAGE_CONTENT.whoFor.subtitle}
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
-              {WHO_FOR_ITEMS.map((item, i) => (
+              {PRODUCT_PAGE_CONTENT.whoFor.items.map((item, i) => (
                 <div
                   key={item.title}
                   className="animate-fade-in-up group relative flex"
@@ -358,7 +281,7 @@ export default function ProductPage() {
                   <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative flex h-full w-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20">
                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 text-white/70 transition-colors group-hover:border-pink-light/30 group-hover:text-pink-light">
-                      {item.icon}
+                      {WHO_FOR_ICONS[item.iconName]}
                     </div>
                     <h3 className="mb-3 text-xl font-semibold text-white">{item.title}</h3>
                     <p className="flex-1 text-base leading-relaxed text-white/60">{item.description}</p>
@@ -374,22 +297,22 @@ export default function ProductPage() {
         <section className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">Why KOEO</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.why.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                Why teams use Koeo instead of raw GPUs
+                {PRODUCT_PAGE_CONTENT.why.heading}
               </h2>
             </div>
             
             {/* Feature 1: Runtime - Content Left, Visual Right */}
             <div className="animate-fade-in-up mb-16 grid items-center gap-12 lg:grid-cols-2">
               <div>
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">01</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Runtime, not raw hardware</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[0].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[0].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  GPU clouds rent you machines. Koeo gives you inference as a service.
+                  {PRODUCT_PAGE_CONTENT.why.features[0].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {WHY_KOEO_ITEMS[0].points.map((point, j) => (
+                  {PRODUCT_PAGE_CONTENT.why.features[0].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -414,13 +337,13 @@ export default function ProductPage() {
                 <FailoverAnimation />
               </div>
               <div className="lg:order-2">
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">02</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Resilient by default</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[1].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[1].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  The runtime monitors GPU health and routes around problems automatically.
+                  {PRODUCT_PAGE_CONTENT.why.features[1].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {WHY_KOEO_ITEMS[1].points.map((point, j) => (
+                  {PRODUCT_PAGE_CONTENT.why.features[1].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -437,13 +360,13 @@ export default function ProductPage() {
             {/* Feature 3: Migration - Content Left, Visual Right */}
             <div className="animate-fade-in-up grid items-center gap-12 lg:grid-cols-2" style={{ animationDelay: "200ms" }}>
               <div>
-                <span className="mb-4 inline-block font-mono text-sm text-pink-light">03</span>
-                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">Zero migration friction</h3>
+                <span className="mb-4 inline-block font-mono text-sm text-pink-light">{PRODUCT_PAGE_CONTENT.why.features[2].number}</span>
+                <h3 className="mb-4 text-2xl font-bold text-white md:text-3xl">{PRODUCT_PAGE_CONTENT.why.features[2].title}</h3>
                 <p className="mb-6 text-lg text-white/60">
-                  Already using OpenAI? Change two lines and you&apos;re on Koeo.
+                  {PRODUCT_PAGE_CONTENT.why.features[2].subtitle}
                 </p>
                 <ul className="space-y-3">
-                  {WHY_KOEO_ITEMS[2].points.map((point, j) => (
+                  {PRODUCT_PAGE_CONTENT.why.features[2].points.map((point, j) => (
                     <li key={j} className="flex items-center gap-3 text-white/70">
                       <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
                         <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -467,14 +390,14 @@ export default function ProductPage() {
         <section id="how-it-works" className="relative py-20 md:py-28">
           <Container>
             <div className="animate-fade-in-up mb-16 text-center">
-              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">How it works</p>
+              <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{PRODUCT_PAGE_CONTENT.how.label}</p>
               <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                From signup to production in minutes
+                {PRODUCT_PAGE_CONTENT.how.heading}
               </h2>
             </div>
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="space-y-6">
-                {HOW_IT_WORKS_STEPS.map((item, i) => (
+                {PRODUCT_PAGE_CONTENT.how.steps.map((item, i) => (
                   <div
                     key={item.step}
                     className="animate-fade-in-up group relative flex gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-white/20"
@@ -507,23 +430,23 @@ export default function ProductPage() {
           <Container>
             <div className="animate-fade-in-up mx-auto max-w-3xl text-center">
               <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
-                Get your API key in 30 seconds
+                {PRODUCT_PAGE_CONTENT.cta.headline}
               </h2>
               <p className="mb-10 text-lg text-white/60">
-                Join the beta and see how it feels. No commitment, no credit card required.
+                {PRODUCT_PAGE_CONTENT.cta.subtitle}
               </p>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link href="/beta">
+                <Link href={PRODUCT_PAGE_CONTENT.cta.primaryCta.href}>
                   <Button size="lg" className="shadow-lg shadow-magenta/25 transition-all duration-300 hover:scale-105 hover:shadow-magenta/40">
-                    Join the Beta
+                    {PRODUCT_PAGE_CONTENT.cta.primaryCta.text}
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </Button>
                 </Link>
-                <Link href="/providers">
+                <Link href={PRODUCT_PAGE_CONTENT.cta.secondaryCta.href}>
                   <Button variant="secondary" size="lg" className="border-white/20 text-white hover:bg-white/10">
-                    Become a Provider
+                    {PRODUCT_PAGE_CONTENT.cta.secondaryCta.text}
                   </Button>
                 </Link>
               </div>
