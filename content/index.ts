@@ -1,7 +1,15 @@
 /**
  * Centralized content layer for marketing copy.
  * Import content from here to keep components focused on rendering.
+ * 
+ * Supports locale-based content retrieval with automatic fallback to English.
  */
+
+import { i18nConfig, type Locale } from "@/lib/i18n/config";
+
+// Import all locale content
+import * as enContent from "./en";
+import * as frContent from "./fr";
 
 // Type exports
 export type {
@@ -17,65 +25,33 @@ export type {
   HomepageContent,
 } from "./types";
 
-// Homepage content exports
-export {
-  HERO_CONTENT,
-  PROBLEM_CONTENT,
-  WHAT_IS_CONTENT,
-  HOW_WORKS_CONTENT,
-  HOMEPAGE_CONTENT,
-} from "./homepage";
-
-// Beta page content exports
+// Beta page type exports
 export type {
   BetaHeroContent,
   BetaCriterion,
   BetaBenefit,
   BetaExpectation,
   BetaPageContent,
-} from "./beta";
+} from "./en/beta";
 
-export {
-  BETA_HERO_CONTENT,
-  BETA_CRITERIA,
-  BETA_BENEFITS,
-  BETA_EXPECTATIONS,
-  BETA_PAGE_CONTENT,
-} from "./beta";
-
-// About page content exports
+// About page type exports
 export type {
   AboutHeroContent,
   AboutVisionContent,
   AboutPrinciple,
   AboutCtaContent,
   AboutPageContent,
-} from "./about";
+} from "./en/about";
 
-export {
-  ABOUT_HERO_CONTENT,
-  ABOUT_VISION_CONTENT,
-  ABOUT_PRINCIPLES,
-  ABOUT_CTA_CONTENT,
-  ABOUT_PAGE_CONTENT,
-} from "./about";
-
-// Careers page content exports
+// Careers page type exports
 export type {
   CareersHeroContent,
   CareersNoticeContent,
   CareersFormContent,
   CareersPageContent,
-} from "./careers";
+} from "./en/careers";
 
-export {
-  CAREERS_HERO_CONTENT,
-  CAREERS_NOTICE_CONTENT,
-  CAREERS_FORM_CONTENT,
-  CAREERS_PAGE_CONTENT,
-} from "./careers";
-
-// Product page content exports
+// Product page type exports
 export type {
   ProductHeroContent,
   ProductWhatIsContent,
@@ -87,8 +63,74 @@ export type {
   ProductHowContent,
   ProductCtaContent,
   ProductPageContent,
-} from "./product";
+} from "./en/product";
 
+
+/**
+ * Content by locale mapping
+ */
+const contentByLocale: Record<Locale, Record<string, unknown>> = {
+  en: enContent as unknown as Record<string, unknown>,
+  fr: frContent as unknown as Record<string, unknown>,
+};
+
+/**
+ * Retrieves content for a given key and locale with fallback to default locale.
+ * 
+ * @param key - The content key to retrieve (e.g., "HOMEPAGE_CONTENT", "HERO_CONTENT")
+ * @param locale - The target locale
+ * @returns The content for the specified key and locale, or English fallback if not found
+ * 
+ * @example
+ * ```ts
+ * const heroContent = getContent<HeroContent>("HERO_CONTENT", "fr");
+ * ```
+ */
+export function getContent<T>(key: string, locale: Locale): T {
+  const localeContent = contentByLocale[locale];
+  const defaultContent = contentByLocale[i18nConfig.defaultLocale];
+  
+  // Return locale-specific content or fall back to default
+  return (localeContent[key] ?? defaultContent[key]) as T;
+}
+
+// Re-export default (English) content for backward compatibility
+// Homepage content exports
+export {
+  HERO_CONTENT,
+  PROBLEM_CONTENT,
+  WHAT_IS_CONTENT,
+  HOW_WORKS_CONTENT,
+  HOMEPAGE_CONTENT,
+} from "./en/homepage";
+
+// Beta page content exports
+export {
+  BETA_HERO_CONTENT,
+  BETA_CRITERIA,
+  BETA_BENEFITS,
+  BETA_EXPECTATIONS,
+  BETA_PAGE_CONTENT,
+} from "./en/beta";
+
+// About page content exports
+export {
+  ABOUT_HERO_CONTENT,
+  ABOUT_VISION_CONTENT,
+  ABOUT_PRINCIPLES,
+  ABOUT_CTA_CONTENT,
+  ABOUT_PAGE_CONTENT,
+} from "./en/about";
+
+// Careers page content exports
+export {
+  CAREERS_HERO_CONTENT,
+  CAREERS_NOTICE_CONTENT,
+  CAREERS_FORM_CONTENT,
+  CAREERS_PAGE_CONTENT,
+} from "./en/careers";
+
+// Product page content exports
 export {
   PRODUCT_HERO_CONTENT,
   PRODUCT_WHAT_IS_CONTENT,
@@ -97,4 +139,4 @@ export {
   PRODUCT_HOW_CONTENT,
   PRODUCT_CTA_CONTENT,
   PRODUCT_PAGE_CONTENT,
-} from "./product";
+} from "./en/product";

@@ -47,20 +47,35 @@
     - **Property 4: HTML lang attribute matches locale**
     - **Validates: Requirements 2.3**
 
-- [ ] 3. Reorganize content layer for locales
-  - [ ] 3.1 Create locale-based content structure
+- [x] 3. Reorganize content layer for locales
+
+
+
+
+
+  - [x] 3.1 Create locale-based content structure
+
+
     - Move existing content files to `content/en/` directory
     - Create `content/fr/` directory structure mirroring English
     - Update `content/index.ts` with `getContent` function supporting locale and fallback
     - _Requirements: 3.1, 3.2, 3.3_
-  - [ ] 3.2 Write property test for content fallback
+  - [x] 3.2 Write property test for content fallback
+
+
     - **Property 5: Translation fallback to English**
     - **Validates: Requirements 3.2**
-  - [ ] 3.3 Create French translations for homepage
+  - [x] 3.3 Create French translations for homepage
+
+
     - Translate `content/fr/homepage.ts` with all homepage content
     - Ensure type compatibility with English content
     - _Requirements: 1.1, 3.1_
-  - [ ] 3.4 Create French translations for beta page
+
+
+  - [x] 3.4 Create French translations for beta page
+
+
     - Translate `content/fr/beta.ts` with beta page content
     - _Requirements: 1.1, 3.1_
   - [ ] 3.5 Create French translations for remaining pages

@@ -1,0 +1,49 @@
+/**
+ * English (default) content barrel export
+ */
+
+// Homepage content
+export {
+  HERO_CONTENT,
+  PROBLEM_CONTENT,
+  WHAT_IS_CONTENT,
+  HOW_WORKS_CONTENT,
+  HOMEPAGE_CONTENT,
+} from "./homepage";
+
+// Beta page content
+export {
+  BETA_HERO_CONTENT,
+  BETA_CRITERIA,
+  BETA_BENEFITS,
+  BETA_EXPECTATIONS,
+  BETA_PAGE_CONTENT,
+} from "./beta";
+
+// About page content
+export {
+  ABOUT_HERO_CONTENT,
+  ABOUT_VISION_CONTENT,
+  ABOUT_PRINCIPLES,
+  ABOUT_CTA_CONTENT,
+  ABOUT_PAGE_CONTENT,
+} from "./about";
+
+// Careers page content
+export {
+  CAREERS_HERO_CONTENT,
+  CAREERS_NOTICE_CONTENT,
+  CAREERS_FORM_CONTENT,
+  CAREERS_PAGE_CONTENT,
+} from "./careers";
+
+// Product page content
+export {
+  PRODUCT_HERO_CONTENT,
+  PRODUCT_WHAT_IS_CONTENT,
+  PRODUCT_WHO_FOR_CONTENT,
+  PRODUCT_WHY_CONTENT,
+  PRODUCT_HOW_CONTENT,
+  PRODUCT_CTA_CONTENT,
+  PRODUCT_PAGE_CONTENT,
+} from "./product";
