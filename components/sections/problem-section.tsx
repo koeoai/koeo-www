@@ -1,6 +1,3 @@
-"use client";
-
-import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
