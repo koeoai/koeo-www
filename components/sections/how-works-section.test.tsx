@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { HowWorksSection } from "./how-works-section";
+import { HowWorksSection } from "./how-works";
 
 describe("HowWorksSection - Developer Features", () => {
   it("renders heading 'Built by Developers, for Developers'", () => {

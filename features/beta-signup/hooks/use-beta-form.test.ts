@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import * as fc from "fast-check";
 import { useBetaForm } from "./use-beta-form";
-import { SurveyFormData, INITIAL_FORM_DATA } from "../constants";
+import { SurveyFormData } from "../constants";
 
 /**
  * **Feature: codebase-refactor, Property 6: useBetaForm hook manages state transitions correctly**

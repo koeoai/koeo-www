@@ -8,7 +8,7 @@ import { SectionSkeleton } from "@/components/ui/section-skeleton";
 // Lazy load below-fold section components for better initial page load
 // Requirements: 16.1, 16.2
 const WhatIsSection = dynamic(
-  () => import("@/components/sections/what-is-section").then((mod) => ({ default: mod.WhatIsSection })),
+  () => import("@/components/sections/what-is").then((mod) => ({ default: mod.WhatIsSection })),
   {
     loading: () => <SectionSkeleton variant="gradient" />,
     ssr: true, // Keep SSR for SEO
@@ -16,7 +16,7 @@ const WhatIsSection = dynamic(
 );
 
 const HowWorksSection = dynamic(
-  () => import("@/components/sections/how-works-section").then((mod) => ({ default: mod.HowWorksSection })),
+  () => import("@/components/sections/how-works").then((mod) => ({ default: mod.HowWorksSection })),
   {
     loading: () => <SectionSkeleton variant="light" />,
     ssr: true, // Keep SSR for SEO

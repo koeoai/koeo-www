@@ -460,9 +460,17 @@
     - Test menu open/close and navigation
 
     - _Requirements: 18.3_
-  - [ ] 21.5 Add E2E tests to CI pipeline
+  - [x] 21.5 Add E2E tests to CI pipeline
+
+
+
     - Update .github/workflows/ci.yml
     - _Requirements: 18.4_
 
-- [ ] 22. Final Checkpoint - Make sure all tests are passing
+- [x] 22. Final Checkpoint - Make sure all tests are passing
+
+
+
+
+
   - Ensure all tests pass, ask the user if questions arise.
