@@ -165,27 +165,46 @@
     - Import from components/ui/glass-card
     - _Requirements: 7.4_
 
-- [ ] 9. Split beta form into smaller components
-  - [ ] 9.1 Create features/beta-signup/constants.ts
+- [x] 9. Split beta form into smaller components
+
+
+
+
+
+  - [x] 9.1 Create features/beta-signup/constants.ts
+
+
     - Move ROLE_OPTIONS, SEGMENT_OPTIONS, etc.
     - Move INITIAL_FORM_DATA
     - _Requirements: 8.2_
-  - [ ] 9.2 Create features/beta-signup/components/about-you-section.tsx
+  - [x] 9.2 Create features/beta-signup/components/about-you-section.tsx
+
+
     - Handle fullName, email, organizationName, role, segment fields
     - _Requirements: 8.1, 8.3_
-  - [ ] 9.3 Create features/beta-signup/components/ai-usage-section.tsx
+
+  - [x] 9.3 Create features/beta-signup/components/ai-usage-section.tsx
+
     - Handle aiUseCase, workloadTypes fields
     - _Requirements: 8.1, 8.3_
-  - [ ] 9.4 Create features/beta-signup/components/current-setup-section.tsx
+
+  - [x] 9.4 Create features/beta-signup/components/current-setup-section.tsx
+
     - Handle currentInfraSources, monthlySpend, workflow fields
     - _Requirements: 8.1, 8.3_
-  - [ ] 9.5 Create features/beta-signup/components/pain-points-section.tsx
+
+  - [x] 9.5 Create features/beta-signup/components/pain-points-section.tsx
+
     - Handle topPainPoints, painNotes fields
     - _Requirements: 8.1, 8.3_
-  - [ ] 9.6 Create features/beta-signup/components/features-section.tsx
+
+  - [x] 9.6 Create features/beta-signup/components/features-section.tsx
+
     - Handle mostValuableFeatures, anythingElse fields
     - _Requirements: 8.1, 8.3_
-  - [ ] 9.7 Refactor components/sections/beta-form.tsx to compose sections
+
+  - [x] 9.7 Refactor components/sections/beta-form.tsx to compose sections
+
     - Import and use section components
     - Keep form state and submission logic in main component
     - _Requirements: 8.4_
