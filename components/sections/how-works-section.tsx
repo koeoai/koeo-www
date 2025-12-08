@@ -3,7 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Button } from "@/components/ui/button";
 import { NetworkBackground } from "@/components/ui/network-background";
 
@@ -49,9 +51,11 @@ export interface HowWorksSectionProps {
 
 export function HowWorksSection({ className }: HowWorksSectionProps) {
   return (
-    <section id="how-it-works" className={cn("relative", className)}>
+    <Section 
+      id="how-it-works" 
+      className={cn("!py-0 !bg-white", className)}
+    >
       {/* Single continuous gradient background for entire section */}
-      <div className="absolute inset-0 bg-white" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#C4B5FD] via-30% to-[#4C1D95]" />
       
       {/* Dark Top Section */}
@@ -61,7 +65,7 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
 
         <Container className="relative z-10">
           <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
-            {/* Left: Headline */}
+            {/* Left: Headline - Custom layout, not using SectionHeader due to split design */}
             <div className="lg:col-span-1">
               <h2 className="text-3xl font-bold leading-tight text-text-primary md:text-4xl lg:text-5xl">
                 Built by Developers,
@@ -197,6 +201,6 @@ export function HowWorksSection({ className }: HowWorksSectionProps) {
           </div>
         </Container>
       </div>
-    </section>
+    </Section>
   );
 }

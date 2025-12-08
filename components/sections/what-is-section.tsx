@@ -3,7 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
+import { SectionHeader } from "@/components/ui/section-header";
 import { Button } from "@/components/ui/button";
 import { NetworkBackground } from "@/components/ui/network-background";
 
@@ -40,23 +42,15 @@ export interface WhatIsSectionProps {
 
 export function WhatIsSection({ className }: WhatIsSectionProps) {
   return (
-    <section
+    <Section
       id="what-is-koeo"
-      className={cn("relative overflow-hidden py-24 md:py-32", className)}
+      className={cn("py-24 md:py-32 !bg-gradient-to-b from-[#7C3AED] via-[#A78BFA] to-white", className)}
     >
-      {/* Gradient background - starts matching problem section end, transitions to white */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED] via-[#A78BFA] to-white" />
-      
       {/* Network background */}
       <NetworkBackground variant="light" density="sparse" />
 
       <Container className="relative z-10">
-        {/* Top: Eyebrow + Headline */}
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-text-primary md:text-4xl lg:text-5xl">
-            AI inference, simplified
-          </h2>
-        </div>
+        <SectionHeader heading="AI inference, simplified" />
 
         {/* Split Layout */}
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
@@ -252,6 +246,6 @@ export function WhatIsSection({ className }: WhatIsSectionProps) {
           </div>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 }

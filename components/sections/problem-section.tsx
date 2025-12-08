@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
+import { SectionHeader } from "@/components/ui/section-header";
 import { NetworkBackground } from "@/components/ui/network-background";
 
 const PROBLEM_CARDS = [
@@ -77,31 +79,19 @@ export interface ProblemSectionProps {
 
 export function ProblemSection({ className }: ProblemSectionProps) {
   return (
-    <section
+    <Section
       id="problem"
-      className={cn(
-        "relative overflow-hidden py-24 md:py-32",
-        className
-      )}
+      className={cn("py-24 md:py-32 !bg-[#7C3AED]", className)}
     >
-      {/* Gradient background - solid purple for clean transition to what-is */}
-      <div className="absolute inset-0 bg-[#7C3AED]" />
-      
       {/* Network background */}
       <NetworkBackground variant="dark" density="normal" />
 
       <Container className="relative z-10">
-        {/* Eyebrow + Heading */}
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
-            Why AI infrastructure feels harder than it should
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-            Running inference at scale usually means juggling providers, managing GPU
-            availability, and stitching together tools that weren&apos;t designed to
-            work together.
-          </p>
-        </div>
+        <SectionHeader
+          heading="Why AI infrastructure feels harder than it should"
+          intro="Running inference at scale usually means juggling providers, managing GPU availability, and stitching together tools that weren't designed to work together."
+          variant="light"
+        />
 
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-3">
@@ -139,8 +129,6 @@ export function ProblemSection({ className }: ProblemSectionProps) {
           ))}
         </div>
       </Container>
-      
-
-    </section>
+    </Section>
   );
 }
