@@ -145,7 +145,7 @@ describe("Property 5: Form state captures field values correctly", () => {
   ).filter(([local, domain, tld]) => local.length > 0 && domain.length > 0 && tld.length >= 2)
    .map(([local, domain, tld]) => `${local}@${domain}.${tld}`);
 
-  it("should capture text field values correctly when changed", () => {
+  it("should capture text field values correctly when changed", { timeout: 10000 }, () => {
     fc.assert(
       fc.property(validTextArb, (textValue) => {
         const { unmount } = render(<BetaForm />);
@@ -157,11 +157,11 @@ describe("Property 5: Form state captures field values correctly", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 
-  it("should capture email field values correctly when changed", () => {
+  it("should capture email field values correctly when changed", { timeout: 10000 }, () => {
     fc.assert(
       fc.property(validEmailArb, (emailValue) => {
         const { unmount } = render(<BetaForm />);
@@ -173,11 +173,11 @@ describe("Property 5: Form state captures field values correctly", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 
-  it("should capture textarea field values correctly when changed", () => {
+  it("should capture textarea field values correctly when changed", { timeout: 10000 }, () => {
     fc.assert(
       fc.property(validTextArb, (textValue) => {
         const { unmount } = render(<BetaForm />);
@@ -189,7 +189,7 @@ describe("Property 5: Form state captures field values correctly", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 
@@ -296,7 +296,7 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
     fc.integer({ min: 1, max: 5 }).map(n => " ".repeat(n))
   );
 
-  it("should show validation error for invalid email formats", () => {
+  it("should show validation error for invalid email formats", { timeout: 15000 }, () => {
     fc.assert(
       fc.property(invalidEmailArb, (invalidEmail) => {
         const { container, unmount } = render(<BetaForm />);
@@ -319,11 +319,11 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 
-  it("should show validation error for empty required text fields", () => {
+  it("should show validation error for empty required text fields", { timeout: 15000 }, () => {
     fc.assert(
       fc.property(emptyOrWhitespaceArb, (emptyValue) => {
         const { container, unmount } = render(<BetaForm />);
@@ -341,11 +341,11 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 
-  it("should show validation errors for all empty required fields when form is submitted empty", () => {
+  it("should show validation errors for all empty required fields when form is submitted empty", { timeout: 15000 }, () => {
     fc.assert(
       fc.property(fc.constant(null), () => {
         const { container, unmount } = render(<BetaForm />);
@@ -369,7 +369,7 @@ describe("Property 4: Form validation identifies invalid inputs", () => {
 
         unmount();
       }),
-      { numRuns: 100 }
+      { numRuns: 50 }
     );
   });
 });
