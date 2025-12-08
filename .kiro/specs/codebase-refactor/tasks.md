@@ -343,18 +343,30 @@
     - Update all files importing from old locations
     - _Requirements: 13.1, 13.2, 13.3_
 
-- [ ] 17. Extract form logic into custom hooks
-  - [ ] 17.1 Create features/beta-signup/hooks/use-beta-form.ts
+- [x] 17. Extract form logic into custom hooks
+
+
+
+
+
+  - [x] 17.1 Create features/beta-signup/hooks/use-beta-form.ts
+
+
     - Extract form state, validation, submission logic
     - Return formData, errors, formState, updateField, validateForm, handleSubmit
     - _Requirements: 14.1, 14.2_
-  - [ ] 17.2 Write property test for useBetaForm hook
+
+  - [x] 17.2 Write property test for useBetaForm hook
+
     - **Property 6: useBetaForm hook manages state transitions correctly**
     - **Validates: Requirements 14.2**
-  - [ ] 17.3 Refactor BetaForm component to use useBetaForm hook
+
+  - [x] 17.3 Refactor BetaForm component to use useBetaForm hook
+
     - Remove inline state management
     - _Requirements: 14.3_
-  - [ ] 17.4 Write unit tests for useBetaForm hook
+  - [x] 17.4 Write unit tests for useBetaForm hook
+
     - Test validation, state transitions, submission
     - _Requirements: 14.4_
 
