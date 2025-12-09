@@ -46,6 +46,7 @@ describe("Button Component - Property Tests", () => {
       fc.property(variantArb, sizeArb, (variant, size) => {
         const { container } = render(
           <Button variant={variant} size={size} asChild>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/test">Link Button</a>
           </Button>
         );

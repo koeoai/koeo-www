@@ -88,9 +88,6 @@ function GpuNode({ isFailed, isActive, utilization }: GpuNodeProps) {
 // 10: Runtime → App (success) ✓
 export function RequestFlowAnimation() {
   const [phase, setPhase] = useState(0);
-  const [activeGpu, setActiveGpu] = useState(1);
-  const [failedGpu, setFailedGpu] = useState<number | null>(null);
-  const [gpuUtilization, setGpuUtilization] = useState([0, 0, 0, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,29 +96,19 @@ export function RequestFlowAnimation() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (phase === 0) {
-      setFailedGpu(null);
-      setActiveGpu(1);
-      setGpuUtilization([15, 0, 20, 10]);
-    } else if (phase === 2) {
-      setGpuUtilization([20, 92, 25, 15]);
-    } else if (phase === 3 || phase === 4) {
-      setGpuUtilization([15, 50, 20, 12]);
-    } else if (phase === 5) {
-      setGpuUtilization([15, 0, 20, 10]);
-    } else if (phase === 6) {
-      setFailedGpu(1);
-      setGpuUtilization([20, 0, 25, 18]);
-    } else if (phase === 7) {
-      setActiveGpu(2);
-      setGpuUtilization([20, 0, 30, 15]);
-    } else if (phase === 8) {
-      setGpuUtilization([25, 0, 90, 20]);
-    } else if (phase === 9 || phase === 10) {
-      setGpuUtilization([18, 0, 55, 15]);
-    }
-  }, [phase]);
+  // Derive GPU state from phase instead of using effects
+  const failedGpu: number | null = phase >= 6 ? 1 : null;
+  const activeGpu: number = phase >= 7 ? 2 : 1;
+  const gpuUtilization = (() => {
+    if (phase === 0 || phase === 5) return [15, 0, 20, 10];
+    if (phase === 2) return [20, 92, 25, 15];
+    if (phase === 3 || phase === 4) return [15, 50, 20, 12];
+    if (phase === 6) return [20, 0, 25, 18];
+    if (phase === 7) return [20, 0, 30, 15];
+    if (phase === 8) return [25, 0, 90, 20];
+    if (phase === 9 || phase === 10) return [18, 0, 55, 15];
+    return [15, 0, 20, 10];
+  })();
 
   const isProcessing = phase === 2 || phase === 8;
   const isAppHighlighted = phase === 4 || phase === 10;
@@ -158,13 +145,13 @@ export function RequestFlowAnimation() {
           {(phase === 0 || phase === 5) && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-purple-primary to-magenta"
-              style={{ animation: "flow-right 0.9s ease-in-out" }}
+              style={{ animation: "flow-right 1.2s ease-in-out forwards" }}
             />
           )}
           {(phase === 4 || phase === 10) && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-green-400 to-emerald-300"
-              style={{ animation: "flow-left 0.9s ease-in-out" }}
+              style={{ animation: "flow-left 1.2s ease-in-out forwards" }}
             />
           )}
         </div>
@@ -200,31 +187,31 @@ export function RequestFlowAnimation() {
           {phase === 1 && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-magenta to-pink-light"
-              style={{ animation: "flow-right 0.9s ease-in-out" }}
+              style={{ animation: "flow-right 1.2s ease-in-out forwards" }}
             />
           )}
           {phase === 3 && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-green-400 to-emerald-300"
-              style={{ animation: "flow-left 0.9s ease-in-out" }}
+              style={{ animation: "flow-left 1.2s ease-in-out forwards" }}
             />
           )}
           {phase === 6 && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-red-400 to-red-500"
-              style={{ animation: "flow-right 0.9s ease-in-out" }}
+              style={{ animation: "flow-right 1.2s ease-in-out forwards" }}
             />
           )}
           {phase === 7 && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-yellow-400 to-orange-400"
-              style={{ animation: "flow-right 0.9s ease-in-out" }}
+              style={{ animation: "flow-right 1.2s ease-in-out forwards" }}
             />
           )}
           {phase === 9 && (
             <div
               className="absolute h-full w-6 rounded-full bg-gradient-to-r from-green-400 to-emerald-300"
-              style={{ animation: "flow-left 0.9s ease-in-out" }}
+              style={{ animation: "flow-left 1.2s ease-in-out forwards" }}
             />
           )}
         </div>
@@ -255,7 +242,7 @@ export function RequestFlowAnimation() {
         <span
           className={`text-xs font-medium transition-all duration-300 ${
             phase === 0 || phase === 1 || phase === 5
-              ? "text-purple-primary"
+              ? "text-green-400"
               : phase === 2 || phase === 8
                 ? "text-pink-light"
                 : phase === 3 || phase === 4 || phase === 9 || phase === 10
@@ -285,14 +272,14 @@ export function RequestFlowAnimation() {
       <style jsx>{`
         @keyframes flow-right {
           0% { left: -30%; opacity: 0; }
-          15% { opacity: 1; }
-          85% { opacity: 1; }
+          10% { opacity: 1; }
+          80% { opacity: 1; }
           100% { left: 100%; opacity: 0; }
         }
         @keyframes flow-left {
           0% { right: -30%; left: auto; opacity: 0; }
-          15% { opacity: 1; }
-          85% { opacity: 1; }
+          10% { opacity: 1; }
+          80% { opacity: 1; }
           100% { right: 100%; left: auto; opacity: 0; }
         }
       `}</style>

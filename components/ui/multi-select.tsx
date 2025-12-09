@@ -225,11 +225,18 @@ export function MultiSelect({
                 )}
               >
                 {label}
-                <button
-                  type="button"
+                <span
+                  role="button"
+                  tabIndex={0}
                   onClick={(e) => handleRemove(value[i], e)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleRemove(value[i], e as unknown as React.MouseEvent);
+                    }
+                  }}
                   className={cn(
-                    "ml-0.5 rounded-full p-0.5 transition-colors",
+                    "ml-0.5 rounded-full p-0.5 transition-colors cursor-pointer",
                     isGlass ? "hover:bg-white/20" : "hover:bg-purple-primary/20"
                   )}
                   aria-label={`Remove ${label}`}
@@ -237,7 +244,7 @@ export function MultiSelect({
                   <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
-                </button>
+                </span>
               </span>
             ))
           ) : (

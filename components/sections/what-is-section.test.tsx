@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { WhatIsSection } from "./what-is-section";
+import { WhatIsSection } from "./what-is";
 
 describe("WhatIsSection Component - Unit Tests", () => {
   it("renders section heading 'AI inference, simplified'", () => {

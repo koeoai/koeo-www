@@ -5,6 +5,8 @@
 
 import { Metadata } from "next";
 import { seoConfig } from "./config";
+import { i18nConfig, Locale } from "@/lib/i18n/config";
+import { getLocalizedPath } from "@/lib/i18n/utils";
 
 export interface PageMetadataOptions {
   title: string;
@@ -13,6 +15,7 @@ export interface PageMetadataOptions {
   path: string;
   ogImage?: string;
   noIndex?: boolean;
+  locale?: Locale;
 }
 
 export interface ValidationResult {
@@ -67,6 +70,34 @@ export function isValidDescriptionLength(description: string): boolean {
  */
 export function hasValidKeywords(keywords: string[]): boolean {
   return Array.isArray(keywords) && keywords.length > 0;
+}
+
+/**
+ * Locale to Open Graph locale mapping
+ * Maps i18n locale codes to OG locale format (language_TERRITORY)
+ */
+export const localeToOgLocale: Record<Locale, string> = {
+  en: "en_US",
+  fr: "fr_FR",
+};
+
+/**
+ * Generates hreflang alternate links for all supported locales
+ * @param path - The page path without locale prefix
+ * @returns Object with language keys mapping to full URLs
+ */
+export function generateHreflangLinks(path: string): Record<string, string> {
+  const links: Record<string, string> = {};
+
+  for (const locale of i18nConfig.locales) {
+    const localizedPath = getLocalizedPath(path, locale);
+    links[locale] = `${seoConfig.siteUrl}${localizedPath}`;
+  }
+
+  // Add x-default pointing to the default locale version
+  links["x-default"] = `${seoConfig.siteUrl}${getLocalizedPath(path, i18nConfig.defaultLocale)}`;
+
+  return links;
 }
 
 /**
@@ -144,12 +175,24 @@ export function generateMetadata(options: PageMetadataOptions): Metadata {
     path,
     ogImage = seoConfig.defaultOgImage,
     noIndex = false,
+    locale = i18nConfig.defaultLocale,
   } = options;
+
+  // Get the path without locale prefix for generating alternates
+  const basePath = path.startsWith(`/${locale}`) && locale !== i18nConfig.defaultLocale
+    ? path.slice(locale.length + 1) || "/"
+    : path;
 
   const canonicalUrl = `${seoConfig.siteUrl}${path}`;
   const ogImageUrl = ogImage.startsWith("http")
     ? ogImage
     : `${seoConfig.siteUrl}${ogImage}`;
+
+  // Generate hreflang links for all supported locales
+  const hreflangLinks = generateHreflangLinks(basePath);
+
+  // Get OG locale format (e.g., "en_US", "fr_FR")
+  const ogLocale = localeToOgLocale[locale];
 
   const metadata: Metadata = {
     title,
@@ -157,6 +200,7 @@ export function generateMetadata(options: PageMetadataOptions): Metadata {
     keywords,
     alternates: {
       canonical: canonicalUrl,
+      languages: hreflangLinks,
     },
     openGraph: {
       title,
@@ -164,6 +208,7 @@ export function generateMetadata(options: PageMetadataOptions): Metadata {
       url: canonicalUrl,
       siteName: seoConfig.siteName,
       type: "website",
+      locale: ogLocale,
       images: [
         {
           url: ogImageUrl,

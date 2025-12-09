@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import * as fc from "fast-check";
-import sitemap, { SITEMAP_PAGES } from "./sitemap";
+import sitemap, { SITEMAP_PAGES, generateAlternateLinks, generateLocaleEntries } from "./sitemap";
 import { seoConfig } from "@/lib/seo/config";
+import { i18nConfig } from "@/lib/i18n/config";
 
 /**
  * **Feature: seo-optimization, Property 1: Sitemap URL format consistency**
@@ -59,9 +60,11 @@ describe("Property 1: Sitemap URL format consistency", () => {
     );
   });
 
-  it("should include all configured pages in the sitemap", () => {
+  it("should include all configured pages for all locales in the sitemap", () => {
     const sitemapEntries = sitemap();
-    expect(sitemapEntries.length).toBe(SITEMAP_PAGES.length);
+    // Each page should have entries for all supported locales (en, fr)
+    const expectedEntries = SITEMAP_PAGES.length * 2; // 2 locales
+    expect(sitemapEntries.length).toBe(expectedEntries);
   });
 
   it("should have valid priority values between 0 and 1", () => {
@@ -203,5 +206,128 @@ describe("Robots.txt generation", () => {
     const robotsConfig = await getRobots();
 
     expect(robotsConfig.sitemap).toMatch(new RegExp(`^${seoConfig.siteUrl}`));
+  });
+});
+
+
+/**
+ * **Feature: i18n-support, Property 8: Sitemap includes all locale variants**
+ * **Validates: Requirements 4.3**
+ *
+ * For any page in the sitemap, there SHALL be URL entries for all supported
+ * locales with appropriate xhtml:link hreflang annotations.
+ */
+describe("Property 8: Sitemap includes all locale variants", () => {
+  it("should generate alternate links for all supported locales", () => {
+    fc.assert(
+      fc.property(
+        fc.integer({ min: 0, max: SITEMAP_PAGES.length - 1 }),
+        (pageIndex) => {
+          const page = SITEMAP_PAGES[pageIndex];
+          const alternates = generateAlternateLinks(page.path);
+
+          // Should have entries for all supported locales
+          for (const locale of i18nConfig.locales) {
+            const localeEntry = alternates.find((alt) => alt.hreflang === locale);
+            expect(localeEntry).toBeDefined();
+            expect(localeEntry?.href).toContain(seoConfig.siteUrl);
+          }
+
+          // Should have x-default entry
+          const xDefault = alternates.find((alt) => alt.hreflang === "x-default");
+          expect(xDefault).toBeDefined();
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should generate sitemap entries for all locales of each page", () => {
+    fc.assert(
+      fc.property(
+        fc.integer({ min: 0, max: SITEMAP_PAGES.length - 1 }),
+        (pageIndex) => {
+          const page = SITEMAP_PAGES[pageIndex];
+          const lastModified = new Date();
+          const entries = generateLocaleEntries(page, lastModified);
+
+          // Should have one entry per locale
+          expect(entries.length).toBe(i18nConfig.locales.length);
+
+          // Each entry should have alternates for all locales
+          for (const entry of entries) {
+            expect(entry.alternates).toBeDefined();
+            expect(entry.alternates?.languages).toBeDefined();
+
+            const languages = entry.alternates?.languages as Record<string, string>;
+
+            // Should have entries for all locales plus x-default
+            for (const locale of i18nConfig.locales) {
+              expect(languages[locale]).toBeDefined();
+            }
+            expect(languages["x-default"]).toBeDefined();
+          }
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should have correct URL format for each locale in sitemap", () => {
+    const sitemapEntries = sitemap();
+
+    fc.assert(
+      fc.property(
+        fc.integer({ min: 0, max: sitemapEntries.length - 1 }),
+        (entryIndex) => {
+          const entry = sitemapEntries[entryIndex];
+
+          // URL should start with site URL
+          expect(entry.url).toMatch(new RegExp(`^${seoConfig.siteUrl}`));
+
+          // URL should be lowercase
+          const url = new URL(entry.url);
+          expect(url.pathname).toBe(url.pathname.toLowerCase());
+
+          // Entry should have alternates
+          expect(entry.alternates).toBeDefined();
+        }
+      ),
+      { numRuns: 100 }
+    );
+  });
+
+  it("should include French locale URLs with /fr prefix", () => {
+    const sitemapEntries = sitemap();
+    const frenchEntries = sitemapEntries.filter((entry) =>
+      entry.url.includes("/fr/") || entry.url.endsWith("/fr")
+    );
+
+    // Should have French entries for all pages
+    expect(frenchEntries.length).toBe(SITEMAP_PAGES.length);
+
+    // Each French entry should have correct alternates
+    for (const entry of frenchEntries) {
+      const languages = entry.alternates?.languages as Record<string, string>;
+      expect(languages["fr"]).toBe(entry.url);
+      expect(languages["en"]).not.toContain("/fr");
+    }
+  });
+
+  it("should include English locale URLs without prefix", () => {
+    const sitemapEntries = sitemap();
+    const englishEntries = sitemapEntries.filter(
+      (entry) => !entry.url.includes("/fr/") && !entry.url.endsWith("/fr")
+    );
+
+    // Should have English entries for all pages
+    expect(englishEntries.length).toBe(SITEMAP_PAGES.length);
+
+    // Each English entry should have correct alternates
+    for (const entry of englishEntries) {
+      const languages = entry.alternates?.languages as Record<string, string>;
+      expect(languages["en"]).toBe(entry.url);
+      expect(languages["x-default"]).toBe(entry.url);
+    }
   });
 });
