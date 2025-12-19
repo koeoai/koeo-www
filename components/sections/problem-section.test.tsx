@@ -3,19 +3,19 @@ import { render, screen } from "@testing-library/react";
 import { ProblemSection } from "./problem-section";
 
 describe("ProblemSection Component - Unit Tests", () => {
-  it("renders heading 'Why AI infrastructure feels harder than it should'", () => {
+  it("renders heading 'Why AI inference feels harder than it should'", () => {
     render(<ProblemSection />);
     expect(
       screen.getByRole("heading", {
-        name: "Why AI infrastructure feels harder than it should",
+        name: "Why AI inference feels harder than it should",
       })
     ).toBeInTheDocument();
   });
 
-  it("renders intro paragraph with 'usually means' phrasing", () => {
+  it("renders intro paragraph with production inference phrasing", () => {
     render(<ProblemSection />);
     expect(
-      screen.getByText(/Running inference at scale usually means juggling providers/)
+      screen.getByText(/Production inference usually turns into a pile of providers/)
     ).toBeInTheDocument();
   });
 
@@ -25,7 +25,7 @@ describe("ProblemSection Component - Unit Tests", () => {
       expect(screen.getByText("COMPLEXITY")).toBeInTheDocument();
       expect(screen.getByText("Too many moving parts")).toBeInTheDocument();
       expect(
-        screen.getByText(/wired together and kept in sync/)
+        screen.getByText(/GPU pools, and billing need to stay in sync/)
       ).toBeInTheDocument();
     });
 
@@ -34,16 +34,16 @@ describe("ProblemSection Component - Unit Tests", () => {
       expect(screen.getByText("PRODUCTIVITY")).toBeInTheDocument();
       expect(screen.getByText("Infrastructure steals focus")).toBeInTheDocument();
       expect(
-        screen.getByText(/improving the experience for users/)
+        screen.getByText(/improving the product experience/)
       ).toBeInTheDocument();
     });
 
     it("renders COST CONTROL card with correct content", () => {
       render(<ProblemSection />);
       expect(screen.getByText("COST CONTROL")).toBeInTheDocument();
-      expect(screen.getByText("Costs are unpredictable")).toBeInTheDocument();
+      expect(screen.getByText("Costs are hard to reason about")).toBeInTheDocument();
       expect(
-        screen.getByText(/decide where to run each workload efficiently/)
+        screen.getByText(/route workloads confidently/)
       ).toBeInTheDocument();
     });
   });

@@ -18,10 +18,10 @@ const renderWithLocale = (ui: React.ReactElement) => {
 };
 
 describe("HowWorksSection - Developer Features", () => {
-  it("renders heading 'Built by Developers, for Developers'", () => {
+  it("renders heading 'Built by developers, for developers'", () => {
     renderWithLocale(<HowWorksSection />);
-    expect(screen.getByText("Built by Developers,")).toBeInTheDocument();
-    expect(screen.getByText("for Developers")).toBeInTheDocument();
+    expect(screen.getByText("Built by developers,")).toBeInTheDocument();
+    expect(screen.getByText("for developers")).toBeInTheDocument();
   });
 
   it("renders subheading 'Developer-first experience, even in beta'", () => {
@@ -39,13 +39,13 @@ describe("HowWorksSection - Developer Features", () => {
   it("renders OpenAI-compatible card with beta-honest description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/Once you're onboarded to the beta, you'll get OpenAI-style endpoints/)
+      screen.getByText(/Once you are onboarded, you get OpenAI-style endpoints/)
     ).toBeInTheDocument();
   });
 
-  it("renders OpenAI-compatible card with 'View API Docs' link", () => {
+  it("renders OpenAI-compatible card with 'View API docs' link", () => {
     renderWithLocale(<HowWorksSection />);
-    const apiDocsLink = screen.getByRole("link", { name: /View API Docs/i });
+    const apiDocsLink = screen.getByRole("link", { name: /View API docs/i });
     expect(apiDocsLink).toBeInTheDocument();
     expect(apiDocsLink).toHaveAttribute("href", "/docs/api");
   });
@@ -58,14 +58,14 @@ describe("HowWorksSection - Developer Features", () => {
   it("renders dashboard card with evolving dashboard description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/Beta users get access to an evolving dashboard/)
+      screen.getByText(/Monitor usage, latency, and error rates/)
     ).toBeInTheDocument();
   });
 
-  it("renders dashboard card with 'Request Dashboard Access' link to /beta", () => {
+  it("renders dashboard card with 'Request dashboard access' link to /beta", () => {
     renderWithLocale(<HowWorksSection />);
     const dashboardLink = screen.getByRole("link", {
-      name: /Request Dashboard Access/i,
+      name: /Request dashboard access/i,
     });
     expect(dashboardLink).toBeInTheDocument();
     expect(dashboardLink).toHaveAttribute("href", "/beta");
@@ -79,27 +79,27 @@ describe("HowWorksSection - Steps", () => {
     expect(screen.getByText(/How the private beta works/)).toBeInTheDocument();
   });
 
-  it("renders step 1 with 'Apply for access' title", () => {
+  it("renders step 1 with 'Request access' title", () => {
     renderWithLocale(<HowWorksSection />);
-    expect(screen.getByText("Apply for access")).toBeInTheDocument();
+    expect(screen.getByText("Request access")).toBeInTheDocument();
   });
 
   it("renders step 1 with correct description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/Tell us about your use case, current setup and constraints/)
+      screen.getByText(/Tell us about your use case, your current setup, and your constraints/)
     ).toBeInTheDocument();
   });
 
-  it("renders step 2 with 'Onboarding & API keys' title", () => {
+  it("renders step 2 with 'Onboarding and API keys' title", () => {
     renderWithLocale(<HowWorksSection />);
-    expect(screen.getByText("Onboarding & API keys")).toBeInTheDocument();
+    expect(screen.getByText("Onboarding and API keys")).toBeInTheDocument();
   });
 
   it("renders step 2 with correct description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/If there's a fit, we'll onboard you, agree on initial limits/)
+      screen.getByText(/If it is a match, we onboard you, set initial limits/)
     ).toBeInTheDocument();
   });
 
@@ -111,16 +111,16 @@ describe("HowWorksSection - Steps", () => {
   it("renders step 3 with correct description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/Start routing real traffic through KOEO/)
+      screen.getByText(/Start routing real traffic through Koeo/)
     ).toBeInTheDocument();
   });
 });
 
 describe("HowWorksSection - CTAs", () => {
-  it("renders primary CTA 'Apply for Private Beta' linking to /beta", () => {
+  it("renders primary CTA 'Request beta access' linking to /beta", () => {
     renderWithLocale(<HowWorksSection />);
     const primaryCta = screen.getByRole("link", {
-      name: "Apply for Private Beta",
+      name: "Request beta access",
     });
     expect(primaryCta).toBeInTheDocument();
     expect(primaryCta).toHaveAttribute("href", "/beta");
@@ -132,6 +132,6 @@ describe("HowWorksSection - CTAs", () => {
       name: /Talk to the team/i,
     });
     expect(secondaryCta).toBeInTheDocument();
-    expect(secondaryCta).toHaveAttribute("href", "mailto:hello@koeo.ai");
+    expect(secondaryCta).toHaveAttribute("href", "mailto:info@koeo.ai");
   });
 });

@@ -53,7 +53,7 @@ export const NAVIGATION_CONTENT: NavigationContent = {
     languageLabel: "Language",
   },
   footer: {
-    tagline: "One runtime, any model, no infra headaches.",
+    tagline: "Any model, one place, no infra to chase.",
     groups: [
       {
         title: "Company",

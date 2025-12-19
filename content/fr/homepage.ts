@@ -7,17 +7,17 @@ import type {
 } from "../types";
 
 /**
- * Hero section content - French
+ * Hero section content - French (Quebec)
  */
 export const HERO_CONTENT: HeroContent = {
-  badge: "Bêta fermée · Pas encore disponible au public",
-  headline: "Exécutez vos modèles IA",
-  headlineAccent: "sans gérer les GPU",
+  badge: "Bêta privée · Sur invitation seulement",
+  headline: "Inférence IA prête à livrer",
+  headlineAccent: "sans la complexité",
   subtitle:
-    "Nous nous occupons de la complexité GPU pour que vous puissiez vous concentrer sur la création. Un runtime, n'importe quel modèle, sans tracas d'infrastructure.",
+    "Un runtime, tous tes modèles, zéro bordel.",
   cta: {
     primary: {
-      text: "Rejoindre la bêta privée",
+      text: "Demander l'accès bêta",
       href: "/fr/beta",
     },
     secondary: {
@@ -25,36 +25,36 @@ export const HERO_CONTENT: HeroContent = {
       href: "/whitepaper.pdf",
     },
   },
-  microcopy: "Nous invitons progressivement des équipes dans la bêta privée.",
+  microcopy: "On invite les équipes graduellement, selon la compatibilité et la capacité.",
 };
 
 /**
- * Problem section content - French
+ * Problem section content - French (Quebec)
  */
 export const PROBLEM_CONTENT: ProblemSectionContent = {
-  heading: "Pourquoi l'infrastructure IA semble plus difficile qu'elle ne devrait l'être",
+  heading: "Pourquoi l'inférence IA semble plus compliquée qu'elle devrait",
   intro:
-    "Exécuter l'inférence à grande échelle signifie généralement jongler avec les fournisseurs, gérer la disponibilité des GPU et assembler des outils qui n'ont pas été conçus pour fonctionner ensemble.",
+    "L'inférence en production finit souvent en pile de fournisseurs, de décisions de capacité GPU, et de code d'intégration que personne veut maintenir à long terme.",
   cards: [
     {
       category: "COMPLEXITÉ",
       title: "Trop de pièces mobiles",
       description:
-        "Les serveurs de modèles, les planificateurs, les pools GPU et les systèmes de facturation doivent tous être connectés et synchronisés. Chaque nouveau composant ajoute de la configuration, des cas limites et des modes de défaillance.",
+        "Serveurs de modèles, schedulers, pools GPU et facturation doivent rester synchronisés. Chaque nouvelle couche ajoute de la configuration, des cas limites, et plus de façons que ça peut planter.",
       icon: "grid-2x2",
     },
     {
       category: "PRODUCTIVITÉ",
-      title: "L'infrastructure vole le focus",
+      title: "L'infra vole le focus",
       description:
-        "Les équipes produit perdent du temps à déboguer les nœuds, les quotas et les démarrages à froid au lieu d'améliorer l'expérience utilisateur. Le travail d'infrastructure devient la norme plutôt que l'exception.",
+        "Les équipes perdent du temps à déboguer des nœuds, des quotas et des cold starts au lieu d'améliorer le produit. L'infra devient le travail par défaut.",
       icon: "clock",
     },
     {
       category: "CONTRÔLE DES COÛTS",
-      title: "Les coûts sont imprévisibles",
+      title: "Les coûts sont durs à prévoir",
       description:
-        "L'utilisation fragmentée des GPU, les instances spot et la tarification opaque rendent difficile la prévision des dépenses ou la décision de l'endroit où exécuter chaque charge de travail efficacement.",
+        "L'utilisation fragmentée et les compromis flous rendent difficile de prévoir les dépenses, comparer les tiers GPU, et router les workloads avec confiance.",
       icon: "dollar-sign",
     },
   ],
@@ -62,89 +62,89 @@ export const PROBLEM_CONTENT: ProblemSectionContent = {
 
 
 /**
- * What-is section content - French
+ * What-is section content - French (Quebec)
  */
 export const WHAT_IS_CONTENT: WhatIsSectionContent = {
   heading: "L'inférence IA, simplifiée",
-  subheading: "Koeo est un runtime unifié pour l'inférence GPU distribuée",
+  subheading: "Un runtime unifié pour l'inférence IA serverless",
   description:
-    "Au lieu de connecter ensemble des fournisseurs, des runtimes et des planificateurs personnalisés, vous intégrez un seul runtime. Koeo connecte vos charges de travail à un pool fédéré de GPU et applique le routage, les vérifications de santé et le suivi d'utilisation pour vous.",
+    "Au lieu de connecter ensemble des fournisseurs, runtimes et schedulers personnalisés, tu intègres une seule fois. Koeo route les requêtes vers la capacité GPU disponible, vérifie la santé des services, et suit l'utilisation pour que tu puisses te concentrer sur livrer.",
   features: [
     {
       icon: "check",
-      text: "Une seule API pour exécuter vos modèles supportés sur notre fabric GPU fédéré",
+      text: "Une API pour exécuter tes modèles supportés via un seul endpoint",
     },
     {
       icon: "check",
-      text: "Routage automatique, vérifications de santé et contrôles de coûts de base sur différents niveaux de GPU",
+      text: "Routage et health checks inclus, conçus pour du vrai trafic",
     },
     {
       icon: "check",
-      text: "Métriques d'utilisation et de latence intégrées, avec une observabilité plus approfondie en développement actif",
+      text: "Métriques d'utilisation et de latence incluses, avec plus d'observabilité qui évolue en bêta",
     },
   ],
   cta: {
-    text: "En savoir plus",
+    text: "Voir comment ça marche",
     href: "/fr/beta",
   },
 };
 
 /**
- * How-works section content - French
+ * How-works section content - French (Quebec)
  */
 export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
-  heading: "Construit par des développeurs,",
+  heading: "Bâti par des développeurs,",
   headingAccent: "pour des développeurs",
-  subheading: "Une expérience axée sur les développeurs, même en bêta",
+  subheading: "Une expérience axée développeur, même en bêta",
   developerFeatures: [
     {
       title: "API compatible OpenAI",
       description:
-        "Une fois intégré à la bêta, vous obtiendrez des endpoints de style OpenAI que vous pouvez brancher sur vos clients et SDK existants. Dans la plupart des cas, vous mettez simplement à jour l'URL de base et l'authentification, et gardez le reste de votre code identique.",
+        "Une fois intégré, tu reçois des endpoints style OpenAI qui se branchent sur tes clients et SDKs existants. Dans la plupart des cas, c'est juste un changement de base URL et d'authentification.",
       link: { text: "Voir la documentation API", href: "/docs/api" },
     },
     {
-      title: "Tableau de bord en accès anticipé",
+      title: "Dashboard en accès anticipé",
       description:
-        "Les utilisateurs bêta ont accès à un tableau de bord en évolution pour surveiller l'utilisation, la latence et les taux d'erreur, et pour gérer les clés et les modèles. Nous itérons rapidement ici, et vos retours façonnent directement ce que nous construisons ensuite.",
-      link: { text: "Demander l'accès au tableau de bord", href: "/fr/beta" },
+        "Surveille l'utilisation, la latence et les taux d'erreur, et gère tes clés et modèles. On itère vite ici, et tes retours influencent directement ce qu'on livre.",
+      link: { text: "Demander l'accès au dashboard", href: "/fr/beta" },
     },
   ],
-  stepsHeading: "Comment fonctionne la bêta privée",
+  stepsHeading: "Comment la bêta privée fonctionne",
   steps: [
     {
       stepNumber: 1,
-      title: "Postuler pour l'accès",
+      title: "Demander l'accès",
       description:
-        "Parlez-nous de votre cas d'utilisation, de votre configuration actuelle et de vos contraintes. Nous examinons les candidatures pour nous assurer que la bêta correspond bien à ce que vous construisez.",
+        "Parle-nous de ton cas d'utilisation, ta configuration actuelle, et tes contraintes. On révise les demandes pour s'assurer que la bêta est une bonne compatibilité.",
     },
     {
       stepNumber: 2,
       title: "Intégration et clés API",
       description:
-        "S'il y a une correspondance, nous vous intégrerons, conviendrons des limites initiales et vous donnerons des clés API, des exemples de requêtes et des conseils pour votre première intégration.",
+        "Si c'est compatible, on t'intègre, on définit les limites initiales, et on te partage des clés API plus des exemples de requêtes pour démarrer rapidement.",
     },
     {
       stepNumber: 3,
-      title: "Intégrer, puis évoluer ensemble",
+      title: "Intégrer, puis grandir ensemble",
       description:
-        "Commencez à router le trafic réel via KOEO. Nous surveillerons la fiabilité et les performances avec vous, ajusterons les politiques de routage et augmenterons la capacité à mesure que votre utilisation augmente.",
+        "Commence à router du vrai trafic via Koeo. On suit la fiabilité et la performance avec toi, on ajuste les politiques de routage, et on augmente la capacité selon ton usage.",
     },
   ],
   cta: {
     primary: {
-      text: "Postuler pour la bêta privée",
+      text: "Demander l'accès bêta",
       href: "/fr/beta",
     },
     secondary: {
       text: "Parler à l'équipe",
-      href: "mailto:hello@koeo.ai",
+      href: "mailto:info@koeo.ai",
     },
   },
 };
 
 /**
- * Complete homepage content - combines all sections - French
+ * Complete homepage content - combines all sections - French (Quebec)
  */
 export const HOMEPAGE_CONTENT: HomepageContent = {
   hero: HERO_CONTENT,
