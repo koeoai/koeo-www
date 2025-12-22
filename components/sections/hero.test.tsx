@@ -167,27 +167,27 @@ describe("Color Contrast - Property Tests", () => {
 describe("Hero Component - Unit Tests", () => {
   it("renders eyebrow badge with correct text", () => {
     render(<Hero />);
-    expect(screen.getByText("Closed Beta · Not yet generally available")).toBeInTheDocument();
+    expect(screen.getByText("Private beta · Invite only")).toBeInTheDocument();
   });
 
   it("renders headline with correct text", () => {
     render(<Hero />);
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
-    expect(screen.getByText("Run your AI models")).toBeInTheDocument();
-    expect(screen.getByText("without managing GPUs")).toBeInTheDocument();
+    expect(screen.getByText("AI inference you can ship")).toBeInTheDocument();
+    expect(screen.getByText("without the complexity")).toBeInTheDocument();
   });
 
   it("renders subtitle with unified runtime copy", () => {
     render(<Hero />);
     expect(
-      screen.getByText(/We take care of the GPU mess so you can focus on building/)
+      screen.getByText(/Any model, one place, no infra to chase/)
     ).toBeInTheDocument();
   });
 
   it("renders primary CTA linking to /beta", () => {
     render(<Hero />);
     const primaryCta = screen.getByRole("link", {
-      name: "Join the private beta",
+      name: "Request beta access",
     });
     expect(primaryCta).toBeInTheDocument();
     expect(primaryCta).toHaveAttribute("href", "/beta");
@@ -196,7 +196,7 @@ describe("Hero Component - Unit Tests", () => {
   it("renders secondary ghost CTA linking to whitepaper", () => {
     render(<Hero />);
     const secondaryCta = screen.getByRole("link", {
-      name: "Read the Whitepaper",
+      name: "Read the whitepaper",
     });
     expect(secondaryCta).toBeInTheDocument();
     expect(secondaryCta).toHaveAttribute("href", "/whitepaper.pdf");
@@ -205,7 +205,7 @@ describe("Hero Component - Unit Tests", () => {
   it("renders microcopy about gradual beta invites", () => {
     render(<Hero />);
     expect(
-      screen.getByText(/We're gradually inviting teams into the private beta/)
+      screen.getByText(/We are inviting teams gradually, based on fit and capacity/)
     ).toBeInTheDocument();
   });
 });
