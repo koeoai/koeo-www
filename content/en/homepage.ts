@@ -120,9 +120,9 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
     },
     {
       stepNumber: 2,
-      title: "Onboarding and API keys",
+      title: "Onboarding and full access",
       description:
-        "If it is a match, we onboard you, set initial limits, and share API keys plus example requests so you can integrate quickly.",
+        "If it is a match, we onboard you and give you full access to the Koeo platform. Help us define how AI ships in production.",
     },
     {
       stepNumber: 3,

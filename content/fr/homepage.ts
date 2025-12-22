@@ -120,9 +120,9 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
     },
     {
       stepNumber: 2,
-      title: "Intégration et clés API",
+      title: "Intégration et accès complet",
       description:
-        "Si c'est compatible, on t'intègre, on définit les limites initiales, et on te partage des clés API plus des exemples de requêtes pour démarrer rapidement.",
+        "Si c'est compatible, on t'intègre et on te donne accès complet à la plateforme Koeo. Aide-nous à définir comment l'IA se livre en production.",
     },
     {
       stepNumber: 3,

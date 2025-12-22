@@ -91,15 +91,15 @@ describe("HowWorksSection - Steps", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders step 2 with 'Onboarding and API keys' title", () => {
+  it("renders step 2 with 'Onboarding and full access' title", () => {
     renderWithLocale(<HowWorksSection />);
-    expect(screen.getByText("Onboarding and API keys")).toBeInTheDocument();
+    expect(screen.getByText("Onboarding and full access")).toBeInTheDocument();
   });
 
   it("renders step 2 with correct description", () => {
     renderWithLocale(<HowWorksSection />);
     expect(
-      screen.getByText(/If it is a match, we onboard you, set initial limits/)
+      screen.getByText(/If it is a match, we onboard you and give you full access/)
     ).toBeInTheDocument();
   });
 
