@@ -47,7 +47,7 @@ describe("HowWorksSection - Developer Features", () => {
     renderWithLocale(<HowWorksSection />);
     const apiDocsLink = screen.getByRole("link", { name: /View API docs/i });
     expect(apiDocsLink).toBeInTheDocument();
-    expect(apiDocsLink).toHaveAttribute("href", "/docs/api");
+    expect(apiDocsLink).toHaveAttribute("href", "/beta");
   });
 
   it("renders dashboard card with 'Early-access dashboard' title", () => {

@@ -193,13 +193,13 @@ describe("Hero Component - Unit Tests", () => {
     expect(primaryCta).toHaveAttribute("href", "/beta");
   });
 
-  it("renders secondary ghost CTA linking to whitepaper", () => {
+  it("renders secondary ghost CTA linking to product page", () => {
     render(<Hero />);
     const secondaryCta = screen.getByRole("link", {
-      name: "Read the whitepaper",
+      name: "Learn how it works",
     });
     expect(secondaryCta).toBeInTheDocument();
-    expect(secondaryCta).toHaveAttribute("href", "/whitepaper.pdf");
+    expect(secondaryCta).toHaveAttribute("href", "/product");
   });
 
   it("renders microcopy about gradual beta invites", () => {
