@@ -32,7 +32,7 @@ const organizationSchema = {
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
-    email: "hello@koeo.ai",
+    email: "info@koeo.ai",
   },
 } satisfies OrganizationSchema;
 

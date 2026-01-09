@@ -138,7 +138,7 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
     },
     secondary: {
       text: "Talk to the team",
-      href: "mailto:hello@koeo.ai",
+      href: "mailto:info@koeo.ai",
     },
   },
 };

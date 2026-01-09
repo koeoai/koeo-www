@@ -54,7 +54,7 @@ export const seoConfig: SeoConfig = {
   socialProfiles: [
     "https://twitter.com/koeo_ai",
     "https://linkedin.com/company/koeoai",
-    "https://discord.gg/koeo",
+    "https://discord.gg/HEsDwx8x",
     "https://github.com/koeoai",
     "https://www.reddit.com/r/koeo/",
   ],
