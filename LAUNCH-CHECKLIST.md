@@ -16,6 +16,12 @@
   - `BLOB_READ_WRITE_TOKEN`
 - [ ] **Remove `.env.local` from any backups** - Contains sensitive data
 
+### API Security (IMPLEMENTED ✓)
+- [x] **Input validation** - Zod schemas validate all API inputs
+- [x] **Rate limiting** - 5 requests per IP per hour per endpoint
+- [x] **File upload validation** - Type, size, and magic byte verification
+- [x] **Error boundary** - Global error handling with user-friendly UI
+
 ### Domain & DNS
 - [ ] **Configure custom domain** (`koeo.ai`) in Vercel
 - [ ] **Set up SSL certificate** (automatic with Vercel)
@@ -32,8 +38,8 @@
 ### Broken/Missing Links to Fix
 | Link | Location | Status | Action |
 |------|----------|--------|--------|
-| `/whitepaper.pdf` | Homepage hero (EN/FR) | ❌ Missing | Create or remove link |
-| `/docs/api` | Homepage "View API Docs" | ❌ Missing | Create docs page or remove |
+| `/whitepaper.pdf` | Homepage hero (EN/FR) | ✅ Fixed | Changed to /product |
+| `/docs/api` | Homepage "View API Docs" | ✅ Fixed | Changed to /beta |
 | `https://github.com/koeo-ai/feedback` | Footer | ⚠️ Verify | Ensure repo exists and is public |
 | `https://github.com/koeo-ai/feedback/issues` | Footer | ⚠️ Verify | Ensure issues are enabled |
 

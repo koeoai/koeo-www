@@ -1,10 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAirtableClient, TABLES, mapPartnerSignupFields } from "@/lib/airtable";
-import type { PartnerSignupInput } from "@/lib/airtable";
+import {
+  getAirtableClient,
+  TABLES,
+  mapPartnerSignupFields,
+} from "@/lib/airtable";
+import {
+  partnerSignupSchema,
+  safeValidateRequest,
+  checkRateLimit,
+  getClientIp,
+  RATE_LIMITS,
+} from "@/lib/api";
 
 export async function POST(request: NextRequest) {
   try {
-    const data: PartnerSignupInput = await request.json();
+    // Rate limiting
+    const clientIp = getClientIp(request);
+    const rateLimitKey = `partner-signup:${clientIp}`;
+    const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS.formSubmission);
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              Math.ceil((rateLimit.resetTime - Date.now()) / 1000)
+            ),
+          },
+        }
+      );
+    }
+
+    // Parse and validate request body
+    const body = await request.json();
+    const validation = safeValidateRequest(partnerSignupSchema, body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: "Invalid input", details: validation.errors },
+        { status: 400 }
+      );
+    }
+
+    const data = validation.data;
     const client = getAirtableClient();
 
     if (!client.isConfigured()) {
@@ -21,9 +61,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, id: result.id });
   } catch (error) {
     console.error("Partner signup error:", error);
-    return NextResponse.json(
-      { error: "Failed to submit" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to submit" }, { status: 500 });
   }
 }

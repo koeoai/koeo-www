@@ -21,8 +21,8 @@ export const HERO_CONTENT: HeroContent = {
       href: "/beta",
     },
     secondary: {
-      text: "Read the whitepaper",
-      href: "/whitepaper.pdf",
+      text: "Learn how it works",
+      href: "/product",
     },
   },
   microcopy: "We are inviting teams gradually, based on fit and capacity.",
@@ -101,7 +101,7 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
       title: "OpenAI-compatible API",
       description:
         "Once you are onboarded, you get OpenAI-style endpoints that plug into existing clients and SDKs. In most cases it is a base URL and auth change.",
-      link: { text: "View API docs", href: "/docs/api" },
+      link: { text: "View API docs", href: "/beta" },
     },
     {
       title: "Early-access dashboard",

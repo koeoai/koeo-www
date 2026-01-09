@@ -1,26 +1,52 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAirtableClient, TABLES, mapCareerApplicationFields } from "@/lib/airtable";
+import {
+  getAirtableClient,
+  TABLES,
+  mapCareerApplicationFields,
+} from "@/lib/airtable";
 import { uploadResume } from "@/lib/blob";
-
-interface CareerFormData {
-  fullName: string;
-  email: string;
-  phone?: string;
-  linkedIn?: string;
-  portfolio?: string;
-  currentRole?: string;
-  yearsExperience?: string;
-  areasOfInterest: string[];
-  whyKoeo: string;
-  whatYouBring: string;
-  resumeFileName?: string;
-  resumeBase64?: string;
-  anythingElse?: string;
-}
+import {
+  careerApplicationSchema,
+  safeValidateRequest,
+  checkRateLimit,
+  getClientIp,
+  validateFileUpload,
+  RATE_LIMITS,
+} from "@/lib/api";
 
 export async function POST(request: NextRequest) {
   try {
-    const data: CareerFormData = await request.json();
+    // Rate limiting
+    const clientIp = getClientIp(request);
+    const rateLimitKey = `career-application:${clientIp}`;
+    const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS.formSubmission);
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              Math.ceil((rateLimit.resetTime - Date.now()) / 1000)
+            ),
+          },
+        }
+      );
+    }
+
+    // Parse and validate request body
+    const body = await request.json();
+    const validation = safeValidateRequest(careerApplicationSchema, body);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: "Invalid input", details: validation.errors },
+        { status: 400 }
+      );
+    }
+
+    const data = validation.data;
     const client = getAirtableClient();
 
     if (!client.isConfigured()) {
@@ -31,14 +57,33 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Upload resume if provided
+    // Validate and upload resume if provided
     let resumeAttachment;
     if (data.resumeBase64 && data.resumeFileName) {
+      // Validate file before upload
+      const fileValidation = validateFileUpload(
+        data.resumeBase64,
+        data.resumeFileName
+      );
+
+      if (!fileValidation.valid) {
+        return NextResponse.json(
+          { error: fileValidation.error },
+          { status: 400 }
+        );
+      }
+
       try {
-        resumeAttachment = await uploadResume(data.resumeBase64, data.resumeFileName);
+        resumeAttachment = await uploadResume(
+          data.resumeBase64,
+          data.resumeFileName
+        );
       } catch (uploadError) {
         console.error("Resume upload error:", uploadError);
-        // Continue without attachment
+        return NextResponse.json(
+          { error: "Failed to upload resume. Please try again." },
+          { status: 500 }
+        );
       }
     }
 
@@ -57,14 +102,14 @@ export async function POST(request: NextRequest) {
       anythingElse: data.anythingElse,
     });
 
-    const result = await client.createRecord(TABLES.CAREER_APPLICATIONS, fields);
+    const result = await client.createRecord(
+      TABLES.CAREER_APPLICATIONS,
+      fields
+    );
 
     return NextResponse.json({ success: true, id: result.id });
   } catch (error) {
     console.error("Career application error:", error);
-    return NextResponse.json(
-      { error: "Failed to submit" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to submit" }, { status: 500 });
   }
 }

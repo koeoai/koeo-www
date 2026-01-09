@@ -4,6 +4,7 @@
 
 import { put } from "@vercel/blob";
 import type { AirtableAttachment } from "./airtable";
+import { sanitizeFilename } from "./api/file-validation";
 
 export interface UploadResult {
   url: string;
@@ -12,6 +13,7 @@ export interface UploadResult {
 
 /**
  * Upload a base64-encoded file to Vercel Blob storage
+ * Note: File validation should be done BEFORE calling this function
  */
 export async function uploadFile(
   base64Content: string,
@@ -20,8 +22,9 @@ export async function uploadFile(
 ): Promise<UploadResult> {
   const fileBuffer = Buffer.from(base64Content, "base64");
   const timestamp = Date.now();
-  const safeName = filename.replace(/[^a-zA-Z0-9.-]/g, "_");
-  const blobPath = `${folder}/${timestamp}-${safeName}`;
+  const randomSuffix = Math.random().toString(36).substring(2, 8);
+  const safeName = sanitizeFilename(filename);
+  const blobPath = `${folder}/${timestamp}-${randomSuffix}-${safeName}`;
 
   const blob = await put(blobPath, fileBuffer, {
     access: "public",
@@ -30,12 +33,13 @@ export async function uploadFile(
 
   return {
     url: blob.url,
-    filename: filename,
+    filename: safeName,
   };
 }
 
 /**
  * Upload a resume and return Airtable-compatible attachment format
+ * Note: File validation should be done BEFORE calling this function
  */
 export async function uploadResume(
   base64Content: string,
