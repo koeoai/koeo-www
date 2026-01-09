@@ -55,26 +55,26 @@ export interface ProvidersPageContent {
 
 export const PROVIDERS_HERO_CONTENT: ProvidersHeroContent = {
   badge: "Now accepting partners",
-  headline: "Become a",
-  headlineAccent: "GPU Provider",
-  subtitle: "Join our federated GPU network. Contribute compute capacity and earn revenue while helping developers build AI products.",
+  headline: "Supply the compute,",
+  headlineAccent: "we bring the demand",
+  subtitle: "Join our federated GPU network. Monetize idle capacity while powering the next wave of AI products.",
   primaryCta: "Get in touch",
-  secondaryCta: "FAQ",
+  secondaryCta: "See FAQ",
 };
 
 export const PROVIDERS_SECTIONS: ProvidersSectionContent = {
   benefits: {
-    label: "Partnership Benefits",
-    heading: "Why partner with Koeo?",
+    label: "Why partner",
+    heading: "Your GPUs, working harder",
   },
   types: {
-    label: "Partner Profiles",
-    heading: "Who we work with",
-    subtitle: "From enterprise data centers to regional cloud providers, we partner with organizations committed to powering the next generation of AI.",
+    label: "Who we work with",
+    heading: "Built for serious operators",
+    subtitle: "From enterprise data centers to regional cloud providers, we partner with organizations ready to power production AI.",
   },
   faq: {
-    heading: "Frequently Asked Questions",
-    subtitle: "Common questions about becoming a GPU provider",
+    heading: "Common questions",
+    subtitle: "What you need to know before joining",
   },
 };
 
@@ -82,17 +82,17 @@ export const PROVIDERS_BENEFITS: ProvidersBenefit[] = [
   {
     number: "01",
     title: "Monetize idle capacity",
-    description: "Transform underutilized GPU resources into a consistent revenue stream. We handle demand aggregation so you can focus on operations.",
+    description: "Turn underutilized GPUs into steady revenue. We aggregate demand so you can focus on running infrastructure.",
   },
   {
     number: "02",
-    title: "Zero customer acquisition",
-    description: "We bring qualified AI workloads directly to your infrastructure. No sales team, no marketing spend, no customer support overhead.",
+    title: "Skip the sales cycle",
+    description: "We bring qualified AI workloads to your hardware. No sales team, no marketing spend, no support overhead.",
   },
   {
     number: "03",
-    title: "Seamless integration",
-    description: "Deploy our lightweight agent in minutes. We handle orchestration, billing, and compliance. Your existing operations remain unchanged.",
+    title: "Integrate once, stay hands-off",
+    description: "Deploy our lightweight agent in minutes. We handle orchestration, billing, and compliance. Your ops stay unchanged.",
   },
 ];
 
@@ -100,13 +100,13 @@ export const PROVIDERS_TYPES: ProvidersType[] = [
   {
     number: "01",
     title: "Data Centers",
-    description: "Enterprise-grade facilities with GPU clusters seeking consistent utilization and predictable revenue.",
+    description: "Enterprise facilities with GPU clusters looking for consistent utilization and predictable revenue.",
     iconName: "dataCenter",
   },
   {
     number: "02",
     title: "Cloud Providers",
-    description: "Regional and specialized cloud platforms looking to expand AI capabilities and reach new markets.",
+    description: "Regional and specialized platforms expanding AI capabilities and reaching new markets.",
     iconName: "cloud",
   },
   {
@@ -119,24 +119,24 @@ export const PROVIDERS_TYPES: ProvidersType[] = [
 
 export const PROVIDERS_FAQ: ProvidersFaqItem[] = [
   {
-    question: "What types of GPUs do you accept?",
-    answer: "We accept a wide range of NVIDIA GPUs, from consumer-grade cards like RTX 3090/4090 to data center GPUs like A100 and H100. The key requirement is reliable connectivity and availability.",
+    question: "What are the requirements to join?",
+    answer: "You need NVIDIA GPUs (RTX 3090/4090 or data center cards like A100/H100), stable internet, current drivers, and the ability to run our lightweight agent. We help you get set up.",
   },
   {
-    question: "How does payment work?",
-    answer: "You earn revenue based on the compute time your GPUs provide. We handle all billing with end customers and pay you monthly based on actual usage.",
+    question: "How does pricing and payment work?",
+    answer: "You earn based on compute time delivered. Rates fluctuate with market demand, so peak periods mean higher earnings. We handle all billing and pay you monthly with transparent usage tracking.",
   },
   {
-    question: "What are the technical requirements?",
-    answer: "You'll need a stable internet connection, compatible NVIDIA GPUs with up-to-date drivers, and the ability to run our lightweight agent software. We'll help you get set up.",
+    question: "How long does onboarding take?",
+    answer: "Most providers deploy our agent and complete verification within a day. Once live, you can start earning immediately as workloads route to your hardware.",
   },
   {
-    question: "How much can I earn?",
-    answer: "Earnings depend on your GPU type, availability, and market demand. Data center GPUs typically earn more, but even consumer GPUs can generate meaningful revenue during peak demand.",
+    question: "Who controls the workloads on my hardware?",
+    answer: "Koeo handles orchestration and routing. Workloads run in isolated containers with no persistent data. You stay hands-off while we manage the complexity.",
   },
   {
-    question: "Is my data secure?",
-    answer: "Yes. Workloads run in isolated containers, and we never store customer data on provider hardware beyond the active session. We take security seriously.",
+    question: "What's the commitment?",
+    answer: "No lock-in. You set your own availability and can scale up or down as needed. We value reliable partners, but flexibility is built in.",
   },
 ];
 

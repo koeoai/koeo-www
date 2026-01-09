@@ -1,5 +1,5 @@
 /**
- * Providers page content - French
+ * Providers page content - French (Quebec)
  */
 
 import type {
@@ -12,45 +12,45 @@ import type {
 } from "../en/providers";
 
 export const PROVIDERS_HERO_CONTENT: ProvidersHeroContent = {
-  badge: "Partenaires acceptés",
-  headline: "Devenez",
-  headlineAccent: "fournisseur GPU",
-  subtitle: "Rejoignez notre réseau GPU fédéré. Contribuez de la capacité de calcul et générez des revenus tout en aidant les développeurs à créer des produits IA.",
+  badge: "On accepte des partenaires",
+  headline: "Fournis le compute,",
+  headlineAccent: "on amène la demande",
+  subtitle: "Rejoins notre réseau GPU fédéré. Monétise ta capacité inutilisée en alimentant la prochaine vague de produits IA.",
   primaryCta: "Nous contacter",
-  secondaryCta: "FAQ",
+  secondaryCta: "Voir la FAQ",
 };
 
 export const PROVIDERS_SECTIONS: ProvidersSectionContent = {
   benefits: {
-    label: "Avantages du partenariat",
-    heading: "Pourquoi devenir partenaire Koeo ?",
+    label: "Pourquoi devenir partenaire",
+    heading: "Tes GPU, qui travaillent plus fort",
   },
   types: {
-    label: "Profils partenaires",
-    heading: "Avec qui nous travaillons",
-    subtitle: "Des centres de données d'entreprise aux fournisseurs cloud régionaux, nous collaborons avec des organisations engagées à alimenter la prochaine génération d'IA.",
+    label: "Avec qui on travaille",
+    heading: "Conçu pour les opérateurs sérieux",
+    subtitle: "Des centres de données d'entreprise aux fournisseurs cloud régionaux, on s'associe avec des organisations prêtes à alimenter l'IA en production.",
   },
   faq: {
     heading: "Questions fréquentes",
-    subtitle: "Questions courantes sur le fait de devenir fournisseur GPU",
+    subtitle: "Ce que tu dois savoir avant de te joindre",
   },
 };
 
 export const PROVIDERS_BENEFITS: ProvidersBenefit[] = [
   {
     number: "01",
-    title: "Monétisez la capacité inutilisée",
-    description: "Transformez les ressources GPU sous-utilisées en flux de revenus régulier. Nous gérons l'agrégation de la demande pour que vous puissiez vous concentrer sur les opérations.",
+    title: "Monétise ta capacité inutilisée",
+    description: "Transforme tes GPU sous-utilisés en revenus stables. On agrège la demande pour que tu puisses te concentrer sur tes opérations.",
   },
   {
     number: "02",
-    title: "Zéro acquisition client",
-    description: "Nous apportons des charges de travail IA qualifiées directement à votre infrastructure. Pas d'équipe commerciale, pas de dépenses marketing, pas de support client.",
+    title: "Pas de cycle de vente",
+    description: "On amène des workloads IA qualifiés directement sur ton matériel. Pas d'équipe de vente, pas de dépenses marketing, pas de support à gérer.",
   },
   {
     number: "03",
-    title: "Intégration transparente",
-    description: "Déployez notre agent léger en quelques minutes. Nous gérons l'orchestration, la facturation et la conformité. Vos opérations existantes restent inchangées.",
+    title: "Intègre une fois, reste hands-off",
+    description: "Déploie notre agent léger en quelques minutes. On gère l'orchestration, la facturation et la conformité. Tes opérations restent inchangées.",
   },
 ];
 
@@ -58,43 +58,43 @@ export const PROVIDERS_TYPES: ProvidersType[] = [
   {
     number: "01",
     title: "Centres de données",
-    description: "Installations de niveau entreprise avec clusters GPU recherchant une utilisation constante et des revenus prévisibles.",
+    description: "Installations d'entreprise avec clusters GPU qui cherchent une utilisation constante et des revenus prévisibles.",
     iconName: "dataCenter",
   },
   {
     number: "02",
     title: "Fournisseurs cloud",
-    description: "Plateformes cloud régionales et spécialisées cherchant à étendre leurs capacités IA et atteindre de nouveaux marchés.",
+    description: "Plateformes régionales et spécialisées qui étendent leurs capacités IA et rejoignent de nouveaux marchés.",
     iconName: "cloud",
   },
   {
     number: "03",
     title: "Partenaires infrastructure",
-    description: "Organisations avec des ressources GPU dédiées prêtes à participer à l'économie du calcul distribué.",
+    description: "Organisations avec des ressources GPU dédiées, prêtes à participer à l'économie du compute distribué.",
     iconName: "infrastructure",
   },
 ];
 
 export const PROVIDERS_FAQ: ProvidersFaqItem[] = [
   {
-    question: "Quels types de GPU acceptez-vous ?",
-    answer: "Nous acceptons une large gamme de GPU NVIDIA, des cartes grand public comme RTX 3090/4090 aux GPU de centre de données comme A100 et H100. L'exigence clé est une connectivité et une disponibilité fiables.",
+    question: "Quelles sont les exigences pour participer ?",
+    answer: "Tu as besoin de GPU NVIDIA (RTX 3090/4090 ou cartes de centre de données comme A100/H100), d'une connexion internet stable, de drivers à jour, et de la capacité de rouler notre agent léger. On t'aide à te configurer.",
   },
   {
-    question: "Comment fonctionne le paiement ?",
-    answer: "Vous gagnez des revenus basés sur le temps de calcul fourni par vos GPU. Nous gérons toute la facturation avec les clients finaux et vous payons mensuellement selon l'utilisation réelle.",
+    question: "Comment fonctionne la tarification et le paiement ?",
+    answer: "Tu gagnes selon le temps de compute livré. Les tarifs varient avec la demande du marché, donc les périodes de pointe rapportent plus. On gère toute la facturation et on te paie mensuellement avec un suivi d'utilisation transparent.",
   },
   {
-    question: "Quelles sont les exigences techniques ?",
-    answer: "Vous aurez besoin d'une connexion internet stable, de GPU NVIDIA compatibles avec des pilotes à jour, et de la capacité d'exécuter notre logiciel agent léger. Nous vous aiderons à vous installer.",
+    question: "Combien de temps prend l'intégration ?",
+    answer: "La plupart des fournisseurs déploient notre agent et complètent la vérification en une journée. Une fois en ligne, tu commences à générer des revenus dès que les workloads arrivent sur ton matériel.",
   },
   {
-    question: "Combien puis-je gagner ?",
-    answer: "Les gains dépendent du type de GPU, de la disponibilité et de la demande du marché. Les GPU de centre de données rapportent généralement plus, mais même les GPU grand public peuvent générer des revenus significatifs pendant les pics de demande.",
+    question: "Qui contrôle les workloads sur mon matériel ?",
+    answer: "Koeo gère l'orchestration et le routage. Les workloads roulent dans des conteneurs isolés sans données persistantes. Tu restes hands-off pendant qu'on gère la complexité.",
   },
   {
-    question: "Mes données sont-elles sécurisées ?",
-    answer: "Oui. Les charges de travail s'exécutent dans des conteneurs isolés, et nous ne stockons jamais les données client sur le matériel du fournisseur au-delà de la session active. Nous prenons la sécurité au sérieux.",
+    question: "Quel est l'engagement requis ?",
+    answer: "Aucun lock-in. Tu définis ta propre disponibilité et tu peux augmenter ou réduire selon tes besoins. On valorise les partenaires fiables, mais la flexibilité est intégrée.",
   },
 ];
 

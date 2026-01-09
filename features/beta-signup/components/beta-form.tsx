@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { NetworkBackground } from "@/components/ui/network-background";
 import { useContent } from "@/lib/i18n/use-content";
 import type { BetaFormContent } from "@/content";
 import { SurveyFormData } from "../constants";
@@ -60,9 +59,7 @@ export function BetaForm({ onSubmit, className }: BetaFormProps) {
 
 
   return (
-    <section id="beta-form" className={cn("relative py-16 md:py-24 bg-gradient-to-b from-[#7C3AED] via-[#6D28D9] to-[#5B21B6]", className)}>
-      <NetworkBackground variant="dark" density="normal" />
-
+    <section id="beta-form" className={cn("relative py-16 md:py-24", className)}>
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="bg-gradient-to-r from-white via-pink-light to-white bg-clip-text text-3xl font-bold text-transparent md:text-4xl lg:text-5xl">
