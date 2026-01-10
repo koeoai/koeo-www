@@ -8,6 +8,7 @@
  * while delegating all actual rendering to the locale-specific layout.
  */
 
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export default function RootLayout({
@@ -15,5 +16,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return (
+    <>
+      {children}
+      <Analytics />
+    </>
+  );
 }
