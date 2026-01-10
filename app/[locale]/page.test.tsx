@@ -84,12 +84,12 @@ describe("Homepage Assembly", () => {
 
     // Verify Problem section renders with heading (above fold, not lazy loaded)
     expect(
-      screen.getByText("Why AI infrastructure feels harder than it should")
+      screen.getByText("Why AI inference feels harder than it should")
     ).toBeInTheDocument();
 
     // Verify sections are within main
     expect(main).toContainElement(
-      screen.getByText("Why AI infrastructure feels harder than it should")
+      screen.getByText("Why AI inference feels harder than it should")
     );
   });
 

@@ -24,13 +24,13 @@ const HowWorksSection = dynamic(
 );
 
 export const metadata: Metadata = {
-  title: "Koeo - Unify Your GPU Infrastructure",
+  title: "Koeo | Serverless AI Inference",
   description:
-    "The runtime layer that brings fragmented GPUs together into one reliable inference fabric. Build faster, scale smarter with Koeo.",
+    "Serverless AI inference with an OpenAI compatible API. One endpoint for your models with built-in routing, health checks, and usage tracking.",
   openGraph: {
-    title: "Koeo - Unify Your GPU Infrastructure",
+    title: "Koeo | Serverless AI Inference",
     description:
-      "The runtime layer that brings fragmented GPUs together into one reliable inference fabric.",
+      "Serverless AI inference with an OpenAI compatible API. One endpoint for your models with built-in routing, health checks, and usage tracking.",
     url: "https://koeo.ai",
     siteName: "Koeo",
     images: [
@@ -38,16 +38,16 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Koeo - Unify Your GPU Infrastructure",
+        alt: "Koeo | Serverless AI Inference",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Koeo - Unify Your GPU Infrastructure",
+    title: "Koeo | Serverless AI Inference",
     description:
-      "The runtime layer that brings fragmented GPUs together into one reliable inference fabric.",
+      "Serverless AI inference with an OpenAI compatible API. One endpoint for your models with built-in routing, health checks, and usage tracking.",
     images: ["/og-image.png"],
   },
 };

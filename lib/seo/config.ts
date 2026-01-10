@@ -18,7 +18,7 @@ export interface SeoConfig {
 export const seoConfig: SeoConfig = {
   siteName: "Koeo",
   siteUrl: "https://koeo.ai",
-  defaultTitle: "Koeo | One runtime, any model, no infra headaches",
+  defaultTitle: "Koeo | Any model, one place, no infra to chase",
   titleTemplate: "%s | Koeo",
   defaultDescription:
     "Run your AI models without managing GPUs. We take care of the GPU mess so you can focus on building.",
@@ -54,7 +54,7 @@ export const seoConfig: SeoConfig = {
   socialProfiles: [
     "https://twitter.com/koeo_ai",
     "https://linkedin.com/company/koeoai",
-    "https://discord.gg/koeo",
+    "https://discord.gg/HEsDwx8x",
     "https://github.com/koeoai",
     "https://www.reddit.com/r/koeo/",
   ],

@@ -94,7 +94,7 @@ describe("Content Propagation - Property Tests", () => {
     fc.constant("/beta"),
     fc.constant("/about"),
     fc.constant("/product"),
-    fc.constant("mailto:hello@koeo.ai"),
+    fc.constant("mailto:info@koeo.ai"),
     fc.stringMatching(/^\/[a-z0-9-/]*$/).filter((s) => s.length > 0 && s.length < 50)
   );
 

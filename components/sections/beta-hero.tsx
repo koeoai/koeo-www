@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { InteractiveNetworkCanvas } from "@/components/ui/interactive-network-canvas";
+import { Container } from "@/components/ui/container";
 import { useContent } from "@/lib/i18n";
 import type { BetaPageContent } from "@/content";
 
@@ -15,11 +15,12 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
 
     return (
       <section ref={ref} className={className}>
-        <InteractiveNetworkCanvas mode="interactive" className="min-h-screen">
-          <div className="flex min-h-screen flex-col items-center justify-center px-4 py-20">
+        {/* Hero Content */}
+        <div className="relative py-24 md:py-32">
+          <Container>
             <div className="mx-auto max-w-4xl text-center">
               {/* Eyebrow Badge */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-pink-light/30 bg-purple-deep/50 px-4 py-1.5 text-sm text-pink-light backdrop-blur-sm">
+              <div className="mb-6 inline-flex animate-fade-in-up items-center gap-2 rounded-full border border-pink-light/30 bg-purple-deep/50 px-4 py-1.5 text-sm text-pink-light backdrop-blur-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-light opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-light" />
@@ -28,7 +29,7 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
               </div>
 
               {/* Headline */}
-              <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              <h1 className="animate-fade-in-up mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: "100ms" }}>
                 {content.hero.headline}{" "}
                 <span className="bg-gradient-to-r from-purple-primary via-magenta to-pink-light bg-clip-text text-transparent">
                   {content.hero.headlineAccent}
@@ -36,25 +37,24 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
               </h1>
 
               {/* Subheadline */}
-              <p className="mx-auto mb-12 max-w-2xl text-lg text-text-light/80 sm:text-xl">
+              <p className="animate-fade-in-up mx-auto mb-12 max-w-2xl text-lg text-white/70 sm:text-xl" style={{ animationDelay: "200ms" }}>
                 {content.hero.subtitle}
               </p>
 
               {/* Who we're looking for */}
               <div className="mx-auto max-w-3xl">
-                <h2 className="mb-8 text-2xl font-semibold text-white/90 sm:text-3xl">
+                <h2 className="animate-fade-in-up mb-8 text-2xl font-semibold text-white/90 sm:text-3xl" style={{ animationDelay: "300ms" }}>
                   {content.whoHeading}
                 </h2>
                 <div className="grid gap-4 sm:grid-cols-3">
                   {content.criteria.map((criterion, index) => (
                     <div
                       key={index}
-                      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/10"
+                      className="animate-fade-in-up group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all duration-300 hover:border-pink-light/30 hover:bg-white/[0.06]"
+                      style={{ animationDelay: `${400 + index * 100}ms` }}
                     >
-                      {/* Animated gradient border on hover */}
-                      <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <div className="absolute inset-[-1px] rounded-2xl bg-gradient-to-r from-purple-primary via-magenta to-pink-light opacity-20" />
-                      </div>
+                      {/* Hover glow effect */}
+                      <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-pink-light/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                       {/* Number badge */}
                       <div className="relative mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-primary to-magenta text-lg font-bold text-white shadow-lg shadow-magenta/20">
@@ -72,7 +72,7 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
                 </div>
 
                 {/* Scroll indicator */}
-                <div className="mt-12 flex flex-col items-center gap-2">
+                <div className="animate-fade-in-up mt-12 flex flex-col items-center gap-2" style={{ animationDelay: "700ms" }}>
                   <p className="text-sm text-white/50">{content.hero.scrollIndicator}</p>
                   <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/20 p-1">
                     <div className="h-2 w-1 animate-bounce rounded-full bg-pink-light" />
@@ -80,10 +80,8 @@ const BetaHero = React.forwardRef<HTMLElement, BetaHeroProps>(
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#7C3AED] to-transparent" />
-        </InteractiveNetworkCanvas>
+          </Container>
+        </div>
       </section>
     );
   }

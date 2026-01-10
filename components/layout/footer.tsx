@@ -33,7 +33,7 @@ const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     label: "Discord",
-    href: "https://discord.gg/koeo",
+    href: "https://discord.gg/HEsDwx8x",
     icon: <DiscordIcon />,
   },
   {

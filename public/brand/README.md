@@ -42,7 +42,7 @@ Neural network-themed banners with animated glow effects.
 ### Variants
 - `*-logo` - Centered Koeo logo
 - `*-plain` - No logo, just neural network background
-- `*-mantra` - Tagline "One runtime, any model, no infra headaches." with logo
+- `*-mantra` - Tagline "Any model, one place, no infra to chase." with logo
 
 ## Brand Colors
 

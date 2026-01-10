@@ -56,7 +56,7 @@ describe("Beta Page Assembly", () => {
     expect(screen.getByText(/our private beta/i)).toBeInTheDocument();
 
     // Verify Who we're looking for is in hero
-    expect(screen.getByText("Who we're looking for")).toBeInTheDocument();
+    expect(screen.getByText("Who we are looking for")).toBeInTheDocument();
 
     // Verify form renders
     expect(
@@ -98,7 +98,7 @@ describe("Beta Page Assembly", () => {
   it("renders hero with eyebrow badge", () => {
     renderWithLocale(<BetaPage />);
 
-    expect(screen.getByText(/limited spots/i)).toBeInTheDocument();
+    expect(screen.getByText(/Invite only/i)).toBeInTheDocument();
   });
 
   /**
@@ -109,13 +109,13 @@ describe("Beta Page Assembly", () => {
     renderWithLocale(<BetaPage />);
 
     expect(
-      screen.getByText("You're shipping or about to ship AI features")
+      screen.getByText("You are shipping or about to ship AI features")
     ).toBeInTheDocument();
     expect(
       screen.getByText("You want to simplify your inference stack")
     ).toBeInTheDocument();
     expect(
-      screen.getByText("You're open to giving feedback")
+      screen.getByText("You are open to giving feedback")
     ).toBeInTheDocument();
   });
 });

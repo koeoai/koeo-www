@@ -14,7 +14,7 @@ export const HERO_CONTENT: HeroContent = {
   headline: "Run your AI models",
   headlineAccent: "without managing GPUs",
   subtitle:
-    "We take care of the GPU mess so you can focus on building. One runtime, any model, no infra headaches.",
+    "We take care of the GPU mess so you can focus on building. Any model, one place, no infra to chase.",
   cta: {
     primary: {
       text: "Join the private beta",
@@ -138,7 +138,7 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
     },
     secondary: {
       text: "Talk to the team",
-      href: "mailto:hello@koeo.ai",
+      href: "mailto:info@koeo.ai",
     },
   },
 };
