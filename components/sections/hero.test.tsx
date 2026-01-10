@@ -180,7 +180,7 @@ describe("Hero Component - Unit Tests", () => {
   it("renders subtitle with unified runtime copy", () => {
     render(<Hero />);
     expect(
-      screen.getByText(/Any model, one place, no infra to chase/)
+      screen.getByText(/Your models, one place, no infra to chase/)
     ).toBeInTheDocument();
   });
 

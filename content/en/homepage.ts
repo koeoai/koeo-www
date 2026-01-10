@@ -14,7 +14,7 @@ export const HERO_CONTENT: HeroContent = {
   headline: "AI inference you can ship",
   headlineAccent: "without the complexity",
   subtitle:
-    "Any model, one place, no infra to chase.",
+    "Your models, one place, no infra to chase.",
   cta: {
     primary: {
       text: "Request beta access",
@@ -101,7 +101,7 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
       title: "OpenAI-compatible API",
       description:
         "Once you are onboarded, you get OpenAI-style endpoints that plug into existing clients and SDKs. In most cases it is a base URL and auth change.",
-      link: { text: "View API docs", href: "/beta" },
+      link: { text: "Get API docs access", href: "/beta" },
     },
     {
       title: "Early-access dashboard",
