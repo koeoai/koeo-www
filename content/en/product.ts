@@ -82,6 +82,7 @@ export interface ProductHowContent {
   label: string;
   heading: string;
   steps: ProductHowStep[];
+  consoleSampleLabel: string;
 }
 
 /**
@@ -166,6 +167,11 @@ export const PRODUCT_WHO_FOR_CONTENT: ProductWhoForContent = {
       description: "Your model works. Now serve it to real users without building a deployment pipeline.",
       iconName: "flask",
     },
+    {
+      title: "Research Labs & Universities",
+      description: "Serve models to internal tools and research workflows without building deployment infrastructure.",
+      iconName: "academic",
+    },
   ],
 };
 
@@ -218,6 +224,7 @@ export const PRODUCT_WHY_CONTENT: ProductWhyContent = {
 export const PRODUCT_HOW_CONTENT: ProductHowContent = {
   label: "How it works",
   heading: "From signup to production in minutes",
+  consoleSampleLabel: "Sample UI",
   steps: [
     {
       step: 1,

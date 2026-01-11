@@ -12,10 +12,10 @@ import type {
 } from "../en/providers";
 
 export const PROVIDERS_HERO_CONTENT: ProvidersHeroContent = {
-  badge: "On accepte des partenaires",
-  headline: "Fournis le compute,",
-  headlineAccent: "on amène la demande",
-  subtitle: "Rejoins notre réseau GPU fédéré. Monétise ta capacité inutilisée en alimentant la prochaine vague de produits IA.",
+  badge: "Nous acceptons des partenaires",
+  headline: "Fournissez le compute,",
+  headlineAccent: "nous amenons la demande",
+  subtitle: "Rejoignez notre réseau GPU fédéré. Monétisez votre capacité inutilisée en alimentant la prochaine vague de produits IA.",
   primaryCta: "Nous contacter",
   secondaryCta: "Voir la FAQ",
 };
@@ -23,34 +23,34 @@ export const PROVIDERS_HERO_CONTENT: ProvidersHeroContent = {
 export const PROVIDERS_SECTIONS: ProvidersSectionContent = {
   benefits: {
     label: "Pourquoi devenir partenaire",
-    heading: "Tes GPU, qui travaillent plus fort",
+    heading: "Vos GPU, qui travaillent plus fort",
   },
   types: {
-    label: "Avec qui on travaille",
+    label: "Avec qui nous travaillons",
     heading: "Conçu pour les opérateurs sérieux",
-    subtitle: "Des centres de données d'entreprise aux fournisseurs cloud régionaux, on s'associe avec des organisations prêtes à alimenter l'IA en production.",
+    subtitle: "Des centres de données d'entreprise aux fournisseurs cloud régionaux, nous nous associons avec des organisations prêtes à alimenter l'IA en production.",
   },
   faq: {
     heading: "Questions fréquentes",
-    subtitle: "Ce que tu dois savoir avant de te joindre",
+    subtitle: "Ce que vous devez savoir avant de vous joindre",
   },
 };
 
 export const PROVIDERS_BENEFITS: ProvidersBenefit[] = [
   {
     number: "01",
-    title: "Monétise ta capacité inutilisée",
-    description: "Transforme tes GPU sous-utilisés en revenus stables. On agrège la demande pour que tu puisses te concentrer sur tes opérations.",
+    title: "Monétisez votre capacité inutilisée",
+    description: "Transformez vos GPU sous-utilisés en revenus stables. Nous agrégeons la demande pour que vous puissiez vous concentrer sur vos opérations.",
   },
   {
     number: "02",
     title: "Pas de cycle de vente",
-    description: "On amène des workloads IA qualifiés directement sur ton matériel. Pas d'équipe de vente, pas de dépenses marketing, pas de support à gérer.",
+    description: "Nous amenons des workloads IA qualifiés directement sur votre matériel. Pas d'équipe de vente, pas de dépenses marketing, pas de support à gérer.",
   },
   {
     number: "03",
-    title: "Intègre une fois, reste hands-off",
-    description: "Déploie notre agent léger en quelques minutes. On gère l'orchestration, la facturation et la conformité. Tes opérations restent inchangées.",
+    title: "Intégrez une fois, restez hands-off",
+    description: "Déployez notre agent léger en quelques minutes. Nous gérons l'orchestration et la facturation. Vos opérations restent inchangées.",
   },
 ];
 
@@ -78,23 +78,23 @@ export const PROVIDERS_TYPES: ProvidersType[] = [
 export const PROVIDERS_FAQ: ProvidersFaqItem[] = [
   {
     question: "Quelles sont les exigences pour participer ?",
-    answer: "Tu as besoin de GPU NVIDIA (RTX 3090/4090 ou cartes de centre de données comme A100/H100), d'une connexion internet stable, de drivers à jour, et de la capacité de rouler notre agent léger. On t'aide à te configurer.",
+    answer: "Vous avez besoin de GPU NVIDIA (RTX 3090/4090 ou cartes de centre de données comme A100/H100), d'une connexion internet stable, de drivers à jour, et de la capacité de rouler notre agent léger. Nous vous aidons à vous configurer.",
   },
   {
     question: "Comment fonctionne la tarification et le paiement ?",
-    answer: "Tu gagnes selon le temps de compute livré. Les tarifs varient avec la demande du marché, donc les périodes de pointe rapportent plus. On gère toute la facturation et on te paie mensuellement avec un suivi d'utilisation transparent.",
+    answer: "Vous gagnez selon le temps de compute livré. Les tarifs varient avec la demande du marché, donc les périodes de pointe rapportent plus. Nous gérons toute la facturation et vous payons mensuellement avec un suivi d'utilisation transparent.",
   },
   {
     question: "Combien de temps prend l'intégration ?",
-    answer: "La plupart des fournisseurs déploient notre agent et complètent la vérification en une journée. Une fois en ligne, tu commences à générer des revenus dès que les workloads arrivent sur ton matériel.",
+    answer: "La plupart des fournisseurs déploient notre agent et complètent la vérification en une journée. Une fois en ligne, vous commencez à générer des revenus dès que les workloads arrivent sur votre matériel.",
   },
   {
     question: "Qui contrôle les workloads sur mon matériel ?",
-    answer: "Koeo gère l'orchestration et le routage. Les workloads roulent dans des conteneurs isolés sans données persistantes. Tu restes hands-off pendant qu'on gère la complexité.",
+    answer: "Koeo gère l'orchestration et le routage. Les workloads roulent dans des conteneurs isolés sans données persistantes. Vous restez hands-off pendant que nous gérons la complexité.",
   },
   {
     question: "Quel est l'engagement requis ?",
-    answer: "Aucun lock-in. Tu définis ta propre disponibilité et tu peux augmenter ou réduire selon tes besoins. On valorise les partenaires fiables, mais la flexibilité est intégrée.",
+    answer: "Aucun lock-in. Vous définissez votre propre disponibilité et vous pouvez augmenter ou réduire selon vos besoins. Nous valorisons les partenaires fiables, mais la flexibilité est intégrée.",
   },
 ];
 

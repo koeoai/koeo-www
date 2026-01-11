@@ -43,9 +43,9 @@ describe("HowWorksSection - Developer Features", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders OpenAI-compatible card with 'View API docs' link", () => {
+  it("renders OpenAI-compatible card with 'Get API docs access' link", () => {
     renderWithLocale(<HowWorksSection />);
-    const apiDocsLink = screen.getByRole("link", { name: /View API docs/i });
+    const apiDocsLink = screen.getByRole("link", { name: /Get API docs access/i });
     expect(apiDocsLink).toBeInTheDocument();
     expect(apiDocsLink).toHaveAttribute("href", "/beta");
   });

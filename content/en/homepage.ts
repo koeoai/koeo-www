@@ -4,6 +4,7 @@ import type {
   ProblemSectionContent,
   WhatIsSectionContent,
   HowWorksSectionContent,
+  RequestFlowLabels,
 } from "../types";
 
 /**
@@ -144,6 +145,24 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
 };
 
 /**
+ * Request flow animation labels - English
+ */
+export const REQUEST_FLOW_LABELS: RequestFlowLabels = {
+  yourApp: "Your App",
+  runtime: "Runtime",
+  gpuNetwork: "GPU Network",
+  sendingRequest: "→ Sending request...",
+  routingToGpu: "→ Routing to GPU...",
+  processingInference: "⚡ Processing inference...",
+  streamingResponse: "← Streaming response...",
+  requestComplete: "✓ Request complete",
+  newRequest: "→ New request...",
+  gpuNodeFailed: "✕ GPU node failed!",
+  runtimeRerouting: "↻ Runtime rerouting...",
+  processingOnHealthyGpu: "⚡ Processing on healthy GPU...",
+};
+
+/**
  * Complete homepage content - combines all sections
  */
 export const HOMEPAGE_CONTENT: HomepageContent = {
@@ -151,4 +170,5 @@ export const HOMEPAGE_CONTENT: HomepageContent = {
   problem: PROBLEM_CONTENT,
   whatIs: WHAT_IS_CONTENT,
   howWorks: HOW_WORKS_CONTENT,
+  requestFlowLabels: REQUEST_FLOW_LABELS,
 };

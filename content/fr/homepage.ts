@@ -4,6 +4,7 @@ import type {
   ProblemSectionContent,
   WhatIsSectionContent,
   HowWorksSectionContent,
+  RequestFlowLabels,
 } from "../types";
 
 /**
@@ -14,7 +15,7 @@ export const HERO_CONTENT: HeroContent = {
   headline: "Inférence IA prête à livrer",
   headlineAccent: "sans la complexité",
   subtitle:
-    "Un runtime, tous tes modèles, zéro bordel.",
+    "Vos modèles, un seul endroit, zéro infra à gérer.",
   cta: {
     primary: {
       text: "Demander l'accès bêta",
@@ -25,7 +26,7 @@ export const HERO_CONTENT: HeroContent = {
       href: "/fr/product",
     },
   },
-  microcopy: "On invite les équipes graduellement, selon la compatibilité et la capacité.",
+  microcopy: "Nous invitons les équipes graduellement, selon la compatibilité et la capacité.",
 };
 
 /**
@@ -68,11 +69,11 @@ export const WHAT_IS_CONTENT: WhatIsSectionContent = {
   heading: "L'inférence IA, simplifiée",
   subheading: "Un runtime unifié pour l'inférence IA serverless",
   description:
-    "Au lieu de connecter ensemble des fournisseurs, runtimes et schedulers personnalisés, tu intègres une seule fois. Koeo route les requêtes vers la capacité GPU disponible, vérifie la santé des services, et suit l'utilisation pour que tu puisses te concentrer sur livrer.",
+    "Au lieu de connecter ensemble des fournisseurs, runtimes et schedulers personnalisés, vous intégrez une seule fois. Koeo route les requêtes vers la capacité GPU disponible, vérifie la santé des services, et suit l'utilisation pour que vous puissiez vous concentrer sur livrer.",
   features: [
     {
       icon: "check",
-      text: "Une API pour exécuter tes modèles supportés via un seul endpoint",
+      text: "Une API pour exécuter vos modèles supportés via un seul endpoint",
     },
     {
       icon: "check",
@@ -100,13 +101,13 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
     {
       title: "API compatible OpenAI",
       description:
-        "Une fois intégré, tu reçois des endpoints style OpenAI qui se branchent sur tes clients et SDKs existants. Dans la plupart des cas, c'est juste un changement de base URL et d'authentification.",
-      link: { text: "Voir la documentation API", href: "/fr/beta" },
+        "Une fois intégré, vous recevez des endpoints style OpenAI qui se branchent sur vos clients et SDKs existants. Dans la plupart des cas, c'est juste un changement de base URL et d'authentification.",
+      link: { text: "Accéder à la documentation API", href: "/fr/beta" },
     },
     {
       title: "Dashboard en accès anticipé",
       description:
-        "Surveille l'utilisation, la latence et les taux d'erreur, et gère tes clés et modèles. On itère vite ici, et tes retours influencent directement ce qu'on livre.",
+        "Surveillez l'utilisation, la latence et les taux d'erreur, et gérez vos clés et modèles. Nous itérons vite ici, et vos retours influencent directement ce que nous livrons.",
       link: { text: "Demander l'accès au dashboard", href: "/fr/beta" },
     },
   ],
@@ -116,19 +117,19 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
       stepNumber: 1,
       title: "Demander l'accès",
       description:
-        "Parle-nous de ton cas d'utilisation, ta configuration actuelle, et tes contraintes. On révise les demandes pour s'assurer que la bêta est une bonne compatibilité.",
+        "Parlez-nous de votre cas d'utilisation, votre configuration actuelle, et vos contraintes. Nous révisons les demandes pour nous assurer que la bêta est une bonne compatibilité.",
     },
     {
       stepNumber: 2,
       title: "Intégration et accès complet",
       description:
-        "Si c'est compatible, on t'intègre et on te donne accès complet à la plateforme Koeo. Aide-nous à définir comment l'IA se livre en production.",
+        "Si c'est compatible, nous vous intégrons et vous donnons accès complet à la plateforme Koeo. Aidez-nous à définir comment l'IA se livre en production.",
     },
     {
       stepNumber: 3,
       title: "Intégrer, puis grandir ensemble",
       description:
-        "Commence à router du vrai trafic via Koeo. On suit la fiabilité et la performance avec toi, on ajuste les politiques de routage, et on augmente la capacité selon ton usage.",
+        "Commencez à router du vrai trafic via Koeo. Nous suivons la fiabilité et la performance avec vous, ajustons les politiques de routage, et augmentons la capacité selon votre usage.",
     },
   ],
   cta: {
@@ -144,6 +145,24 @@ export const HOW_WORKS_CONTENT: HowWorksSectionContent = {
 };
 
 /**
+ * Request flow animation labels - French (Quebec)
+ */
+export const REQUEST_FLOW_LABELS: RequestFlowLabels = {
+  yourApp: "Votre App",
+  runtime: "Runtime",
+  gpuNetwork: "Réseau GPU",
+  sendingRequest: "→ Envoi de la requête...",
+  routingToGpu: "→ Routage vers GPU...",
+  processingInference: "⚡ Traitement de l'inférence...",
+  streamingResponse: "← Réponse en cours...",
+  requestComplete: "✓ Requête complétée",
+  newRequest: "→ Nouvelle requête...",
+  gpuNodeFailed: "✕ Nœud GPU en échec!",
+  runtimeRerouting: "↻ Reroutage en cours...",
+  processingOnHealthyGpu: "⚡ Traitement sur GPU sain...",
+};
+
+/**
  * Complete homepage content - combines all sections - French (Quebec)
  */
 export const HOMEPAGE_CONTENT: HomepageContent = {
@@ -151,4 +170,5 @@ export const HOMEPAGE_CONTENT: HomepageContent = {
   problem: PROBLEM_CONTENT,
   whatIs: WHAT_IS_CONTENT,
   howWorks: HOW_WORKS_CONTENT,
+  requestFlowLabels: REQUEST_FLOW_LABELS,
 };

@@ -92,7 +92,7 @@ export const PROVIDERS_BENEFITS: ProvidersBenefit[] = [
   {
     number: "03",
     title: "Integrate once, stay hands-off",
-    description: "Deploy our lightweight agent in minutes. We handle orchestration, billing, and compliance. Your ops stay unchanged.",
+    description: "Deploy our lightweight agent in minutes. We handle orchestration and billing. Your ops stay unchanged.",
   },
 ];
 

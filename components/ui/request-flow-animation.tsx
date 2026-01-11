@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useContent } from "@/lib/i18n/use-content";
+import type { HomepageContent } from "@/content/types";
 
 // Koeo logo icon paths for inline SVG
 const LOGO_PATH_LEFT =
@@ -22,6 +24,22 @@ const LOGO_PATH_BOTTOM =
   "L65.093 67.176 L82.685 56.713 L83.426 56.528 L84.259 55.787 " +
   "L85.000 55.602 L91.019 51.898 L91.528 51.852 L91.620 82.778 " +
   "L65.185 98.194 Z";
+
+// Default English labels as fallback
+const DEFAULT_LABELS = {
+  yourApp: "Your App",
+  runtime: "Runtime",
+  gpuNetwork: "GPU Network",
+  sendingRequest: "→ Sending request...",
+  routingToGpu: "→ Routing to GPU...",
+  processingInference: "⚡ Processing inference...",
+  streamingResponse: "← Streaming response...",
+  requestComplete: "✓ Request complete",
+  newRequest: "→ New request...",
+  gpuNodeFailed: "✕ GPU node failed!",
+  runtimeRerouting: "↻ Runtime rerouting...",
+  processingOnHealthyGpu: "⚡ Processing on healthy GPU...",
+};
 
 interface GpuNodeProps {
   isFailed: boolean;
@@ -88,6 +106,8 @@ function GpuNode({ isFailed, isActive, utilization }: GpuNodeProps) {
 // 10: Runtime → App (success) ✓
 export function RequestFlowAnimation() {
   const [phase, setPhase] = useState(0);
+  const content = useContent<HomepageContent>("homepage");
+  const labels = content.requestFlowLabels ?? DEFAULT_LABELS;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -137,7 +157,7 @@ export function RequestFlowAnimation() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
           </div>
-          <span className="text-xs text-white/50">Your App</span>
+          <span className="text-xs text-white/50">{labels.yourApp}</span>
         </div>
 
         {/* Connection: App to Runtime */}
@@ -179,7 +199,7 @@ export function RequestFlowAnimation() {
               <path d={LOGO_PATH_BOTTOM} fill="url(#logoGradientFlow)" />
             </svg>
           </div>
-          <span className="text-xs text-white/50">Runtime</span>
+          <span className="text-xs text-white/50">{labels.runtime}</span>
         </div>
 
         {/* Connection: Runtime to GPU Network */}
@@ -233,7 +253,7 @@ export function RequestFlowAnimation() {
               <GpuNode isFailed={failedGpu === 3} isActive={activeGpu === 3 && isProcessing} utilization={gpuUtilization[3]} />
             </div>
           </div>
-          <span className="text-xs text-white/50">GPU Network</span>
+          <span className="text-xs text-white/50">{labels.gpuNetwork}</span>
         </div>
       </div>
 
@@ -254,17 +274,17 @@ export function RequestFlowAnimation() {
                       : "text-white/50"
           }`}
         >
-          {phase === 0 && "→ Sending request..."}
-          {phase === 1 && "→ Routing to GPU..."}
-          {phase === 2 && "⚡ Processing inference..."}
-          {phase === 3 && "← Streaming response..."}
-          {phase === 4 && "✓ Request complete"}
-          {phase === 5 && "→ New request..."}
-          {phase === 6 && "✕ GPU node failed!"}
-          {phase === 7 && "↻ Runtime rerouting..."}
-          {phase === 8 && "⚡ Processing on healthy GPU..."}
-          {phase === 9 && "← Streaming response..."}
-          {phase === 10 && "✓ Request complete"}
+          {phase === 0 && labels.sendingRequest}
+          {phase === 1 && labels.routingToGpu}
+          {phase === 2 && labels.processingInference}
+          {phase === 3 && labels.streamingResponse}
+          {phase === 4 && labels.requestComplete}
+          {phase === 5 && labels.newRequest}
+          {phase === 6 && labels.gpuNodeFailed}
+          {phase === 7 && labels.runtimeRerouting}
+          {phase === 8 && labels.processingOnHealthyGpu}
+          {phase === 9 && labels.streamingResponse}
+          {phase === 10 && labels.requestComplete}
         </span>
       </div>
 

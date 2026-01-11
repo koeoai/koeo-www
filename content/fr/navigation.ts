@@ -21,7 +21,7 @@ export const NAVIGATION_CONTENT: NavigationContent = {
     languageLabel: "Langue",
   },
   footer: {
-    tagline: "Un runtime, tous tes modèles, zéro bordel.",
+    tagline: "Vos modèles, un seul endroit, zéro infra à gérer.",
     groups: [
       {
         title: "Entreprise",
