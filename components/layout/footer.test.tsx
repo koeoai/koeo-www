@@ -101,16 +101,4 @@ describe("Property 9: External link security attributes", () => {
     });
   });
 
-  it("should verify GitHub links have proper security attributes", () => {
-    render(<Footer />);
-
-    const suggestIdeaLink = screen.getByText("Suggest an Idea");
-    const reportBugLink = screen.getByText("Report a Bug");
-
-    [suggestIdeaLink, reportBugLink].forEach((link) => {
-      expect(link.getAttribute("rel")).toContain("noopener");
-      expect(link.getAttribute("rel")).toContain("noreferrer");
-      expect(link.getAttribute("target")).toBe("_blank");
-    });
-  });
 });

@@ -115,6 +115,24 @@ export interface HowWorksSectionContent {
 }
 
 /**
+ * Request flow animation labels for locale support
+ */
+export interface RequestFlowLabels {
+  yourApp: string;
+  runtime: string;
+  gpuNetwork: string;
+  sendingRequest: string;
+  routingToGpu: string;
+  processingInference: string;
+  streamingResponse: string;
+  requestComplete: string;
+  newRequest: string;
+  gpuNodeFailed: string;
+  runtimeRerouting: string;
+  processingOnHealthyGpu: string;
+}
+
+/**
  * Complete homepage content structure
  */
 export interface HomepageContent {
@@ -122,6 +140,7 @@ export interface HomepageContent {
   problem: ProblemSectionContent;
   whatIs: WhatIsSectionContent;
   howWorks: HowWorksSectionContent;
+  requestFlowLabels?: RequestFlowLabels;
 }
 
 /**

@@ -53,7 +53,7 @@ export const NAVIGATION_CONTENT: NavigationContent = {
     languageLabel: "Language",
   },
   footer: {
-    tagline: "Any model, one place, no infra to chase.",
+    tagline: "Your models, one place, no infra to chase.",
     groups: [
       {
         title: "Company",
@@ -66,8 +66,6 @@ export const NAVIGATION_CONTENT: NavigationContent = {
       {
         title: "Resources",
         links: [
-          { label: "Suggest an Idea", href: "https://github.com/koeo-ai/feedback", external: true },
-          { label: "Report a Bug", href: "https://github.com/koeo-ai/feedback/issues", external: true },
           { label: "Brandkit", href: "/brandkit" },
           { label: "Become a Provider", href: "/providers" },
         ],

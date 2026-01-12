@@ -21,7 +21,7 @@ export const NAVIGATION_CONTENT: NavigationContent = {
     languageLabel: "Langue",
   },
   footer: {
-    tagline: "Un runtime, tous tes modèles, zéro bordel.",
+    tagline: "Vos modèles, un seul endroit, zéro infra à gérer.",
     groups: [
       {
         title: "Entreprise",
@@ -34,8 +34,6 @@ export const NAVIGATION_CONTENT: NavigationContent = {
       {
         title: "Ressources",
         links: [
-          { label: "Suggérer une idée", href: "https://github.com/koeo-ai/feedback", external: true },
-          { label: "Signaler un bug", href: "https://github.com/koeo-ai/feedback/issues", external: true },
           { label: "Kit de marque", href: "/fr/brandkit" },
           { label: "Devenir fournisseur", href: "/fr/providers" },
         ],

@@ -61,6 +61,7 @@ export type {
   ProductWhyContent,
   ProductHowStep,
   ProductHowContent,
+  ProductSupportedInBetaContent,
   ProductCtaContent,
   ProductPageContent,
 } from "./en/product";
@@ -156,6 +157,7 @@ export {
   PRODUCT_WHO_FOR_CONTENT,
   PRODUCT_WHY_CONTENT,
   PRODUCT_HOW_CONTENT,
+  PRODUCT_SUPPORTED_IN_BETA_CONTENT,
   PRODUCT_CTA_CONTENT,
   PRODUCT_PAGE_CONTENT,
 } from "./en/product";

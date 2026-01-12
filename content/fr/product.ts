@@ -82,6 +82,18 @@ export interface ProductHowContent {
   label: string;
   heading: string;
   steps: ProductHowStep[];
+  consoleSampleLabel: string;
+}
+
+/**
+ * Supported in beta section content
+ */
+export interface ProductSupportedInBetaContent {
+  label: string;
+  heading: string;
+  subtitle: string;
+  features: string[];
+  note: string;
 }
 
 /**
@@ -109,6 +121,7 @@ export interface ProductPageContent {
   whoFor: ProductWhoForContent;
   why: ProductWhyContent;
   how: ProductHowContent;
+  supportedInBeta: ProductSupportedInBetaContent;
   cta: ProductCtaContent;
 }
 
@@ -166,6 +179,11 @@ export const PRODUCT_WHO_FOR_CONTENT: ProductWhoForContent = {
       description: "Votre modèle fonctionne. Maintenant servez-le à de vrais utilisateurs sans construire un pipeline de déploiement.",
       iconName: "flask",
     },
+    {
+      title: "Laboratoires de recherche et universités",
+      description: "Servez des modèles à vos outils internes et workflows de recherche sans construire d'infrastructure de déploiement.",
+      iconName: "academic",
+    },
   ],
 };
 
@@ -218,6 +236,7 @@ export const PRODUCT_WHY_CONTENT: ProductWhyContent = {
 export const PRODUCT_HOW_CONTENT: ProductHowContent = {
   label: "Comment ça marche",
   heading: "De l'inscription à la production en quelques minutes",
+  consoleSampleLabel: "Exemple d'interface",
   steps: [
     {
       step: 1,
@@ -259,6 +278,24 @@ export const PRODUCT_CTA_CONTENT: ProductCtaContent = {
 };
 
 /**
+ * Supported in beta content - French
+ */
+export const PRODUCT_SUPPORTED_IN_BETA_CONTENT: ProductSupportedInBetaContent = {
+  label: "Disponible en bêta",
+  heading: "Ce qui est disponible aujourd'hui",
+  subtitle: "Capacités actuelles du programme bêta",
+  features: [
+    "API de complétion de chat compatible OpenAI",
+    "Réponses en streaming et non-streaming",
+    "Hébergement de modèles open source et fine-tunés",
+    "Basculement automatique et équilibrage de charge",
+    "Tableau de bord de suivi et de surveillance",
+    "Gestion des clés API",
+  ],
+  note: "De nouvelles fonctionnalités sont ajoutées régulièrement. Rejoignez la bêta pour rester informé.",
+};
+
+/**
  * Complete product page content - French
  */
 export const PRODUCT_PAGE_CONTENT: ProductPageContent = {
@@ -267,5 +304,6 @@ export const PRODUCT_PAGE_CONTENT: ProductPageContent = {
   whoFor: PRODUCT_WHO_FOR_CONTENT,
   why: PRODUCT_WHY_CONTENT,
   how: PRODUCT_HOW_CONTENT,
+  supportedInBeta: PRODUCT_SUPPORTED_IN_BETA_CONTENT,
   cta: PRODUCT_CTA_CONTENT,
 };
