@@ -86,6 +86,17 @@ export interface ProductHowContent {
 }
 
 /**
+ * Supported in beta section content
+ */
+export interface ProductSupportedInBetaContent {
+  label: string;
+  heading: string;
+  subtitle: string;
+  features: string[];
+  note: string;
+}
+
+/**
  * CTA section content
  */
 export interface ProductCtaContent {
@@ -110,6 +121,7 @@ export interface ProductPageContent {
   whoFor: ProductWhoForContent;
   why: ProductWhyContent;
   how: ProductHowContent;
+  supportedInBeta: ProductSupportedInBetaContent;
   cta: ProductCtaContent;
 }
 
@@ -266,6 +278,24 @@ export const PRODUCT_CTA_CONTENT: ProductCtaContent = {
 };
 
 /**
+ * Supported in beta content
+ */
+export const PRODUCT_SUPPORTED_IN_BETA_CONTENT: ProductSupportedInBetaContent = {
+  label: "Supported in beta",
+  heading: "What's available today",
+  subtitle: "Current capabilities in the beta program",
+  features: [
+    "OpenAI-compatible chat completions API",
+    "Streaming and non-streaming responses",
+    "Open source and fine-tuned model hosting",
+    "Automatic failover and load balancing",
+    "Usage tracking and monitoring dashboard",
+    "API key management",
+  ],
+  note: "More capabilities are being added regularly. Join the beta to stay updated.",
+};
+
+/**
  * Complete product page content
  */
 export const PRODUCT_PAGE_CONTENT: ProductPageContent = {
@@ -274,5 +304,6 @@ export const PRODUCT_PAGE_CONTENT: ProductPageContent = {
   whoFor: PRODUCT_WHO_FOR_CONTENT,
   why: PRODUCT_WHY_CONTENT,
   how: PRODUCT_HOW_CONTENT,
+  supportedInBeta: PRODUCT_SUPPORTED_IN_BETA_CONTENT,
   cta: PRODUCT_CTA_CONTENT,
 };

@@ -90,17 +90,17 @@ This plan implements copy credibility improvements across the Koeo marketing web
     - Verify homepage includes trust signal element
     - _Requirements: 7.1_
 
-- [ ] 7. Add "Supported in beta" clarity
-  - [ ] 7.1 Add supported features section to English product content
+- [x] 7. Add "Supported in beta" clarity
+  - [x] 7.1 Add supported features section to English product content
     - Add "Supported in beta" section listing current capabilities
     - _Requirements: 8.1, 8.2_
-  - [ ] 7.2 Add supported features section to French product content
+  - [x] 7.2 Add supported features section to French product content
     - Translate supported features section to French
     - _Requirements: 8.1, 8.2_
-  - [ ] 7.3 Update product page component to display supported features
+  - [x] 7.3 Update product page component to display supported features
     - Add section or callout for beta support clarity
     - _Requirements: 8.1_
-  - [ ] 7.4 Write unit test for supported features section
+  - [x] 7.4 Write unit test for supported features section
     - Verify product page includes supported features section
     - _Requirements: 8.1_
 

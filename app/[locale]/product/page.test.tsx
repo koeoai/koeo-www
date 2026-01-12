@@ -90,4 +90,34 @@ describe("Product Page", () => {
     expect(screen.getByText("Équipes ML et consultants")).toBeInTheDocument();
     expect(screen.getByText("Laboratoires de recherche et universités")).toBeInTheDocument();
   });
+
+  /**
+   * Verify product page includes Supported in Beta section
+   * Requirements: 8.1
+   */
+  it("renders Supported in Beta section with features", () => {
+    renderWithLocale(<ProductPage />);
+
+    // Verify the section heading is present
+    expect(screen.getByText("What's available today")).toBeInTheDocument();
+    expect(screen.getByText("Supported in beta")).toBeInTheDocument();
+    
+    // Verify at least one feature is listed
+    expect(screen.getByText("OpenAI-compatible chat completions API")).toBeInTheDocument();
+  });
+
+  /**
+   * Verify French product page includes Supported in Beta section
+   * Requirements: 8.1
+   */
+  it("renders French Supported in Beta section with features", () => {
+    renderWithLocale(<ProductPage />, "fr");
+
+    // Verify the French section heading is present
+    expect(screen.getByText("Ce qui est disponible aujourd'hui")).toBeInTheDocument();
+    expect(screen.getByText("Disponible en bêta")).toBeInTheDocument();
+    
+    // Verify at least one French feature is listed
+    expect(screen.getByText("API de complétion de chat compatible OpenAI")).toBeInTheDocument();
+  });
 });

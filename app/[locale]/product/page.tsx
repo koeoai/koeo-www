@@ -285,7 +285,7 @@ export default function ProductPage() {
                 {content.whoFor.subtitle}
               </p>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {content.whoFor.items.map((item, i) => (
                 <div
                   key={item.title}
@@ -433,6 +433,40 @@ export default function ProductPage() {
               <div className="animate-fade-in-up space-y-6" style={{ animationDelay: "200ms" }}>
                 <CodeSnippetAnimation />
                 <ConsoleDashboardAnimation sampleLabel={content.how.consoleSampleLabel} />
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* Supported in Beta Section */}
+        <section id="supported-in-beta" className="relative py-20 md:py-28">
+          <Container>
+            <div className="animate-fade-in-up mx-auto max-w-4xl">
+              <div className="mb-10 text-center">
+                <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-light">{content.supportedInBeta.label}</p>
+                <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+                  {content.supportedInBeta.heading}
+                </h2>
+                <p className="text-lg text-white/60">
+                  {content.supportedInBeta.subtitle}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-sm">
+                <ul className="grid gap-4 sm:grid-cols-2">
+                  {content.supportedInBeta.features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-purple-primary to-magenta">
+                        <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-white/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-center text-sm text-white/50">
+                  {content.supportedInBeta.note}
+                </p>
               </div>
             </div>
           </Container>

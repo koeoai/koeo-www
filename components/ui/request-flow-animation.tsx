@@ -106,8 +106,8 @@ function GpuNode({ isFailed, isActive, utilization }: GpuNodeProps) {
 // 10: Runtime → App (success) ✓
 export function RequestFlowAnimation() {
   const [phase, setPhase] = useState(0);
-  const content = useContent<HomepageContent>("homepage");
-  const labels = content.requestFlowLabels ?? DEFAULT_LABELS;
+  const content = useContent<HomepageContent>("HOMEPAGE_CONTENT");
+  const labels = content?.requestFlowLabels ?? DEFAULT_LABELS;
 
   useEffect(() => {
     const interval = setInterval(() => {
