@@ -31,6 +31,14 @@ const HowWorksSection = dynamic(
   }
 );
 
+const BreakBehaviorSection = dynamic(
+  () => import("@/components/sections/break-behavior-section").then((mod) => ({ default: mod.BreakBehaviorSection })),
+  {
+    loading: () => <SectionSkeleton variant="gradient" />,
+    ssr: true,
+  }
+);
+
 export const metadata: Metadata = {
   title: "Koeo | AI Inference Fabric",
   description:
@@ -65,6 +73,7 @@ export default function Home() {
     <PageShell>
       <Hero />
       <WhatIsSection />
+      <BreakBehaviorSection />
       <ComparisonSection />
       <ProblemSection />
       <HowWorksSection />

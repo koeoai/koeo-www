@@ -104,9 +104,16 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(({ className }, ref) => {
             <p className="mx-auto mb-3 max-w-2xl text-lg text-text-light/90 sm:text-xl font-medium">
               {content.subtitlePrimary || "One endpoint. Automatic routing. Built-in failover."}
             </p>
-            <p className="mx-auto mb-10 max-w-2xl text-base text-text-light/70">
+            <p className="mx-auto mb-4 max-w-2xl text-base text-text-light/70">
               {content.subtitle}
             </p>
+
+            {/* Differentiator line - mechanism statement */}
+            {content.differentiatorLine && (
+              <p className="mx-auto mb-10 max-w-2xl text-sm text-text-light/60 border-l-2 border-pink-light/40 pl-4 text-left">
+                {content.differentiatorLine}
+              </p>
+            )}
 
             {/* CTAs */}
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">

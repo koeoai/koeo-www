@@ -153,14 +153,15 @@ function CompetitorIcon({ name, isAnimated, isHovered }: { name: string; isAnima
 }
 
 // Koeo description with highlightable segments
-function KoeoDescription({ highlightedBenefit, isKoeoHovered }: { highlightedBenefit: number | null; isKoeoHovered: boolean }) {
-  // Split the description into segments that can be highlighted
-  // "No infra to manage. Your models. Built-in failover."
-  const segments = [
-    { text: "No infra to manage.", benefitIndex: 1 },
-    { text: " Your models.", benefitIndex: 2 },
-    { text: " Built-in failover.", benefitIndex: 3 },
-  ];
+function KoeoDescription({ description, highlightedBenefit, isKoeoHovered }: { description: string; highlightedBenefit: number | null; isKoeoHovered: boolean }) {
+  // Split the localized description into segments that can be highlighted
+  // English: "No infra to manage. Your models. Built-in failover."
+  // French: "Zéro infra à gérer. Vos modèles. Failover intégré."
+  const parts = description.split(/(?<=\.)\s*/);
+  const segments = parts.map((text, idx) => ({
+    text: idx > 0 ? ` ${text}` : text,
+    benefitIndex: idx + 1,
+  }));
 
   return (
     <span className="text-sm transition-all duration-300">
@@ -329,6 +330,7 @@ export function ComparisonSection({ className }: ComparisonSectionProps) {
                       </h3>
                       {isKoeo ? (
                         <KoeoDescription 
+                          description={row.description}
                           highlightedBenefit={highlightedBenefit} 
                           isKoeoHovered={isKoeoHovered}
                         />
