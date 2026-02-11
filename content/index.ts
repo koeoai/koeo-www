@@ -23,6 +23,8 @@ export type {
   WhatIsSectionContent,
   HowWorksSectionContent,
   HomepageContent,
+  ComparisonRow,
+  ComparisonBlockContent,
 } from "./types";
 
 // Beta page type exports

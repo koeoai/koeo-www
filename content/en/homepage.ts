@@ -1,19 +1,21 @@
 import type {
   HomepageContent,
-  HeroContent,
   ProblemSectionContent,
   WhatIsSectionContent,
   HowWorksSectionContent,
   RequestFlowLabels,
+  ExtendedHeroContent,
+  ComparisonBlockContent,
 } from "../types";
 
 /**
- * Hero section content
+ * Hero section content with differentiation elements
  */
-export const HERO_CONTENT: HeroContent = {
+export const HERO_CONTENT: ExtendedHeroContent = {
   badge: "Private beta · Invite only",
   headline: "AI inference you can ship",
   headlineAccent: "without the complexity",
+  subtitlePrimary: "One endpoint. Automatic routing. Built-in failover.",
   subtitle:
     "Your models, one place, no infra to chase.",
   cta: {
@@ -27,6 +29,20 @@ export const HERO_CONTENT: HeroContent = {
     },
   },
   microcopy: "We are inviting teams gradually, based on fit and capacity.",
+  categoryBadge: {
+    label: "AI Inference fabric",
+    definition: "One API that routes across capacity and stays resilient as infrastructure changes.",
+  },
+  differentiatorLine: "One endpoint that routes requests to available GPU capacity, with health checks, retries, and failover built in.",
+  breakBehavior: {
+    label: "What happens when things break",
+    items: [
+      { text: "If a node becomes unhealthy, Koeo bypasses it automatically." },
+      { text: "If traffic spikes, Koeo keeps routing without you touching infra." },
+      { text: "You see latency and errors in the dashboard." },
+    ],
+    comingSoon: "Multi-pool routing and regional failover are next.",
+  },
 };
 
 /**
@@ -160,6 +176,33 @@ export const REQUEST_FLOW_LABELS: RequestFlowLabels = {
   gpuNodeFailed: "✕ GPU node failed!",
   runtimeRerouting: "↻ Runtime rerouting...",
   processingOnHealthyGpu: "⚡ Processing on healthy GPU...",
+};
+
+/**
+ * Comparison block content - "How Koeo is different"
+ */
+export const COMPARISON_CONTENT: ComparisonBlockContent = {
+  heading: "How Koeo is different",
+  intro: "See why teams choose Koeo over the alternatives",
+  rows: [
+    {
+      name: "GPU clouds",
+      description: "You manage machines and routing yourself.",
+    },
+    {
+      name: "Hosted model APIs",
+      description: "You get their models, not your models.",
+    },
+    {
+      name: "Single vendor inference",
+      description: "You inherit their outages and capacity limits.",
+    },
+    {
+      name: "Koeo Platform",
+      description: "No infra to manage. Your models. Built-in failover.",
+      isKoeo: true,
+    },
+  ],
 };
 
 /**

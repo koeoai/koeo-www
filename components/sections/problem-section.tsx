@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 import { NetworkBackground } from "@/components/ui/network-background";
@@ -63,12 +63,41 @@ export interface ProblemSectionProps {
 
 export function ProblemSection({ className }: ProblemSectionProps) {
   const content = useContent<ProblemSectionContent>("PROBLEM_CONTENT");
+  const [isVisible, setIsVisible] = useState(false);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- SSR fallback: IntersectionObserver unavailable
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (cardsRef.current) {
+      observer.observe(cardsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <Section
+    <section
       id="problem"
-      className={cn("py-24 md:py-32 !bg-[#7C3AED]", className)}
+      className={cn("relative py-24 md:py-32 overflow-hidden", className)}
     >
+      {/* Gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#7C3AED] to-[#C4B5FD]" />
+      
       {/* Network background */}
       <NetworkBackground variant="dark" density="normal" />
 
@@ -76,15 +105,22 @@ export function ProblemSection({ className }: ProblemSectionProps) {
         <SectionHeader
           heading={content.heading}
           intro={content.intro}
-          variant="light"
         />
 
-        {/* Cards */}
-        <div className="grid gap-6 md:grid-cols-3">
-          {content.cards.map((card) => (
+        {/* Cards with staggered animation */}
+        <div ref={cardsRef} className="grid gap-6 md:grid-cols-3">
+          {content.cards.map((card, index) => (
             <div
               key={card.title}
-              className="group relative h-full"
+              className={cn(
+                "group relative h-full transition-all duration-700 ease-out",
+                isVisible 
+                  ? "opacity-100 translate-y-0" 
+                  : "opacity-0 translate-y-8"
+              )}
+              style={{
+                transitionDelay: isVisible ? `${index * 150}ms` : "0ms",
+              }}
             >
               {/* Card glow effect - consistent for all cards */}
               <div className="absolute -inset-1 rounded-2xl bg-purple-primary/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
@@ -92,7 +128,14 @@ export function ProblemSection({ className }: ProblemSectionProps) {
               {/* Card */}
               <div className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-pink-light/30 hover:bg-white/10">
                 {/* Icon with consistent gradient */}
-                <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary to-magenta text-white shadow-lg">
+                <div className={cn(
+                  "mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-primary to-magenta text-white shadow-lg transition-all duration-500",
+                  isVisible ? "scale-100 rotate-0" : "scale-75 -rotate-12"
+                )}
+                style={{
+                  transitionDelay: isVisible ? `${index * 150 + 200}ms` : "0ms",
+                }}
+                >
                   {ICON_MAP[card.icon]}
                 </div>
 
@@ -115,6 +158,6 @@ export function ProblemSection({ className }: ProblemSectionProps) {
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

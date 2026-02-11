@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, useId } from "react";
 import { cn } from "@/lib/utils";
 
 interface NetworkBackgroundSVGProps {
@@ -136,6 +136,11 @@ export function NetworkBackgroundSVG({
 }: NetworkBackgroundSVGProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<{ width: number; height: number } | null>(null);
+  
+  // Generate unique IDs for SVG filters/gradients to avoid conflicts
+  const uniqueId = useId();
+  const nodeGlowId = `node-glow-${uniqueId}`;
+  const lightGlowId = `light-glow-${uniqueId}`;
 
   // Only measure on client to avoid hydration mismatch
   useEffect(() => {
@@ -193,7 +198,7 @@ export function NetworkBackgroundSVG({
         aria-hidden="true"
       >
         <defs>
-          <filter id="node-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <filter id={nodeGlowId} x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="1.5" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
@@ -201,7 +206,7 @@ export function NetworkBackgroundSVG({
             </feMerge>
           </filter>
           
-          <radialGradient id="light-glow">
+          <radialGradient id={lightGlowId}>
             <stop offset="0%" stopColor="#F472B6" stopOpacity="0.8" />
             <stop offset="50%" stopColor="#E02F87" stopOpacity="0.3" />
             <stop offset="100%" stopColor="#7C3AED" stopOpacity="0" />
@@ -229,7 +234,7 @@ export function NetworkBackgroundSVG({
               cx={node.x}
               cy={node.y}
               r={node.radius}
-              filter="url(#node-glow)"
+              filter={`url(#${nodeGlowId})`}
               className="animate-node-float"
               style={{
                 // @ts-expect-error CSS custom properties
@@ -254,7 +259,7 @@ export function NetworkBackgroundSVG({
               {/* Glow circle following path */}
               <circle
                 r="12"
-                fill="url(#light-glow)"
+                fill={`url(#${lightGlowId})`}
                 className="animate-light-travel"
                 style={{
                   // @ts-expect-error CSS custom properties

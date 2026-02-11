@@ -165,9 +165,9 @@ describe("Color Contrast - Property Tests", () => {
 
 
 describe("Hero Component - Unit Tests", () => {
-  it("renders eyebrow badge with correct text", () => {
+  it("renders eyebrow badge with AI Inference fabric text", () => {
     render(<Hero />);
-    expect(screen.getByText("Private beta · Invite only")).toBeInTheDocument();
+    expect(screen.getByText("AI Inference fabric")).toBeInTheDocument();
   });
 
   it("renders headline with correct text", () => {
@@ -206,6 +206,14 @@ describe("Hero Component - Unit Tests", () => {
     render(<Hero />);
     expect(
       screen.getByText(/We are inviting teams gradually, based on fit and capacity/)
+    ).toBeInTheDocument();
+  });
+
+  // New differentiation element tests
+  it("renders combined subtitle with routing and failover", () => {
+    render(<Hero />);
+    expect(
+      screen.getByText(/One endpoint\. Automatic routing\. Built-in failover\./)
     ).toBeInTheDocument();
   });
 });

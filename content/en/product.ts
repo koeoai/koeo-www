@@ -219,13 +219,13 @@ export const PRODUCT_WHY_CONTENT: ProductWhyContent = {
     {
       number: "03",
       title: "Zero migration friction",
-      subtitle: "Already using OpenAI? Change two lines and you're on Koeo.",
+      subtitle: "Already using OpenAI? Change two lines—baseURL and apiKey—and you're on Koeo.",
       points: [
         "Same client libraries you already use",
         "Same request and response shapes",
         "Run both in parallel while you evaluate",
       ],
-      footer: "No SDK to learn. No multi-week migration. Just swap the base URL.",
+      footer: "No SDK to learn. No multi-week migration. Just swap the base URL and API key.",
     },
   ],
 };
@@ -246,7 +246,7 @@ export const PRODUCT_HOW_CONTENT: ProductHowContent = {
     {
       step: 2,
       title: "Swap your base URL",
-      description: "Point your existing OpenAI client to Koeo. Two lines of code.",
+      description: "Point your existing OpenAI client to Koeo. Two lines: baseURL and apiKey.",
     },
     {
       step: 3,

@@ -23,13 +23,23 @@ vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/"),
 }));
 
-// Mock next/dynamic to return components synchronously
+// Mock next/dynamic to return components with data-testid for section order testing
 vi.mock("next/dynamic", () => ({
-  default: () => {
-    // Return a simple component that renders nothing for lazy-loaded sections
-    // This allows tests to focus on above-fold content
-    const LazyComponent = () => null;
-    return LazyComponent;
+  default: (importFn: () => Promise<{ default: React.ComponentType }>) => {
+    // Extract section name from the import path for identification
+    const importStr = importFn.toString();
+    let sectionName = "unknown";
+    
+    if (importStr.includes("what-is")) {
+      sectionName = "what-is-section";
+    } else if (importStr.includes("comparison-section")) {
+      sectionName = "comparison-section";
+    } else if (importStr.includes("how-works")) {
+      sectionName = "how-works-section";
+    }
+    
+    const MockComponent = () => <div data-testid={sectionName} />;
+    return MockComponent;
   },
 }));
 
@@ -82,15 +92,12 @@ describe("Homepage Assembly", () => {
 
     const main = screen.getByRole("main");
 
-    // Verify Problem section renders with heading (above fold, not lazy loaded)
-    expect(
-      screen.getByText("Why AI inference feels harder than it should")
-    ).toBeInTheDocument();
+    // Verify Problem section renders with heading (text is split into animated spans)
+    const problemHeading = screen.getByRole("heading", { level: 2 });
+    expect(problemHeading.textContent).toContain("inference");
 
     // Verify sections are within main
-    expect(main).toContainElement(
-      screen.getByText("Why AI inference feels harder than it should")
-    );
+    expect(main).toContainElement(problemHeading);
   });
 
   /**
@@ -133,5 +140,42 @@ describe("Homepage Assembly", () => {
 
     const currentYear = new Date().getFullYear();
     expect(screen.getByText(new RegExp(`© ${currentYear} Koeo`))).toBeInTheDocument();
+  });
+
+  /**
+   * Verify homepage sections render in correct order:
+   * Hero → WhatIsSection → ComparisonSection → ProblemSection → HowWorksSection
+   * Requirements: 5.1, 5.2, 5.3
+   */
+  it("renders sections in correct order: Hero → WhatIs → Comparison → Problem → HowWorks", () => {
+    const { container } = renderWithLocale(<Home />);
+
+    const main = screen.getByRole("main");
+    
+    // Get all section elements within main
+    const whatIsSection = screen.getByTestId("what-is-section");
+    const comparisonSection = screen.getByTestId("comparison-section");
+    const problemSection = container.querySelector("#problem");
+    const howWorksSection = screen.getByTestId("how-works-section");
+
+    // Verify all sections are present
+    expect(whatIsSection).toBeInTheDocument();
+    expect(comparisonSection).toBeInTheDocument();
+    expect(problemSection).toBeInTheDocument();
+    expect(howWorksSection).toBeInTheDocument();
+
+    // Get all children of main to verify order
+    const mainChildren = Array.from(main.children);
+    
+    // Find indices of each section
+    const whatIsIndex = mainChildren.findIndex(child => child.contains(whatIsSection));
+    const comparisonIndex = mainChildren.findIndex(child => child.contains(comparisonSection));
+    const problemIndex = mainChildren.findIndex(child => child.contains(problemSection));
+    const howWorksIndex = mainChildren.findIndex(child => child.contains(howWorksSection));
+
+    // Verify order: WhatIs < Comparison < Problem < HowWorks
+    expect(whatIsIndex).toBeLessThan(comparisonIndex);
+    expect(comparisonIndex).toBeLessThan(problemIndex);
+    expect(problemIndex).toBeLessThan(howWorksIndex);
   });
 });

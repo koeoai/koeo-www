@@ -1,17 +1,33 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { WhatIsSection } from "./what-is";
+import { LocaleProvider } from "@/lib/i18n";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+}));
+
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(
+    <LocaleProvider locale="en">
+      {ui}
+    </LocaleProvider>
+  );
+};
 
 describe("WhatIsSection Component - Unit Tests", () => {
   it("renders section heading 'AI inference, simplified'", () => {
-    render(<WhatIsSection />);
-    expect(
-      screen.getByRole("heading", { name: "AI inference, simplified" })
-    ).toBeInTheDocument();
+    renderWithLocale(<WhatIsSection />);
+    // Text is split into animated spans, so we check for the h2 containing the text
+    const headings = screen.getAllByRole("heading", { level: 2 });
+    const mainHeading = headings.find(h => h.textContent?.includes("inference") && h.textContent?.includes("simplified"));
+    expect(mainHeading).toBeInTheDocument();
   });
 
   it("renders subheading about unified runtime", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     expect(
       screen.getByRole("heading", {
         name: "A unified runtime for serverless AI inference",
@@ -20,7 +36,7 @@ describe("WhatIsSection Component - Unit Tests", () => {
   });
 
   it("renders body paragraph with single runtime copy", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     expect(
       screen.getByText(
         /Instead of wiring together providers, runtimes, and custom schedulers, you integrate once/
@@ -29,7 +45,7 @@ describe("WhatIsSection Component - Unit Tests", () => {
   });
 
   it("renders first feature bullet about single endpoint", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     expect(
       screen.getByText(
         "One API to run your models through a single endpoint"
@@ -38,7 +54,7 @@ describe("WhatIsSection Component - Unit Tests", () => {
   });
 
   it("renders second feature bullet about routing and health checks", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     expect(
       screen.getByText(
         "Routing and health checks built in, designed for real traffic"
@@ -47,7 +63,7 @@ describe("WhatIsSection Component - Unit Tests", () => {
   });
 
   it("renders third feature bullet about observability", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     expect(
       screen.getByText(
         "Usage and latency metrics included, with deeper observability evolving in beta"
@@ -56,7 +72,7 @@ describe("WhatIsSection Component - Unit Tests", () => {
   });
 
   it("renders CTA 'Learn how it works' linking to /beta", () => {
-    render(<WhatIsSection />);
+    renderWithLocale(<WhatIsSection />);
     const cta = screen.getByRole("link", { name: "Learn how it works" });
     expect(cta).toBeInTheDocument();
     expect(cta).toHaveAttribute("href", "/beta");

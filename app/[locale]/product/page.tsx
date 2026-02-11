@@ -14,7 +14,7 @@ import { LocaleLink } from "@/components/ui/locale-link";
 import { useContent } from "@/lib/i18n";
 import type { ProductPageContent } from "@/content";
 
-// Code snippet animation
+// Code snippet animation showing OpenAI to Koeo migration
 function CodeSnippetAnimation() {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#1a1a2e] font-mono text-sm">
@@ -26,7 +26,7 @@ function CodeSnippetAnimation() {
         <span className="ml-4 text-xs text-white/40">index.ts</span>
       </div>
       <div className="p-4 text-xs leading-relaxed sm:text-sm">
-        <div className="text-white/40">{"// Same OpenAI client, different endpoint"}</div>
+        <div className="text-white/40">{"// OpenAI → Koeo: just change baseURL and apiKey"}</div>
         <div className="mt-2">
           <span className="text-purple-400">const</span>{" "}
           <span className="text-blue-300">client</span>{" "}
@@ -35,17 +35,19 @@ function CodeSnippetAnimation() {
           <span className="text-yellow-300">OpenAI</span>
           <span className="text-white/60">{"({"}</span>
         </div>
-        <div className="pl-4">
+        <div className="pl-4 relative">
           <span className="text-blue-300">apiKey</span>
           <span className="text-white/60">:</span>{" "}
           <span className="text-green-300">{'"koeo_***"'}</span>
           <span className="text-white/60">,</span>
+          <span className="ml-2 text-xs text-pink-light/70">{"// ← was sk-***"}</span>
         </div>
-        <div className="pl-4">
+        <div className="pl-4 relative">
           <span className="text-blue-300">baseURL</span>
           <span className="text-white/60">:</span>{" "}
           <span className="text-green-300">{'"https://api.koeo.ai/v1"'}</span>
           <span className="text-white/60">,</span>
+          <span className="ml-2 text-xs text-pink-light/70">{"// ← was https://api.openai.com/v1"}</span>
         </div>
         <div className="text-white/60">{"});"}</div>
         <div className="mt-4">
