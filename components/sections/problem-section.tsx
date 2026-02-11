@@ -105,6 +105,7 @@ export function ProblemSection({ className }: ProblemSectionProps) {
         <SectionHeader
           heading={content.heading}
           intro={content.intro}
+          variant="light"
         />
 
         {/* Cards with staggered animation */}
