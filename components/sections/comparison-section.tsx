@@ -206,16 +206,19 @@ export function ComparisonSection({ className }: ComparisonSectionProps) {
       return;
     }
 
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
           let stage = 0;
-          const interval = setInterval(() => {
+          intervalId = setInterval(() => {
             setAnimationStage(stage);
             stage++;
             if (stage > content.rows.length) {
-              clearInterval(interval);
+              clearInterval(intervalId!);
+              intervalId = null;
             }
           }, 500);
         }
@@ -227,7 +230,12 @@ export function ComparisonSection({ className }: ComparisonSectionProps) {
       observer.observe(sectionRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, [content.rows.length]);
 
   return (
