@@ -268,11 +268,8 @@ export function ComparisonSection({ className }: ComparisonSectionProps) {
                           "border border-white/10 bg-white/5 backdrop-blur-sm",
                           isThisRowHovered && "bg-white/10 border-white/20 -translate-y-0.5"
                         ),
-                    animationStage < 0 && "opacity-0 translate-y-4"
+                    !isAnimated && "opacity-0 translate-y-4"
                   )}
-                  style={{
-                    transitionDelay: animationStage < 0 ? `${index * 80}ms` : "0ms",
-                  }}
                   onMouseEnter={() => setHoveredRow(index)}
                   onMouseLeave={() => setHoveredRow(null)}
                 >

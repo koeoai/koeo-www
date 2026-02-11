@@ -2,7 +2,7 @@
 
 import { Container } from "@/components/ui/container";
 import { NetworkBackground } from "@/components/ui/network-background";
-import { useContent } from "@/lib/i18n";
+import { useContent, useLocale } from "@/lib/i18n";
 import type { ExtendedHeroContent } from "@/content/types";
 
 /**
@@ -12,6 +12,7 @@ import type { ExtendedHeroContent } from "@/content/types";
  * room to breathe instead of cramming it into the hero.
  */
 export function BreakBehaviorSection() {
+  const { locale } = useLocale();
   const content = useContent<ExtendedHeroContent>("HERO_CONTENT");
   const breakBehavior = content.breakBehavior;
 
@@ -33,23 +34,13 @@ export function BreakBehaviorSection() {
     </svg>,
   ];
 
-  // Card titles for each item
-  const cardTitles = [
-    "Auto Failover",
-    "Traffic Spikes", 
-    "Full Visibility",
-  ];
+  // Card titles by locale
+  const cardTitlesByLocale: Record<string, string[]> = {
+    en: ["Auto Failover", "Traffic Spikes", "Full Visibility"],
+    fr: ["Failover auto", "Pics de trafic", "Visibilité complète"],
+  };
 
-  // French card titles
-  const cardTitlesFr = [
-    "Failover auto",
-    "Pics de trafic",
-    "Visibilité complète",
-  ];
-
-  // Detect if we're in French based on content
-  const isFrench = breakBehavior.label.includes("plante");
-  const titles = isFrench ? cardTitlesFr : cardTitles;
+  const titles = cardTitlesByLocale[locale] || cardTitlesByLocale.en;
 
   return (
     <section
