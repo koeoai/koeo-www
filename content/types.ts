@@ -25,6 +25,58 @@ export interface HeroContent {
 }
 
 /**
+ * Category badge for hero section (e.g., "AI Inference fabric")
+ */
+export interface CategoryBadge {
+  label: string;
+  definition: string;
+}
+
+/**
+ * Break behavior bullet item
+ */
+export interface BreakBehaviorItem {
+  text: string;
+}
+
+/**
+ * Break behavior block content explaining what happens when things break
+ */
+export interface BreakBehaviorBlock {
+  label: string;
+  items: BreakBehaviorItem[];
+  comingSoon?: string;
+}
+
+/**
+ * Extended hero content with differentiation elements
+ */
+export interface ExtendedHeroContent extends HeroContent {
+  categoryBadge: CategoryBadge;
+  subtitlePrimary?: string;
+  differentiatorLine: string;
+  breakBehavior: BreakBehaviorBlock;
+}
+
+/**
+ * Comparison row for alternatives section
+ */
+export interface ComparisonRow {
+  name: string;
+  description: string;
+  isKoeo?: boolean;
+}
+
+/**
+ * Comparison block content for "How Koeo is different" section
+ */
+export interface ComparisonBlockContent {
+  heading: string;
+  intro: string;
+  rows: ComparisonRow[];
+}
+
+/**
  * Generic section content with heading and optional intro
  */
 export interface SectionContent {

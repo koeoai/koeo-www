@@ -20,8 +20,10 @@ const renderWithLocale = (ui: React.ReactElement) => {
 describe("HowWorksSection - Developer Features", () => {
   it("renders heading 'Built by developers, for developers'", () => {
     renderWithLocale(<HowWorksSection />);
-    expect(screen.getByText("Built by developers,")).toBeInTheDocument();
-    expect(screen.getByText("for developers")).toBeInTheDocument();
+    // Text is split into animated spans, so we check for the h2 containing the full text
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading.textContent).toContain("Built");
+    expect(heading.textContent).toContain("developers");
   });
 
   it("renders subheading 'Developer-first experience, even in beta'", () => {

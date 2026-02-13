@@ -82,7 +82,7 @@ describe("Content Components - Property Tests", () => {
   it("Property 1: SectionHeader renders heading for all valid inputs", () => {
     fc.assert(
       fc.property(textArb, (heading) => {
-        const { container } = render(<SectionHeader heading={heading} />);
+        const { container } = render(<SectionHeader heading={heading} animate={false} />);
 
         const h2 = container.querySelector("h2");
         expect(h2?.textContent?.trim()).toBe(heading.trim());
@@ -95,7 +95,7 @@ describe("Content Components - Property Tests", () => {
     fc.assert(
       fc.property(textArb, textArb, (heading, intro) => {
         const { container } = render(
-          <SectionHeader heading={heading} intro={intro} />
+          <SectionHeader heading={heading} intro={intro} animate={false} />
         );
 
         const h2 = container.querySelector("h2");

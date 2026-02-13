@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
-import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 
 export interface SectionSkeletonProps {
   className?: string;
-  variant?: "light" | "dark" | "gradient";
+  variant?: "light" | "dark" | "gradient" | "problem" | "howworks";
 }
 
 /**
@@ -13,13 +12,15 @@ export interface SectionSkeletonProps {
  */
 export function SectionSkeleton({ className, variant = "light" }: SectionSkeletonProps) {
   const bgClass = {
-    light: "bg-white",
+    light: "bg-gradient-to-b from-[#C4B5FD] to-[#7C3AED]",
     dark: "bg-purple-deep",
-    gradient: "bg-gradient-to-b from-purple-primary via-purple-primary/60 to-white",
+    gradient: "bg-gradient-to-b from-[#7C3AED] via-[#A78BFA] to-[#C4B5FD]",
+    problem: "bg-gradient-to-b from-[#7C3AED] to-[#C4B5FD]",
+    howworks: "bg-gradient-to-b from-[#C4B5FD] via-[#7C3AED] to-[#4C1D95]",
   }[variant];
 
   return (
-    <Section className={cn("py-24 md:py-32", bgClass, className)}>
+    <section className={cn("relative py-24 md:py-32 overflow-hidden", bgClass, className)}>
       <Container>
         <div className="animate-pulse">
           {/* Header skeleton */}
@@ -53,6 +54,6 @@ export function SectionSkeleton({ className, variant = "light" }: SectionSkeleto
           </div>
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

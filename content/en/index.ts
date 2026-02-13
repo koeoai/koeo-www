@@ -9,6 +9,7 @@ export {
   WHAT_IS_CONTENT,
   HOW_WORKS_CONTENT,
   HOMEPAGE_CONTENT,
+  COMPARISON_CONTENT,
 } from "./homepage";
 
 // Beta page content

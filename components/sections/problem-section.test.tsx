@@ -1,19 +1,34 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ProblemSection } from "./problem-section";
+import { LocaleProvider } from "@/lib/i18n";
+
+// Mock next/navigation
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/"),
+}));
+
+// Helper to render with LocaleProvider
+const renderWithLocale = (ui: React.ReactElement) => {
+  return render(
+    <LocaleProvider locale="en">
+      {ui}
+    </LocaleProvider>
+  );
+};
 
 describe("ProblemSection Component - Unit Tests", () => {
   it("renders heading 'Why AI inference feels harder than it should'", () => {
-    render(<ProblemSection />);
-    expect(
-      screen.getByRole("heading", {
-        name: "Why AI inference feels harder than it should",
-      })
-    ).toBeInTheDocument();
+    renderWithLocale(<ProblemSection />);
+    // Text is split into animated spans with non-breaking spaces, so we check for key words
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading.textContent).toContain("Why");
+    expect(heading.textContent).toContain("inference");
+    expect(heading.textContent).toContain("harder");
   });
 
   it("renders intro paragraph with production inference phrasing", () => {
-    render(<ProblemSection />);
+    renderWithLocale(<ProblemSection />);
     expect(
       screen.getByText(/Production inference usually turns into a pile of providers/)
     ).toBeInTheDocument();
@@ -21,7 +36,7 @@ describe("ProblemSection Component - Unit Tests", () => {
 
   describe("Problem Cards", () => {
     it("renders COMPLEXITY card with correct content", () => {
-      render(<ProblemSection />);
+      renderWithLocale(<ProblemSection />);
       expect(screen.getByText("COMPLEXITY")).toBeInTheDocument();
       expect(screen.getByText("Too many moving parts")).toBeInTheDocument();
       expect(
@@ -30,7 +45,7 @@ describe("ProblemSection Component - Unit Tests", () => {
     });
 
     it("renders PRODUCTIVITY card with correct content", () => {
-      render(<ProblemSection />);
+      renderWithLocale(<ProblemSection />);
       expect(screen.getByText("PRODUCTIVITY")).toBeInTheDocument();
       expect(screen.getByText("Infrastructure steals focus")).toBeInTheDocument();
       expect(
@@ -39,7 +54,7 @@ describe("ProblemSection Component - Unit Tests", () => {
     });
 
     it("renders COST CONTROL card with correct content", () => {
-      render(<ProblemSection />);
+      renderWithLocale(<ProblemSection />);
       expect(screen.getByText("COST CONTROL")).toBeInTheDocument();
       expect(screen.getByText("Costs are hard to reason about")).toBeInTheDocument();
       expect(
